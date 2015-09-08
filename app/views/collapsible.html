@@ -1,0 +1,15 @@
+<div class="collapsibleItem">
+    <img class="collapsibleImgSmall" ng-src="{{ item.imageThumb }}" />
+    <div class="collapsibleHeader">
+        <span class="collapsibleTitle">{{ item.title }}</span>
+        <p class="itemPrice">{{ item.price | currency:$ }}</p>
+        <span class="collapsibleDescription">{{ item.description }}</span>
+        <span class="cartStatus" ng-show="item.inCart" ng-click="switchView('cart')"><em>In Cart</em></span>
+    </div>
+        <img class="collapsibleImgLarge"/>
+        <span class="content">
+            <p class="collapsibleContent">{{ item.content }}</p>
+            <span class="addToCart" ng-click="addToCart(item)">Add to Cart</span>
+            <span class="compare" ng-click="addCompare(item)">Compare</span>
+        </span>
+</div>

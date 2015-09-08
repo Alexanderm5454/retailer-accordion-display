@@ -1,0 +1,49 @@
+<div class="container">
+    <div class="categories">
+        <span class="category" ng-click="setCategory(category)" ng-repeat="category in categories">
+            {{ category | firstLetterCaps }}
+        </span>
+    </div>
+    <span class="cartNav" ng-click="switchView('cart')">Shopping Cart:
+        {{ cartItemsLength || "Empty" }}
+    </span>
+    <span class="compareNav" ng-click="switchView('compare')">Compare:
+        {{ compareItemsLength }}
+    </span>
+    <span class="sortItems"><p class="searchText">Sort/Search</p>
+        <div>
+            <span ng-click="sortItemsByPrice('low')">Price Low</span>
+            <span ng-click="sortItemsByPrice('high')">Price High</span>
+        </div>
+        <form class="form-search">
+            <div class="input-append">
+                <input placeholder="Search" type="text" class="span2 search-query" ng-model="searchTerms">
+                <button class="btn btn-default glyphicon glyphicon-search" ng-click="searchItems()"></button>
+            </div>
+        </form>
+
+    </span>
+    <div class="collapsibleDisplay">
+        <h2 class="displayTitle">{{ currentCategory || "" | firstLetterCaps }}</h2>
+        <div ng-repeat="item in infoList.items">
+            <collapsible></collapsible>
+        </div>
+    </div>
+    <div class="compareDisplay">
+        <h2 class="displayTitle">Compare</h2>
+        <ul>
+            <li ng-repeat="compare in compareItems">
+                <compare-item></compare-item>
+            </li>
+        </ul>
+    </div>
+    <div class="shoppingCartDisplay">
+        <h2 class="displayTitle">Shopping Cart</h2>
+        <div ng-repeat="cartItem in cartItems">
+            <cart-item></cart-item>
+        </div>
+        <div class="cartBottomLine">
+            <span class="grandTotal">Grand Total: {{ grandTotal | currency:$ }}</span>
+        </div>
+    </div>
+</div>

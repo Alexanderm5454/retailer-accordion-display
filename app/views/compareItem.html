@@ -1,0 +1,5 @@
+<img class="compareImg" ng-src="{{ compare.image }}" />
+<span class="removeCompare" ng-click="removeCompare(compare)">Remove</span>
+<span class="addToCartCompare" ng-click="addToCart(compare)">Add to Cart</span>
+<p class="compareTitle">{{ compare.title }}</p>
+<span class="comparePrice">{{ compare.price | currency:$ }}</span>

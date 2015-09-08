@@ -1,0 +1,6 @@
+<div class="cartItem">
+    <img class="cartImage" ng-src="{{ cartItem.image }}" />
+    <p class="cartItemName">{{ cartItem.title }}</p>
+    <span class="removeFromCart" ng-click="removeFromCart(cartItem)">Remove From Cart</span>
+    <span class="cartItemPrice">{{ cartItem.price | currency:$ }}</span>
+</div>
