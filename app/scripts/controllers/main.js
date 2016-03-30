@@ -124,6 +124,7 @@ retailerApp.controller('MainCtrl', ['$scope', '$http', '$timeout', '$location', 
                 }
             }
 
+
             words = searchTerms.split(ws);
             $scope.infoList.items.length = 0;
             for (var i = 0, len = $scope.holderInfoList.length; i < len; i++) {
