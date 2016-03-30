@@ -9,7 +9,8 @@
  */
 var retailerApp = angular.module('retailerApp');
 
-retailerApp.controller('MainCtrl', ['$scope', '$http', '$timeout', function($scope, $http, $timeout) {
+retailerApp.controller('MainCtrl', ['$scope', '$http', '$timeout', '$location', '$route', 'localStorageService',
+    function($scope, $http, $timeout, $location, $route, localStorageService) {
     $scope.categories = [];
     $scope.currentCategory = '';
     $scope.categoryHolder = '';
@@ -26,22 +27,68 @@ retailerApp.controller('MainCtrl', ['$scope', '$http', '$timeout', function($sco
     $scope.compareItemsLength = $scope.compareItems.length;
     $scope.grandTotal = 0;
 
+    /* Sets the category to be displayed */
+    $scope.setCategory = function(category) {
+        $('.shoppingCartDisplay').hide();
+        $('.compareDisplay').hide();
+        $('.sortItems').show();
+        $('.collapsibleDisplay').fadeOut();
+        $timeout(function() {
+            $scope.infoList.items = $scope.allItems[category].slice();
+            $scope.currentCategory = category;
+            $location.hash($scope.currentCategory);
+            $timeout(function() {
+                $('.collapsibleDisplay').fadeIn();
+            }, 150);
+        }, 400);
+    };
+
     /* Retrieve the category names, e.g. earrings, rings, and put them
      * into categories array */
-    $http.get('/scripts/json/categories.json').
-        then(function(response) {
-            $scope.categories = response.data.categories;
-            for (var c = 0, len_c=$scope.categories.length; c<len_c; c++) {
-                getCategoryItems($scope.categories[c]);
-            }
-            /* Initialize category to first category in array */
-            if ($scope.currentCategory === '') {
-                $scope.setCategory($scope.categories[0]);
-            }
-        }, function(response) {
-            console.error('response: ', response);
-        }
-    );
+      if (!localStorageService.get("categories") || JSON.stringify(localStorageService.get("categoryItems")) === JSON.stringify({})) {
+         $http.get('/scripts/json/categories.json').
+             then(function (response) {
+                 console.log("GOT DATA");
+                 $scope.categories = response.data.categories;
+
+                 for (var c = 0, len_c = $scope.categories.length; c < len_c; c++) {
+                     getCategoryItems($scope.categories[c]);
+                 }
+                 console.log("$scope.allItems: ", $scope.allItems);
+                 /* Initialize category to first category in array */
+                 if ($location.hash()) {
+                     $scope.setCategory($location.hash());
+                 } else {
+                     if ($scope.currentCategory === '') {
+                         $scope.setCategory($scope.categories[0]);
+                     }
+                 }
+                 localStorageService.set("categories", $scope.categories);
+             }, function (response) {
+                 console.error('response: ', response);
+             }
+         );
+     } else {
+         $scope.categories = localStorageService.get("categories");
+         if (JSON.stringify(localStorageService.get("categoryItems")) !== JSON.stringify({})) {
+             $scope.allItems = localStorageService.get("categoryItems");
+         } else {
+             /*
+             for (var c = 0, len_c = $scope.categories.length; c < len_c; c++) {
+                 getCategoryItems($scope.categories[c]);
+             }
+             localStorageService.set("categoryItems", $scope.allItems);
+             */
+         }
+         if ($location.hash()) {
+             $scope.setCategory($location.hash());
+         } else {
+             if ($scope.currentCategory === '') {
+                 $scope.setCategory($scope.categories[0]);
+             }
+         }
+
+     }
 
     /* Items associated with specific categories are in files named as that category.
      * Array of category objects are placed in object allItems as {'categoryName': 'arrayOfCategoryItems'} */
@@ -50,24 +97,12 @@ retailerApp.controller('MainCtrl', ['$scope', '$http', '$timeout', function($sco
         $http.get('/scripts/json/' + categoryFile).
             then(function(response) {
                 $scope.allItems[category] = response.data.items;
+                localStorageService.set("categoryItems", $scope.allItems);
             }, function(response) {
                 console.error('response: ', response);
             });
     }
 
-    /* Sets the category to be displayed */
-    $scope.setCategory = function(category) {
-        $('.shoppingCartDisplay').hide();
-        $('.compareDisplay').hide();
-        $('.sortItems').show();
-        $('.collapsibleDisplay').fadeOut();
-        $timeout(function() {
-            $scope.currentCategory = category;
-            $scope.infoList.items = $scope.allItems[category].slice();
-            console.log('$scope.infoList.items: ', $scope.infoList.items);
-            $('.collapsibleDisplay').fadeIn();
-        }, 400);
-    };
 
     /* Loop through all text properties of all items looking for an exact regex match to searchTerms.
      * If no exact match is found loop though title and and description with each
@@ -247,7 +282,6 @@ retailerApp.controller('MainCtrl', ['$scope', '$http', '$timeout', function($sco
             });
             $('.collapsibleDisplay').fadeIn();
         }, 400);
-        console.log('$scope.infoList.items: ', $scope.infoList.items);
     };
 
 }]);
