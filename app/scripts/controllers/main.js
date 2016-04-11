@@ -11,8 +11,10 @@ var retailerApp = angular.module('retailerApp');
 
 retailerApp.controller('MainCtrl', ['$scope', '$http', '$timeout', '$location', '$route', 'localStorageService',
     function($scope, $http, $timeout, $location, $route, localStorageService) {
-    $scope.categories = [];
+    var vm = this;
+    vm.categories = [];
     $scope.currentCategory = '';
+    $scope.currentItem = "";
     $scope.categoryHolder = '';
     $scope.allItems = {};
     $scope.infoList = {
@@ -28,76 +30,105 @@ retailerApp.controller('MainCtrl', ['$scope', '$http', '$timeout', '$location', 
     $scope.grandTotal = 0;
 
     /* Sets the category to be displayed */
-    $scope.setCategory = function(category) {
+    vm.setCategory = function(category) {
+        $location.path(category);
+        /*
+        $('.collapsibleDisplay').fadeOut(100);
         $('.shoppingCartDisplay').hide();
         $('.compareDisplay').hide();
         $('.sortItems').show();
-        $('.collapsibleDisplay').fadeOut();
-        $timeout(function() {
-            $scope.infoList.items = $scope.allItems[category].slice();
-            $scope.currentCategory = category;
-            $location.hash($scope.currentCategory);
+
+        function display(delay) {
+            if (!delay) {
+                delay = 150;
+            }
             $timeout(function() {
-                $('.collapsibleDisplay').fadeIn();
-            }, 150);
-        }, 400);
+                $scope.currentCategory = category;
+                $scope.infoList.items = $scope.allItems[category].slice();
+                $timeout(function() {
+                    $('.collapsibleDisplay').fadeIn("fast");
+                //    $location.path($scope.currentCategory);
+                }, 100);
+            }, delay);
+        }
+
+        if ($scope.allItems[category]) {
+            display(150);
+        } else {
+            getCategoryItems(category, display, 150);
+        }
+        */
     };
 
     /* Retrieve the category names, e.g. earrings, rings, and put them
      * into categories array */
-      if (!localStorageService.get("categories") || JSON.stringify(localStorageService.get("categoryItems")) === JSON.stringify({})) {
-         $http.get('/scripts/json/categories.json').
-             then(function (response) {
-                 console.log("GOT DATA");
-                 $scope.categories = response.data.categories;
+    (function() {
+        $http.get('/scripts/json/categories.json').
+            then(function(response) {
+                console.log("GOT DATA");
+                vm.categories = response.data.categories;
 
-                 for (var c = 0, len_c = $scope.categories.length; c < len_c; c++) {
-                     getCategoryItems($scope.categories[c]);
-                 }
-                 console.log("$scope.allItems: ", $scope.allItems);
-                 /* Initialize category to first category in array */
-                 if ($location.hash()) {
-                     $scope.setCategory($location.hash());
-                 } else {
-                     if ($scope.currentCategory === '') {
-                         $scope.setCategory($scope.categories[0]);
-                     }
-                 }
-                 localStorageService.set("categories", $scope.categories);
-             }, function (response) {
-                 console.error('response: ', response);
-             }
-         );
-     } else {
-         $scope.categories = localStorageService.get("categories");
-         if (JSON.stringify(localStorageService.get("categoryItems")) !== JSON.stringify({})) {
-             $scope.allItems = localStorageService.get("categoryItems");
-         } else {
-             /*
-             for (var c = 0, len_c = $scope.categories.length; c < len_c; c++) {
-                 getCategoryItems($scope.categories[c]);
-             }
-             localStorageService.set("categoryItems", $scope.allItems);
-             */
-         }
-         if ($location.hash()) {
-             $scope.setCategory($location.hash());
-         } else {
-             if ($scope.currentCategory === '') {
-                 $scope.setCategory($scope.categories[0]);
-             }
-         }
+                /* Initialize category to first category in array */
 
-     }
+                if ($location.path()) {
+                    // TODO make sure hash and category name are normalized in some way
+                    $scope.currentCategory = $location.path().slice(1, $location.path().length);
+
+                //    getCategoryItems($location.path());
+                    //vm.setCategory($location.path());
+                    $(".collapsibleDisplay").hide();
+                    /*
+                    $('.collapsibleDisplay').fadeOut(100);
+                    $('.shoppingCartDisplay').hide();
+                    $('.compareDisplay').hide();
+                    $('.sortItems').show();
+                    */
+                    var display = function(delay) {
+                        if (!delay) {
+                            delay = 150;
+                        }
+                        $timeout(function() {
+                            $scope.infoList.items = $scope.allItems[$scope.currentCategory].slice();
+                            $timeout(function() {
+                                $('.collapsibleDisplay').fadeIn("fast");
+                            //    $location.path($scope.currentCategory);
+                            }, 100);
+                        }, delay);
+                    };
+
+                    if ($scope.allItems[$scope.currentCategory]) {
+                        display(150);
+                    } else {
+                        getCategoryItems($scope.currentCategory, display, 150);
+                    }
+                } else {
+
+                    if ($scope.currentCategory === '') {
+                      //  getCategoryItems(vm.categories[0]);
+                      vm.setCategory(vm.categories[0]);
+                    }
+                }
+                localStorageService.set("categories", vm.categories);
+            }, function (response) {
+                console.error('response: ', response);
+            }
+        );
+    }());
+
+
 
     /* Items associated with specific categories are in files named as that category.
      * Array of category objects are placed in object allItems as {'categoryName': 'arrayOfCategoryItems'} */
-    function getCategoryItems(category) {
+    function getCategoryItems(category, callback, delay) {
+        console.log("Got category items");
         var categoryFile = category + '.json';
         $http.get('/scripts/json/' + categoryFile).
             then(function(response) {
                 $scope.allItems[category] = response.data.items;
                 localStorageService.set("categoryItems", $scope.allItems);
+                if (callback) {
+                    callback(delay);
+                }
             }, function(response) {
                 console.error('response: ', response);
             });
@@ -118,8 +149,8 @@ retailerApp.controller('MainCtrl', ['$scope', '$http', '$timeout', '$location', 
                 words = [],
                 infoListObj;
             if ($scope.holderInfoList.length === 0) {
-                for (var c = 0, len_c = $scope.categories.length; c < len_c; c++) {
-                    var tempItems = $scope.allItems[$scope.categories[c]];
+                for (var c = 0, len_c = vm.categories.length; c < len_c; c++) {
+                    var tempItems = $scope.allItems[vm.categories[c]];
                     $scope.holderInfoList = $scope.holderInfoList.concat(tempItems);
                 }
             }
@@ -162,7 +193,7 @@ retailerApp.controller('MainCtrl', ['$scope', '$http', '$timeout', '$location', 
     $scope.$watch('searchTerms.length', function() {
         if ($scope.searchTerms.length === 0 && $scope.holderInfoList.length > 0) {
             $scope.infoList.items.length = 0;
-            $scope.setCategory($scope.categoryHolder);
+            vm.setCategory($scope.categoryHolder);
         }
     });
 
@@ -287,9 +318,32 @@ retailerApp.controller('MainCtrl', ['$scope', '$http', '$timeout', '$location', 
 
 }]);
 
+retailerApp.directive("scroll", function($window, $document) {
+   return function(scope, element, attrs) {
+       var body = $("body"),
+           collapsibleDisplay = $(".collapsibleDisplay"),
+           collapsibleDisplayHeight = 0;
+
+       angular.element($window).bind("scroll", function() {
+
+           if (this.pageYOffset + collapsibleDisplayHeight >= this.innerHeight) {
+               console.log("Bottom Reached");
+               collapsibleDisplayHeight = 0;
+               var numberOfItems = scope.infoList.items.length;
+               console.log("numberOfItems: ", numberOfItems);
+               scope.infoList.items = scope.allItems[scope.currentCategory].slice(0, numberOfItems + 2);
+               scope.$apply();
+               //collapsibleDisplayHeight = collapsibleDisplay.height();
+           } else {
+               collapsibleDisplayHeight = collapsibleDisplay.height();
+           }
+       });
+   }
+});
+
 /* This directive is responsible for creating the view of each item and uses jQuery
  * to manipulate the its presentation */
-retailerApp.directive('collapsible', ['$window', function($window){
+retailerApp.directive('collapsible', ['$window', "$location", function($window, $location){
     return {
         restrict: 'E',
         templateUrl: 'views/collapsible.html',
@@ -300,7 +354,12 @@ retailerApp.directive('collapsible', ['$window', function($window){
                 imgLarge = item.find('.collapsibleImgLarge'),
                 content = item.find('.content');
 
+
             function expand() {
+                var title = item.find(".collapsibleTitle").text();
+                scope.currentItem = title;
+                $location.hash(scope.currentItem);
+                console.log("scope.currentItem: ", scope.currentItem);
                 var windowHeight = $window.outerHeight,
                     scrollTo = header.offset().top;
 
@@ -316,6 +375,7 @@ retailerApp.directive('collapsible', ['$window', function($window){
             }
 
             function collapse() {
+                scope.currentItem = "";
                 item.removeClass('expand').css({'height':'75px', 'transition':'.8s'});
                 imgLarge.animate({'opacity':0}, 320);
                 imgThumb.delay(200).fadeIn();
@@ -389,3 +449,4 @@ retailerApp.filter('firstLetterCaps', function(){
        }
    };
 });
+
