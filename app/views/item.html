@@ -1,0 +1,12 @@
+
+<div class="categories">
+        <span class="category" ng-click="main.setCategory(category)" ng-repeat="category in main.categories">
+            {{ category | firstLetterCaps }}
+        </span>
+    </div>
+<img class="gridImageLarge" src="{{ item.image }}">
+<span>{{ item.title }}</span>
+<br />
+<span>{{ item.description }}</span>
+<br />
+<span>{{ item.content }}</span>

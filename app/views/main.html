@@ -21,14 +21,23 @@
                 <button class="btn btn-default glyphicon glyphicon-search" ng-click="searchItems()"></button>
             </div>
         </form>
-
     </span>
+
+    <div class="gridDisplay">
+        <span ng-repeat="item in infoList.items">
+            <grid></grid>
+        </span>
+    </div>
+
+    <!--
     <div class="collapsibleDisplay">
         <h2 class="displayTitle">{{ currentCategory || "" | firstLetterCaps }}</h2>
         <div ng-repeat="item in infoList.items">
             <collapsible></collapsible>
         </div>
     </div>
+    -->
+
     <div class="compareDisplay">
         <h2 class="displayTitle">Compare</h2>
         <ul>

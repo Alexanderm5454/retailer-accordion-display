@@ -23,13 +23,17 @@ angular
     }])
   .config(function ($routeProvider) {
     $routeProvider
-      .when('/:category', {
-        templateUrl: 'views/main.html',
-        controller: 'MainCtrl as main'
-      })
       .when('/about', {
         templateUrl: 'views/about.html',
         controller: 'AboutCtrl'
+      })
+      .when('/jewelry/:category', {
+        templateUrl: 'views/main.html',
+        controller: 'MainCtrl as main'
+      })
+      .when('/jewelry/:category/:itemPath', {
+        templateUrl: 'views/item.html',
+        controller: 'ItemCtrl'
       })
       .when('/about', {
         templateUrl: 'views/about.html',

@@ -149,9 +149,47 @@ $compare-color: rgb(77, 85, 91);
   border-color: rgba(100, 100, 100, 1);
 }
 
+
+/***** grid start *****/
+
+.gridDisplay
+{
+  left: 5%;
+  min-width: 80%;
+}
+
+.gridItem
+{
+  max-width: 20%;
+  height: 200px;
+
+  img
+  {
+    cursor: pointer;
+    transition: .2s;
+    border: 3px solid rgba(255, 255, 255, 0);
+  }
+
+  img:hover
+  {
+    background-color: rgba(26, 41, 58, 0.28);
+    transition: .2s;
+  }
+
+}
+
+.gridImageLarge
+{
+  max-height: 400px;
+}
+
+/***** grid end *****/
+
+/***** collapsible start *****/
+
 .collapsibleDisplay
 {
-  left: 0%;
+  left: 0;
   min-width: 800px;
 }
 
@@ -167,12 +205,11 @@ $compare-color: rgb(77, 85, 91);
   position: relative;
   height: $collapsibleHeaderHeight;
   width: 100%;
-  border: 0px solid rgb(255, 255, 251);
+  border: 0 solid rgb(255, 255, 251);
   border-bottom-width: 6px;
   margin-bottom: 3px;
   overflow: hidden;
 }
-
 
 
 .collapsibleImgSmall
@@ -332,6 +369,7 @@ $compare-color: rgb(77, 85, 91);
   transition: .5s;
 }
 
+/***** collapsible end *****/
 
 .compareDisplay
 {
@@ -578,7 +616,7 @@ body {
 /* Responsive: Portrait tablets and up */
 @media screen and (min-width: 768px) {
   .container {
-    max-width: 730px;
+    max-width: 1200px;  /* 730px; */
   }
 
   /* Remove the padding we set earlier */
