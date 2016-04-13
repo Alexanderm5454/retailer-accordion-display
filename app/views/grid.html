@@ -1,3 +1,5 @@
 <span id="{{ $index }}" class="gridItem">
     <img class="gridImageSmall" src="{{ item.imageThumb }}" />
+     <span class="gridItemTitle">{{ item.title }}</span>
+    <span class="gridItemPrice">{{ item.price | currency:$ }}</span>
 </span>

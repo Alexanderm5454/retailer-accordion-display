@@ -156,31 +156,89 @@ $compare-color: rgb(77, 85, 91);
 {
   left: 5%;
   min-width: 80%;
+  padding-left: 300px;
+}
+
+.gridItemWrapper
+{
+  display: inline-block;
+  width: 225px;
 }
 
 .gridItem
 {
   max-width: 20%;
   height: 200px;
+  display: inline-block;
 
   img
   {
     cursor: pointer;
-    transition: .2s;
-    border: 3px solid rgba(255, 255, 255, 0);
+    background-color: rgba(26, 41, 58, 0.05);
+    border: 2px solid rgba(255, 255, 255, 0);
+    border-radius: 2px;
+    box-shadow: 1px 1px 1px lightgrey;
+    padding-bottom: 45px;
+    transition: .3s;
   }
 
   img:hover
   {
-    background-color: rgba(26, 41, 58, 0.28);
-    transition: .2s;
+    background-color: rgba(26, 41, 58, 0.21);
+    transition: .3s;
   }
+}
+
+.gridItemTitle
+{
+  display: inline-block;
+  position: relative;
+  width: 200px;
+  height: 20px;
+  left: 10px;
+  top: -41px;
+  font-family: "Optima";
+  font-size: 13px;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+}
+
+.gridItemPrice
+{
+  display: inline-block;
+  position: relative;
+  width: 200px;
+  left: 10px;
+  top: -48px;
+  font-family: $font;
 
 }
 
 .gridImageLarge
 {
   max-height: 400px;
+}
+
+.itemContainer
+{
+  width: 100%;
+}
+
+
+.gridImageLargeContainer
+{
+  width: 450px;
+  height: 450px;
+}
+
+.itemTitle
+{
+  position: absolute;
+  top: 155px;
+  left: 650px;
+  font-family: $font;
+  font-size: 20px;
 }
 
 /***** grid end *****/
@@ -558,6 +616,7 @@ $compare-color: rgb(77, 85, 91);
 body {
   padding: 0;
   overflow: scroll;
+  background-color: rgba(206, 111, 68, 0.05);
 }
 
 /* Everything but the jumbotron gets side spacing for mobile first views */
