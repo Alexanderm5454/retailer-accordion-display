@@ -31,7 +31,7 @@ angular
         templateUrl: 'views/main.html',
         controller: 'MainCtrl as main'
       })
-      .when('/jewelry/:category/:itemPath', {
+      .when('/jewelry/:category/:itemPath/:index', {
         templateUrl: 'views/item.html',
         controller: 'ItemCtrl'
       })
