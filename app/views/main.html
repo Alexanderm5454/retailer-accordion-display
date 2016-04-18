@@ -1,9 +1,11 @@
 <div class="container">
+    <!--
     <div class="categories">
         <span class="category" ng-click="setCategory(category)" ng-repeat="category in main.categories">
             {{ category | firstLetterCaps }}
         </span>
     </div>
+    -->
     <span class="cartNav" ng-click="switchView('cart')">Shopping Cart:
         {{ cartItemsLength || "Empty" }}
     </span>
@@ -22,10 +24,32 @@
             </div>
         </form>
     </span>
-
+    <span class="categoryTitle">{{ currentCategory | firstLetterCaps }}</span>
+    <ul class="navContainer">
+        NAV CONTAINER
+        <li class="category" ng-click="setCategory(category)" ng-repeat="category in main.categories">
+            {{ category | firstLetterCaps }}
+        </li>
+        <li ng-click="switchView('cart')">Shopping Cart:
+            {{ cartItemsLength || "Empty" }}
+        </li>
+        <li ng-click="switchView('compare')">Compare:
+            {{ compareItemsLength }}
+        </li>
+    </ul>
     <div class="gridDisplay">
+        <span class="pageNavContainer">
+            <span class="previousPage" ng-click="previousPage()">Previous</span>
+            <span class="pageNumbers" ng-class="{'currentPageNumber': pageNumber === $index}" ng-repeat="page in numberOfPagesDisplay() track by $index" ng-click="setPageNumber($index)">{{ $index + 1 }}</span>
+            <span class="nextPage" ng-click="nextPage()">Next</span>
+        </span>
         <span class="gridItemWrapper" ng-repeat="item in infoList.items">
             <grid></grid>
+        </span>
+        <span class="pageNavContainer">
+            <span class="previousPage" ng-click="previousPage()">Previous</span>
+            <span class="pageNumbers" ng-class="{'currentPageNumber': pageNumber === $index}" ng-repeat="page in numberOfPagesDisplay() track by $index" ng-click="setPageNumber($index)">{{ $index + 1 }}</span>
+            <span class="nextPage" ng-click="nextPage()">Next</span>
         </span>
     </div>
 

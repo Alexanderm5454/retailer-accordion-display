@@ -4,7 +4,7 @@
             {{ category | firstLetterCaps }}
         </span>
     </div>
-<div class="itemContainer">
+<div class="itemContainer" ng-init="loadItem()">
     <div class="gridImageLargeContainer">
         <img class="gridImageLarge" src="{{ item.image }}">
     </div>

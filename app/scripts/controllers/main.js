@@ -41,6 +41,9 @@ retailerApp.factory("items", ['$http', "$location", function($http, $location) {
         currentCategory: "",
         categories: [],
         infoList: {items: []},
+        itemsPerPage: 12,
+        pageNumber: 0,
+        numberOfPages: 1,
 
         init: function(callback) {
             if (!sessionStorage.getItem("categories")) {
@@ -63,17 +66,33 @@ retailerApp.factory("items", ['$http', "$location", function($http, $location) {
 
         setItems: function(callback) {
             if ($location.path()) {
-                var path = $location.path();
+                var path = $location.path().split("/"),
+                    categoryPath = path[3];
                 for (var i = 0, len=this.categories.length; i < len; i++) {
-                    if (path.indexOf(this.categories[i]) > -1) {
+                    if (categoryPath === this.categories[i]) {
                         this.currentCategory = this.categories[i];
                         break;
                     }
                 }
+                console.log("path: ", path);
                 //this.currentCategory = $location.path().slice(9, $location.path().length);
                 var self = this;
                 var display = function() {
-                    self.infoList.items = allItems[self.currentCategory].slice();
+                    var sliceFrom = 0,
+                        sliceTo = self.itemsPerPage,
+                        pathPageNumber = path[2];
+
+                    self.numberOfPages = Math.ceil(allItems[self.currentCategory].length / self.itemsPerPage);
+
+                    for (var j = 0, len_j = self.numberOfPages; j < len_j; j++) {
+                        if (pathPageNumber === j.toString()) {
+                            self.pageNumber = j;
+                            break;
+                        }
+                    }
+                    sliceFrom = self.pageNumber * self.itemsPerPage;
+                    sliceTo = sliceFrom + self.itemsPerPage;
+                    self.infoList.items = allItems[self.currentCategory].slice(sliceFrom, sliceTo);
                     callback();
                 };
                 if (sessionStorage.getItem(this.currentCategory)) {
@@ -113,7 +132,8 @@ retailerApp.controller('MainCtrl', ['$scope', '$http', '$timeout', '$location', 
     $scope.cartItemsLength = $scope.cartItems.length;
     $scope.compareItemsLength = $scope.compareItems.length;
     $scope.grandTotal = 0;
-
+    $scope.pageNumber = 0;
+    $scope.numberOfPages = 1;
 
 
     items.init(function() {
@@ -121,16 +141,42 @@ retailerApp.controller('MainCtrl', ['$scope', '$http', '$timeout', '$location', 
     });
     items.setItems(function() {
         $scope.infoList.items = items.infoList.items;
+        $scope.pageNumber = items.pageNumber;
+        $scope.numberOfPages = items.numberOfPages;
     });
     $scope.currentCategory = items.currentCategory;
 
 
     /* Sets the category to be displayed */
     $scope.setCategory = function(category) {
-        $location.path("jewelry/" + category);
+        $scope.pageNumber = 0;
+        $location.path("jewelry/" + $scope.pageNumber + "/" + category);
     };
 
+    $scope.nextPage = function() {
+        if ($scope.pageNumber < $scope.numberOfPages - 1) {
+            $scope.pageNumber++;
+            $location.path("jewelry/" + $scope.pageNumber + "/" + $scope.currentCategory);
+        }
+        $("body, html").animate({scrollTop: 0}, 0);
+    };
 
+    $scope.previousPage = function() {
+        if ($scope.pageNumber > 0) {
+            $scope.pageNumber--;
+            $location.path("jewelry/" + $scope.pageNumber + "/" + $scope.currentCategory);
+        }
+        $("body, html").animate({"scrollTop":0}, 0);
+    };
+
+    $scope.numberOfPagesDisplay = function() {
+        return new Array($scope.numberOfPages);
+    };
+
+    $scope.setPageNumber = function(number) {
+        $scope.pageNumber = number;
+        $location.path("jewelry/" + $scope.pageNumber + "/" + $scope.currentCategory);
+    };
 
     /* Loop through all text properties of all items looking for an exact regex match to searchTerms.
      * If no exact match is found loop though title and and description with each
@@ -292,7 +338,7 @@ retailerApp.controller('MainCtrl', ['$scope', '$http', '$timeout', '$location', 
 
     /* Sorts only items currently in infoList.items, i.e. what is currently in view */
     $scope.sortItemsByPrice = function(order) {
-        $('.collapsibleDisplay').fadeOut();
+      //  $('.collapsibleDisplay').fadeOut();
         $timeout(function() {
             $scope.infoList.items.sort(function (a, b) {
                 var high, low;
@@ -310,7 +356,7 @@ retailerApp.controller('MainCtrl', ['$scope', '$http', '$timeout', '$location', 
                 }
             });
             $('.collapsibleDisplay').fadeIn();
-        }, 400);
+        }, 0);
     };
 
 }]);
@@ -348,7 +394,7 @@ retailerApp.directive("grid", ["selectedItem", "$location", function(selectedIte
                 scope.index = +$(element.children()[0]).context.id;
                 selectedItem.data = scope.infoList.items[scope.index];
                 scope.itemPath = selectedItem.data.title.toLowerCase().split(/[\s]+/).join("-");
-                $location.path("jewelry/" + scope.currentCategory + "/" + scope.itemPath + "/" + scope.index);
+                $location.path("jewelry/" + scope.pageNumber + "/" + scope.currentCategory + "/" + scope.itemPath + "/" + scope.index);
                 scope.$apply();
             });
         }
