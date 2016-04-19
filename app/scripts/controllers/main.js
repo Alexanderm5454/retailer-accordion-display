@@ -60,7 +60,9 @@ retailerApp.factory("items", ['$http', "$location", function($http, $location) {
                 );
             } else {
                 this.categories = sessionStorage.getItem("categories").split(",");
-                callback();
+                if (callback) {
+                    callback();
+                }
             }
         },
 
@@ -93,7 +95,9 @@ retailerApp.factory("items", ['$http', "$location", function($http, $location) {
                     sliceFrom = self.pageNumber * self.itemsPerPage;
                     sliceTo = sliceFrom + self.itemsPerPage;
                     self.infoList.items = allItems[self.currentCategory].slice(sliceFrom, sliceTo);
-                    callback();
+                    if (callback) {
+                        callback();
+                    }
                 };
                 if (sessionStorage.getItem(this.currentCategory)) {
                     allItems[this.currentCategory] = JSON.parse(sessionStorage.getItem(this.currentCategory));

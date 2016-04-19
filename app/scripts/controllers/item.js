@@ -20,11 +20,39 @@ retailerApp.controller('ItemCtrl', ["$scope", "$location", "selectedItem", "item
 
     $scope.item = selectedItem.data;
 
+
+
     $scope.loadItem = function() {
+        /*
+        function setPath() {
+            var path = $location.path().split("/")[5],
+                index = -1;
+            for (var i = 0, len = items.infoList.items.length; i < len; i++) {
+                if (path === i.toString()) {
+                    index = i;
+                    break;
+                }
+            }
+            $scope.item = items.infoList.items[index];
+        }
+
         if (!$scope.item || JSON.stringify($scope.item) === JSON.stringify({})) {
-            items.init(function() {
+            new Promise(function() {
+                items.init()
+            }).then(
+                $scope.categories = items.categories
+            ).then(
+                items.setItems()
+            ).then(
+                setPath()
+            )
+        }
+        */
+
+        if (!$scope.item || JSON.stringify($scope.item) === JSON.stringify({})) {
+            items.init(function () {
                 $scope.categories = items.categories;
-                items.setItems(function() {
+                items.setItems(function () {
                     var path = $location.path().split("/")[5],
                         index = -1;
                     for (var i = 0, len = items.infoList.items.length; i < len; i++) {
@@ -36,7 +64,9 @@ retailerApp.controller('ItemCtrl', ["$scope", "$location", "selectedItem", "item
                     $scope.item = items.infoList.items[index];
                 });
             });
-        } else {
+        }
+
+        else {
             items.init(function () {
                 $scope.categories = items.categories;
                 $("body, html").animate({scrollTop: 0}, 0);
