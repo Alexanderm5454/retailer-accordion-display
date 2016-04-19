@@ -34,6 +34,7 @@ $compare-color: rgb(77, 85, 91);
 .category:hover
 {
   background-color: rgba(60, 60, 60, 1);
+  color: rgb(255, 255, 255);
 }
 
 .cartNav
@@ -167,7 +168,7 @@ $compare-color: rgb(77, 85, 91);
   position: absolute;
   top: 210px;
   left: 15%;
-  width: 250px;
+  width: 215px;
   border: solid black 2px;
   padding: 10px;
   display: inline-block;
@@ -183,10 +184,12 @@ $compare-color: rgb(77, 85, 91);
 .gridDisplay
 {
   position: relative;
-  top: 25px;
+  top: 83px;
   left: 5%;
   min-width: 80%;
+  min-height: 800px;
   padding-left: 300px;
+  margin-bottom: 110px;
 }
 
 .gridItemWrapper

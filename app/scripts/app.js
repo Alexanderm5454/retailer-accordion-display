@@ -31,7 +31,7 @@ angular
         templateUrl: 'views/main.html',
         controller: 'MainCtrl as main'
       })
-      .when('/jewelry/:category/:pageNumber/:itemPath/:index', {
+      .when('/jewelry/:pageNumber/:category/:itemPath/:index', {
         templateUrl: 'views/item.html',
         controller: 'ItemCtrl'
       })
@@ -41,6 +41,6 @@ angular
         controllerAs: 'about'
       })
       .otherwise({
-        redirectTo: '/'
+        redirectTo: '/jewelry/0/earrings'
       });
   });

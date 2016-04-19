@@ -99,12 +99,10 @@ retailerApp.factory("items", ['$http', "$location", function($http, $location) {
                     allItems[this.currentCategory] = JSON.parse(sessionStorage.getItem(this.currentCategory));
                     display();
                 } else {
+                    if (this.currentCategory === '') {
+                        $location.path("jewelry/" + this.categories[0]);
+                    }
                     getCategoryItems(this.currentCategory, display);
-                }
-            } else {
-                /* Initialize category to first category in array */
-                if (this.currentCategory === '') {
-                    $location.path("jewelry/" + this.categories[0]);
                 }
             }
         }
@@ -134,6 +132,7 @@ retailerApp.controller('MainCtrl', ['$scope', '$http', '$timeout', '$location', 
     $scope.grandTotal = 0;
     $scope.pageNumber = 0;
     $scope.numberOfPages = 1;
+    $scope.showPageNumbers = false;
 
 
     items.init(function() {
@@ -170,6 +169,7 @@ retailerApp.controller('MainCtrl', ['$scope', '$http', '$timeout', '$location', 
     };
 
     $scope.numberOfPagesDisplay = function() {
+        $scope.showPageNumbers = $scope.numberOfPages > 1;
         return new Array($scope.numberOfPages);
     };
 
