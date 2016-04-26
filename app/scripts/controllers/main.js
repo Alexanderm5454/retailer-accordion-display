@@ -14,6 +14,47 @@ retailerApp.factory("selectedItem", function() {
     return {"data": {}};
 });
 
+retailerApp.factory("wishList", ["localStorageService", function(localStorageService) {
+    var items = {};
+
+    function _itemsFromLocalStorage() {
+        if (localStorageService.get("wishListItems")) {
+            items = localStorageService.get("wishListItems");
+        }
+    }
+
+    return {
+       addItem: function(wishListed) {
+           if (typeof wishListed === "object" && wishListed.hasOwnProperty("title")) {
+               var title = wishListed.title.toLowerCase().split(/[\s]+/).join("-");
+               _itemsFromLocalStorage();
+               if (!(title in items)) {
+                   items[title] = wishListed;
+                   localStorageService.set("wishListItems", items);
+               }
+           } else {
+               console.error("addItem function parameter 'wishListed' must be an object");
+           }
+       },
+
+       removeItem: function(unwishListed) {
+           if (typeof unwishListed === "object" && unwishListed.hasOwnProperty("title")) {
+               _itemsFromLocalStorage();
+               var title = unwishListed.title.toLowerCase().split(/[\s]+/).join("-");
+               if (title in items) {
+                   delete items[title];
+                   localStorageService.set("wishListItems", items);
+               }
+           }
+       },
+
+       getItems: function() {
+           _itemsFromLocalStorage();
+           return items;
+       }
+   };
+}]);
+
 retailerApp.factory("items", ['$http', "$location", function($http, $location) {
 
     var allItems = {};
@@ -22,14 +63,14 @@ retailerApp.factory("items", ['$http', "$location", function($http, $location) {
      * in files named as that category.
      * Array of category objects are placed in object
      * allItems as {'categoryName': 'arrayOfCategoryItems'} */
-    function getCategoryItems(category, callback) {
+    function _getCategoryItems(category, callback) {
         console.log("Got category items");
         var categoryFile = category + '.json';
         $http.get('/scripts/json/' + categoryFile).
             then(function(response) {
                 allItems[category] = response.data.items;
                 sessionStorage.setItem(category, JSON.stringify(allItems[category]));
-                if (callback) {
+                if (callback && typeof callback === 'function') {
                     callback();
                 }
             }, function(response) {
@@ -41,9 +82,10 @@ retailerApp.factory("items", ['$http', "$location", function($http, $location) {
         currentCategory: "",
         categories: [],
         infoList: {items: []},
-        itemsPerPage: 12,
+        itemsPerPage: 15,
         pageNumber: 0,
         numberOfPages: 1,
+        indexInWishList: [],
 
         init: function(callback) {
             if (!sessionStorage.getItem("categories")) {
@@ -53,14 +95,16 @@ retailerApp.factory("items", ['$http', "$location", function($http, $location) {
                         console.log("GOT DATA");
                         self.categories = response.data.categories;
                         sessionStorage.setItem("categories", self.categories);
-                        callback();
+                        if (callback && typeof callback === 'function') {
+                            callback();
+                        }
                     }, function(response) {
                         console.error('response: ', response);
                     }
                 );
             } else {
                 this.categories = sessionStorage.getItem("categories").split(",");
-                if (callback) {
+                if (callback && typeof callback === 'function') {
                     callback();
                 }
             }
@@ -70,24 +114,22 @@ retailerApp.factory("items", ['$http', "$location", function($http, $location) {
             if ($location.path()) {
                 var path = $location.path().split("/"),
                     categoryPath = path[3];
-                for (var i = 0, len=this.categories.length; i < len; i++) {
+                for (var i = 0, len = this.categories.length; i < len; i++) {
                     if (categoryPath === this.categories[i]) {
                         this.currentCategory = this.categories[i];
                         break;
                     }
                 }
-                console.log("path: ", path);
-                //this.currentCategory = $location.path().slice(9, $location.path().length);
                 var self = this;
                 var display = function() {
                     var sliceFrom = 0,
                         sliceTo = self.itemsPerPage,
-                        pathPageNumber = path[2];
+                        pathPageNumber = parseInt(path[2], 10);
 
                     self.numberOfPages = Math.ceil(allItems[self.currentCategory].length / self.itemsPerPage);
 
                     for (var j = 0, len_j = self.numberOfPages; j < len_j; j++) {
-                        if (pathPageNumber === j.toString()) {
+                        if (pathPageNumber === j) {
                             self.pageNumber = j;
                             break;
                         }
@@ -95,7 +137,7 @@ retailerApp.factory("items", ['$http', "$location", function($http, $location) {
                     sliceFrom = self.pageNumber * self.itemsPerPage;
                     sliceTo = sliceFrom + self.itemsPerPage;
                     self.infoList.items = allItems[self.currentCategory].slice(sliceFrom, sliceTo);
-                    if (callback) {
+                    if (callback && typeof callback === 'function') {
                         callback();
                     }
                 };
@@ -106,26 +148,30 @@ retailerApp.factory("items", ['$http', "$location", function($http, $location) {
                     if (this.currentCategory === '') {
                         $location.path("jewelry/" + this.categories[0]);
                     }
-                    getCategoryItems(this.currentCategory, display);
+                    _getCategoryItems(this.currentCategory, display);
                 }
             }
         }
+
     }
 
 }]);
 
 
-retailerApp.controller('MainCtrl', ['$scope', '$http', '$timeout', '$location', 'localStorageService', "items",
-    function($scope, $http, $timeout, $location, localStorageService, items) {
+retailerApp.controller('MainCtrl', ['$scope', '$http', '$timeout', '$location', 'localStorageService', "items", "wishList",
+    function($scope, $http, $timeout, $location, localStorageService, items, wishList) {
     var vm = this;
     vm.categories = [];
     $scope.currentCategory = '';
+    /*
     $scope.currentItem = "";
     $scope.categoryHolder = '';
     $scope.allItems = {};
-    $scope.infoList = {
+    */
+        $scope.infoList = {
          items: []
      };
+    /*
     $scope.holderInfoList = [];
     $scope.searchTerms = '';
     $scope.compareItems = [];
@@ -134,20 +180,29 @@ retailerApp.controller('MainCtrl', ['$scope', '$http', '$timeout', '$location', 
     $scope.cartItemsLength = $scope.cartItems.length;
     $scope.compareItemsLength = $scope.compareItems.length;
     $scope.grandTotal = 0;
+    */
     $scope.pageNumber = 0;
     $scope.numberOfPages = 1;
     $scope.showPageNumbers = false;
 
+    var wishListItems = wishList.getItems();
 
     items.init(function() {
        vm.categories = items.categories;
+       items.setItems(function() {
+            $scope.infoList.items = items.infoList.items;
+            $scope.pageNumber = items.pageNumber;
+            $scope.numberOfPages = items.numberOfPages;
+            $scope.inWishList = function(title) {
+                var normalizedTitle = title.toLowerCase().split(/[\s]+/).join("-");
+                if (normalizedTitle in wishListItems) {
+                    return true;
+                }
+                return false;
+            }
+        });
+        $scope.currentCategory = items.currentCategory;
     });
-    items.setItems(function() {
-        $scope.infoList.items = items.infoList.items;
-        $scope.pageNumber = items.pageNumber;
-        $scope.numberOfPages = items.numberOfPages;
-    });
-    $scope.currentCategory = items.currentCategory;
 
 
     /* Sets the category to be displayed */
@@ -156,21 +211,23 @@ retailerApp.controller('MainCtrl', ['$scope', '$http', '$timeout', '$location', 
         $location.path("jewelry/" + $scope.pageNumber + "/" + category);
     };
 
-    $scope.nextPage = function() {
-        if ($scope.pageNumber < $scope.numberOfPages - 1) {
+
+    $scope.pageNav = function(direction) {
+        var pageNumberChange = false;
+        if (direction === "next" && $scope.pageNumber < $scope.numberOfPages - 1) {
             $scope.pageNumber++;
-            $location.path("jewelry/" + $scope.pageNumber + "/" + $scope.currentCategory);
+            pageNumberChange = true;
         }
-        $("body, html").animate({scrollTop: 0}, 0);
+        else if (direction === "previous" && $scope.pageNumber > 0) {
+            $scope.pageNumber--;
+            pageNumberChange = true;
+        }
+        if (pageNumberChange === true) {
+            $location.path("jewelry/" + $scope.pageNumber + "/" + $scope.currentCategory);
+            $("body, html").animate({scrollTop: 0}, 0);
+        }
     };
 
-    $scope.previousPage = function() {
-        if ($scope.pageNumber > 0) {
-            $scope.pageNumber--;
-            $location.path("jewelry/" + $scope.pageNumber + "/" + $scope.currentCategory);
-        }
-        $("body, html").animate({"scrollTop":0}, 0);
-    };
 
     $scope.numberOfPagesDisplay = function() {
         $scope.showPageNumbers = $scope.numberOfPages > 1;
@@ -185,7 +242,8 @@ retailerApp.controller('MainCtrl', ['$scope', '$http', '$timeout', '$location', 
     /* Loop through all text properties of all items looking for an exact regex match to searchTerms.
      * If no exact match is found loop though title and and description with each
      * individual word in in searchTerms */
-    $scope.searchItems = function() {
+     /*
+     $scope.searchItems = function() {
         if ($scope.categoryHolder) {
             $scope.currentCategory = $scope.categoryHolder;
         }
@@ -251,8 +309,10 @@ retailerApp.controller('MainCtrl', ['$scope', '$http', '$timeout', '$location', 
     $scope.$watch('cartItems.length', function() {
        $scope.cartItemsLength = $scope.cartItems.length;
     });
+    */
 
     /* Add an item to the shopping cart and update grandTotal*/
+    /*
     $scope.addToCart = function(item) {
         item.inCart = true;
         var inArray = false;
@@ -266,8 +326,9 @@ retailerApp.controller('MainCtrl', ['$scope', '$http', '$timeout', '$location', 
             $scope.cartItems.push(item);
         }
     };
-
+    */
     /* Remove item from the shopping cart and update grandTotal  */
+    /*
     $scope.removeFromCart = function(item) {
         for (var i = 0, len=$scope.cartItems.length; i<len; i++) {
             if (item === $scope.cartItems[i]) {
@@ -277,9 +338,10 @@ retailerApp.controller('MainCtrl', ['$scope', '$http', '$timeout', '$location', 
             }
         }
     };
-
+    */
 
     /* Add an item to be compared */
+    /*
     $scope.addCompare = function(item) {
         var inArray = false;
         for (var i = 0, len=$scope.compareItems.length; i<len; i++) {
@@ -291,8 +353,9 @@ retailerApp.controller('MainCtrl', ['$scope', '$http', '$timeout', '$location', 
             $scope.compareItems.push(item);
         }
     };
-
+    */
     /* Remove Item from compareItems and update compare view accordingly */
+    /*
     $scope.removeCompare = function(item) {
         var compareElements = $('.compareDisplay li'),
             compareWidth = $(compareElements[0]).width(),
@@ -316,10 +379,12 @@ retailerApp.controller('MainCtrl', ['$scope', '$http', '$timeout', '$location', 
             });
         }
     };
-
+    */
     /* jQuery in used to manipulate/animate the view to simplify controller logic
       * and to reduce the number of directives in the markup */
-    $scope.switchView = function(view) {
+
+      /*
+      $scope.switchView = function(view) {
         if (view === 'compare') {
             if ($scope.compareItems.length > 0) {
                 $('.collapsibleDisplay').hide();
@@ -339,28 +404,25 @@ retailerApp.controller('MainCtrl', ['$scope', '$http', '$timeout', '$location', 
             $('body, html').animate({'scrollTop': 0}, 0);
         }
     };
+    */
 
     /* Sorts only items currently in infoList.items, i.e. what is currently in view */
     $scope.sortItemsByPrice = function(order) {
-      //  $('.collapsibleDisplay').fadeOut();
-        $timeout(function() {
-            $scope.infoList.items.sort(function (a, b) {
-                var high, low;
-                if (order === 'high') {
-                    high = b;
-                    low = a;
-                } else {
-                    high = a;
-                    low = b;
-                }
-                if (high.price > low.price) {
-                    return 1;
-                } else {
-                    return -1;
-                }
-            });
-            $('.collapsibleDisplay').fadeIn();
-        }, 0);
+        $scope.infoList.items.sort(function (a, b) {
+            var high, low;
+            if (order === 'high') {
+                high = b;
+                low = a;
+            } else {
+                high = a;
+                low = b;
+            }
+            if (high.price > low.price) {
+                return 1;
+            } else {
+                return -1;
+            }
+        });
     };
 
 }]);
@@ -389,18 +451,52 @@ retailerApp.directive("scroll", function($window, $document) {
 });
 
 
-retailerApp.directive("grid", ["selectedItem", "$location", function(selectedItem, $location) {
+retailerApp.directive("grid", ["selectedItem", "wishList", "$location", function(selectedItem, wishList, $location) {
     return {
         restrict: 'E',
         templateUrl: "views/grid.html",
         link: function(scope, element) {
-            element.on("click", function() {
+
+
+            element.on("mouseover", function () {
+                var wishListIcon = element.find(".wishListIcon")[0];
+                wishListIcon.style.visibility = "visible";
+            }).on("mouseout", function () {
+                if (element.find(".wishListIconNotSelected")[0]) {
+                    element.find(".wishListIconNotSelected")[0].style.visibility = "hidden";
+                }
+            });
+
+
+            $(element.find(".wishListIcon")[0]).on("click", function(e) {
+                e.stopPropagation();
+                console.log("scope.currentCategory: ", scope.currentCategory);
+                var index = +$(element.children()[0]).context.id;
+                if ($(this).hasClass("wishListIconNotSelected")) {
+                    var wishListed = scope.infoList.items[index];
+                    wishList.addItem(wishListed);
+                    $(this).addClass("wishListIconSelected").removeClass("wishListIconNotSelected");
+                    console.log("wishList.getItems(): ", wishList.getItems());
+                }
+                else if ($(this).hasClass("wishListIconSelected")) {
+                    var unwishListed = scope.infoList.items[index];
+                    wishList.removeItem(unwishListed);
+
+                    $(this).removeClass("wishListIconSelected").addClass("wishListIconNotSelected");
+                    console.log("wishList.getItems: ", wishList.getItems());
+                }
+
+            });
+
+            element.on("click", function(e) {
+                e.stopPropagation();
                 scope.index = +$(element.children()[0]).context.id;
                 selectedItem.data = scope.infoList.items[scope.index];
                 scope.itemPath = selectedItem.data.title.toLowerCase().split(/[\s]+/).join("-");
                 $location.path("jewelry/" + scope.pageNumber + "/" + scope.currentCategory + "/" + scope.itemPath + "/" + scope.index);
                 scope.$apply();
             });
+
         }
     };
 }]);
@@ -503,7 +599,7 @@ retailerApp.directive('cartItem', function() {
 retailerApp.filter('firstLetterCaps', function(){
    return function(word) {
        if (word) {
-           var firstLetterCaps = word[0].toUpperCase(),
+           var firstLetterCaps = word.charAt(0).toUpperCase(),
                minusFirstLetter = word.slice(1, word.length);
            return firstLetterCaps + minusFirstLetter;
        }

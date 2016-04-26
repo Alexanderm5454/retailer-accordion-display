@@ -55,9 +55,9 @@
     <div class="gridDisplay">
         <span class="pageNavContainer">
             <span ng-show="showPageNumbers">
-                <span class="previousPage" ng-click="previousPage()">Previous</span>
+                <span class="previousPage" ng-click="pageNav('previous')">Previous</span>
                 <span class="pageNumbers" ng-class="{'currentPageNumber': pageNumber === $index}" ng-repeat="page in numberOfPagesDisplay() track by $index" ng-click="setPageNumber($index)">{{ $index + 1 }}</span>
-                <span class="nextPage" ng-click="nextPage()">Next</span>
+                <span class="nextPage" ng-click="pageNav('next')">Next</span>
             </span>
         </span>
         <span class="gridItemWrapper" ng-repeat="item in infoList.items">
@@ -65,9 +65,9 @@
         </span>
     </div>
     <span ng-show="showPageNumbers" class="pageNavContainer">
-        <span class="previousPage" ng-click="previousPage()">Previous</span>
+        <span class="previousPage" ng-click="pageNav('previous')">Previous</span>
         <span class="pageNumbers" ng-class="{'currentPageNumber': pageNumber === $index}" ng-repeat="page in numberOfPagesDisplay() track by $index" ng-click="setPageNumber($index)">{{ $index + 1 }}</span>
-        <span class="nextPage" ng-click="nextPage()">Next</span>
+        <span class="nextPage" ng-click="pageNav('next')">Next</span>
     </span>
 
     <!--

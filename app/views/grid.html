@@ -1,4 +1,5 @@
 <span id="{{ $index }}" class="gridItem">
+    <span ng-class="{'wishListIconNotSelected': !inWishList(item.title), 'wishListIconSelected': inWishList(item.title)}" class="wishListIcon btn btn-default glyphicon glyphicon-heart"></span>
     <img class="gridImageSmall" ng-src="{{ item.imageThumb }}" />
      <span class="gridItemTitle">{{ item.title }}</span>
     <span class="gridItemPrice">{{ item.price | currency:$ }}</span>
