@@ -217,10 +217,14 @@ $compare-color: rgb(77, 85, 91);
 
 .wishListIconSelected
 {
-  background-color: #f1002a;
+  background-color: #ff2e2e;  /* #ff5f5f;  #f1002a; */
   visibility: visible;
 }
 
+.wishListIconSelected:hover
+{
+  background-color: #ff6d5e;
+}
 
 .gridItem
 {

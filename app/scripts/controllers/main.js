@@ -85,7 +85,6 @@ retailerApp.factory("items", ['$http', "$location", function($http, $location) {
         itemsPerPage: 15,
         pageNumber: 0,
         numberOfPages: 1,
-        indexInWishList: [],
 
         init: function(callback) {
             if (!sessionStorage.getItem("categories")) {
@@ -122,6 +121,7 @@ retailerApp.factory("items", ['$http', "$location", function($http, $location) {
                 }
                 var self = this;
                 var display = function() {
+                    self.infoList.items.length = 0;
                     var sliceFrom = 0,
                         sliceTo = self.itemsPerPage,
                         pathPageNumber = parseInt(path[2], 10);
@@ -185,7 +185,7 @@ retailerApp.controller('MainCtrl', ['$scope', '$http', '$timeout', '$location', 
     $scope.numberOfPages = 1;
     $scope.showPageNumbers = false;
 
-    var wishListItems = wishList.getItems();
+
 
     items.init(function() {
        vm.categories = items.categories;
@@ -193,6 +193,7 @@ retailerApp.controller('MainCtrl', ['$scope', '$http', '$timeout', '$location', 
             $scope.infoList.items = items.infoList.items;
             $scope.pageNumber = items.pageNumber;
             $scope.numberOfPages = items.numberOfPages;
+            var wishListItems = wishList.getItems();
             $scope.inWishList = function(title) {
                 var normalizedTitle = title.toLowerCase().split(/[\s]+/).join("-");
                 if (normalizedTitle in wishListItems) {
@@ -456,11 +457,20 @@ retailerApp.directive("grid", ["selectedItem", "wishList", "$location", function
         restrict: 'E',
         templateUrl: "views/grid.html",
         link: function(scope, element) {
+            var $wishListIcon = $(element.find(".wishListIcon")[0]);
+            var tooltipOptions = {
+                'delay': {"show": 1500, "hide": 100},
+                'title': "Add to Wish List"
+            };
 
 
             element.on("mouseover", function () {
                 var wishListIcon = element.find(".wishListIcon")[0];
                 wishListIcon.style.visibility = "visible";
+                if ($wishListIcon.hasClass("wishListIconSelected")) {
+                    tooltipOptions.title = "Remove from Wish List";
+                }
+                $wishListIcon.attr("data-toggle","tooltip").tooltip(tooltipOptions);
             }).on("mouseout", function () {
                 if (element.find(".wishListIconNotSelected")[0]) {
                     element.find(".wishListIconNotSelected")[0].style.visibility = "hidden";
@@ -468,24 +478,28 @@ retailerApp.directive("grid", ["selectedItem", "wishList", "$location", function
             });
 
 
-            $(element.find(".wishListIcon")[0]).on("click", function(e) {
+            $wishListIcon.on("click", function(e) {
                 e.stopPropagation();
                 console.log("scope.currentCategory: ", scope.currentCategory);
                 var index = +$(element.children()[0]).context.id;
+
                 if ($(this).hasClass("wishListIconNotSelected")) {
                     var wishListed = scope.infoList.items[index];
                     wishList.addItem(wishListed);
                     $(this).addClass("wishListIconSelected").removeClass("wishListIconNotSelected");
-                    console.log("wishList.getItems(): ", wishList.getItems());
+                    tooltipOptions.title = "Remove from Wish List";
                 }
                 else if ($(this).hasClass("wishListIconSelected")) {
                     var unwishListed = scope.infoList.items[index];
                     wishList.removeItem(unwishListed);
-
                     $(this).removeClass("wishListIconSelected").addClass("wishListIconNotSelected");
-                    console.log("wishList.getItems: ", wishList.getItems());
+                    tooltipOptions.title = "Add to Wish List";
                 }
-
+                $(this).tooltip("hide")
+                    .attr("data-original-title", tooltipOptions.title)
+                    .tooltip("fixTitle")
+                    .tooltip(tooltipOptions);
+               // console.log("wishList.getItems: ", wishList.getItems());
             });
 
             element.on("click", function(e) {
