@@ -24,33 +24,43 @@ retailerApp.factory("wishList", ["localStorageService", function(localStorageSer
     }
 
     return {
-       addItem: function(wishListed) {
+       addItem: function(category, wishListed) {
            if (typeof wishListed === "object" && wishListed.hasOwnProperty("title")) {
-               var title = wishListed.title.toLowerCase().split(/[\s]+/).join("-");
+               var id = wishListed.id;
                _itemsFromLocalStorage();
-               if (!(title in items)) {
-                   items[title] = wishListed;
+               if (!(category in items)) {
+                   items[category] = {};
+               }
+               if (!(id in items[category])) {
+                   items[category][id] = wishListed;
                    localStorageService.set("wishListItems", items);
                }
+               console.log("items: ", items);
            } else {
                console.error("addItem function parameter 'wishListed' must be an object");
            }
        },
 
-       removeItem: function(unwishListed) {
+       removeItem: function (category, unwishListed) {
            if (typeof unwishListed === "object" && unwishListed.hasOwnProperty("title")) {
                _itemsFromLocalStorage();
-               var title = unwishListed.title.toLowerCase().split(/[\s]+/).join("-");
-               if (title in items) {
-                   delete items[title];
-                   localStorageService.set("wishListItems", items);
+               var id = unwishListed.id;
+               if (category in items) {
+                   if (id in items[category]) {
+                       delete items[category][id];
+                       if (JSON.stringify(items[category]) === JSON.stringify({})) {
+                           delete items[category];
+                       }
+                       localStorageService.set("wishListItems", items);
+                   }
                }
+               console.log("items: ", items);
            }
        },
 
-       getItems: function() {
+       getItems: function(category) {
            _itemsFromLocalStorage();
-           return items;
+           return items[category] || {};
        }
    };
 }]);
@@ -193,18 +203,14 @@ retailerApp.controller('MainCtrl', ['$scope', '$http', '$timeout', '$location', 
             $scope.infoList.items = items.infoList.items;
             $scope.pageNumber = items.pageNumber;
             $scope.numberOfPages = items.numberOfPages;
-            var wishListItems = wishList.getItems();
-            $scope.inWishList = function(title) {
-                var normalizedTitle = title.toLowerCase().split(/[\s]+/).join("-");
-                if (normalizedTitle in wishListItems) {
-                    return true;
-                }
-                return false;
-            }
         });
         $scope.currentCategory = items.currentCategory;
     });
 
+    var wishListItems = wishList.getItems(items.currentCategory);
+    $scope.inWishList = function(id) {
+        return id in wishListItems;
+    };
 
     /* Sets the category to be displayed */
     $scope.setCategory = function(category) {
@@ -238,6 +244,7 @@ retailerApp.controller('MainCtrl', ['$scope', '$http', '$timeout', '$location', 
     $scope.setPageNumber = function(number) {
         $scope.pageNumber = number;
         $location.path("jewelry/" + $scope.pageNumber + "/" + $scope.currentCategory);
+        $("body, html").animate({scrollTop: 0}, 0);
     };
 
     /* Loop through all text properties of all items looking for an exact regex match to searchTerms.
@@ -459,7 +466,7 @@ retailerApp.directive("grid", ["selectedItem", "wishList", "$location", function
         link: function(scope, element) {
             var $wishListIcon = $(element.find(".wishListIcon")[0]);
             var tooltipOptions = {
-                'delay': {"show": 1500, "hide": 100},
+                'delay': {"show": 1100, "hide": 100},
                 'title': "Add to Wish List"
             };
 
@@ -480,18 +487,18 @@ retailerApp.directive("grid", ["selectedItem", "wishList", "$location", function
 
             $wishListIcon.on("click", function(e) {
                 e.stopPropagation();
-                console.log("scope.currentCategory: ", scope.currentCategory);
+              //  console.log("scope.currentCategory: ", scope.currentCategory);
                 var index = +$(element.children()[0]).context.id;
 
                 if ($(this).hasClass("wishListIconNotSelected")) {
                     var wishListed = scope.infoList.items[index];
-                    wishList.addItem(wishListed);
+                    wishList.addItem(scope.currentCategory, wishListed);
                     $(this).addClass("wishListIconSelected").removeClass("wishListIconNotSelected");
                     tooltipOptions.title = "Remove from Wish List";
                 }
                 else if ($(this).hasClass("wishListIconSelected")) {
                     var unwishListed = scope.infoList.items[index];
-                    wishList.removeItem(unwishListed);
+                    wishList.removeItem(scope.currentCategory, unwishListed);
                     $(this).removeClass("wishListIconSelected").addClass("wishListIconNotSelected");
                     tooltipOptions.title = "Add to Wish List";
                 }
@@ -499,7 +506,7 @@ retailerApp.directive("grid", ["selectedItem", "wishList", "$location", function
                     .attr("data-original-title", tooltipOptions.title)
                     .tooltip("fixTitle")
                     .tooltip(tooltipOptions);
-               // console.log("wishList.getItems: ", wishList.getItems());
+              //  console.log("wishList.getItems: ", wishList.getItems(scope.currentCategory));
             });
 
             element.on("click", function(e) {
