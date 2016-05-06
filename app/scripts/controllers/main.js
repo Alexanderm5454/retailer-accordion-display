@@ -14,6 +14,14 @@ retailerApp.factory("selectedItem", function() {
     return {"data": {}};
 });
 
+retailerApp.factory("urlPath", ["$location", function($location) {
+
+    return {
+
+    };
+}]);
+
+
 retailerApp.factory("wishList", ["localStorageService", function(localStorageService) {
     var items = {};
 
@@ -24,8 +32,9 @@ retailerApp.factory("wishList", ["localStorageService", function(localStorageSer
     }
 
     return {
-       addItem: function(category, wishListed) {
-           if (typeof wishListed === "object" && wishListed.hasOwnProperty("title")) {
+       addItem: function(wishListed, category) {
+           /* Adds an item to wishListItems items under its corresponding category */
+           if (typeof wishListed === "object" && wishListed.hasOwnProperty("id")) {
                var id = wishListed.id;
                _itemsFromLocalStorage();
                if (!(category in items)) {
@@ -41,8 +50,10 @@ retailerApp.factory("wishList", ["localStorageService", function(localStorageSer
            }
        },
 
-       removeItem: function (category, unwishListed) {
-           if (typeof unwishListed === "object" && unwishListed.hasOwnProperty("title")) {
+       removeItem: function(unwishListed, category) {
+           /* Removes an item from wishListItems and if its corresponding category
+            * is an empty object the category is removed as well */
+           if (typeof unwishListed === "object" && unwishListed.hasOwnProperty("id")) {
                _itemsFromLocalStorage();
                var id = unwishListed.id;
                if (category in items) {
@@ -51,9 +62,21 @@ retailerApp.factory("wishList", ["localStorageService", function(localStorageSer
                        if (JSON.stringify(items[category]) === JSON.stringify({})) {
                            delete items[category];
                        }
-                       localStorageService.set("wishListItems", items);
+                   }
+               } else if (!category){
+                   for (var cat in items) {
+                       if (items.hasOwnProperty(cat)) {
+                           if (id in items[cat]) {
+                               delete items[cat][id];
+                               if (JSON.stringify(items[cat]) === JSON.stringify({})) {
+                                   delete items[cat];
+                               }
+                               break;
+                           }
+                       }
                    }
                }
+               localStorageService.set("wishListItems", items);
                console.log("items: ", items);
            }
        },
@@ -97,12 +120,15 @@ retailerApp.factory("items", ['$http', "$location", function($http, $location) {
         numberOfPages: 1,
 
         init: function(callback) {
+            /* On a new session we make an ajax call for the top level categories
+            *  if it's a continuation of a session top level categories are retrieved from sessionStorage */
             if (!sessionStorage.getItem("categories")) {
                 var self = this;
                 $http.get('/scripts/json/categories.json').
                     then(function(response) {
                         console.log("GOT DATA");
                         self.categories = response.data.categories;
+                        /* categories is an array; it is saved as a string in sessionStorage */
                         sessionStorage.setItem("categories", self.categories);
                         if (callback && typeof callback === 'function') {
                             callback();
@@ -112,6 +138,7 @@ retailerApp.factory("items", ['$http', "$location", function($http, $location) {
                     }
                 );
             } else {
+                /* sessionStorage stores data a string so its data must be converted to an array */
                 this.categories = sessionStorage.getItem("categories").split(",");
                 if (callback && typeof callback === 'function') {
                     callback();
@@ -216,6 +243,7 @@ retailerApp.controller('MainCtrl', ['$scope', '$http', '$timeout', '$location', 
     $scope.setCategory = function(category) {
         $scope.pageNumber = 0;
         $location.path("jewelry/" + $scope.pageNumber + "/" + category);
+        $("body, html").animate({scrollTop: 0}, 0);
     };
 
 
@@ -466,7 +494,7 @@ retailerApp.directive("grid", ["selectedItem", "wishList", "$location", function
         link: function(scope, element) {
             var $wishListIcon = $(element.find(".wishListIcon")[0]);
             var tooltipOptions = {
-                'delay': {"show": 1100, "hide": 100},
+                'delay': {"show": 400, "hide": 100},
                 'title': "Add to Wish List"
             };
 
@@ -492,13 +520,13 @@ retailerApp.directive("grid", ["selectedItem", "wishList", "$location", function
 
                 if ($(this).hasClass("wishListIconNotSelected")) {
                     var wishListed = scope.infoList.items[index];
-                    wishList.addItem(scope.currentCategory, wishListed);
+                    wishList.addItem(wishListed, scope.currentCategory);
                     $(this).addClass("wishListIconSelected").removeClass("wishListIconNotSelected");
                     tooltipOptions.title = "Remove from Wish List";
                 }
                 else if ($(this).hasClass("wishListIconSelected")) {
                     var unwishListed = scope.infoList.items[index];
-                    wishList.removeItem(scope.currentCategory, unwishListed);
+                    wishList.removeItem(unwishListed, scope.currentCategory);
                     $(this).removeClass("wishListIconSelected").addClass("wishListIconNotSelected");
                     tooltipOptions.title = "Add to Wish List";
                 }

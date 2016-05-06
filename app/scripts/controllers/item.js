@@ -53,8 +53,10 @@ retailerApp.controller('ItemCtrl', ["$scope", "$location", "selectedItem", "item
             items.init(function () {
                 $scope.categories = items.categories;
                 items.setItems(function () {
-                    var path = parseInt($location.path().split("/")[5], 10),
+                    var fullPath = $location.path().split("/"),
+                        path = parseInt(fullPath[fullPath.length-1], 10),
                         index = -1;
+                    console.log("path: ", path);
                     for (var i = 0, len = items.infoList.items.length; i < len; i++) {
                         if (path === i) {
                             index = i;
@@ -65,10 +67,8 @@ retailerApp.controller('ItemCtrl', ["$scope", "$location", "selectedItem", "item
                 });
             });
         } else {
-            items.init(function () {
-                $scope.categories = items.categories;
-                $("body, html").animate({scrollTop: 0}, 0);
-            });
+            $scope.categories = items.categories;
+            $("body, html").animate({scrollTop: 0}, 0);
         }
     };
 

@@ -28,15 +28,13 @@
     -->
     <span class="categoryTitle">{{ currentCategory | firstLetterCaps }}</span>
     <ul class="navContainer">
-        NAV CONTAINER
+        Jewelry
         <li class="category" ng-click="setCategory(category)" ng-repeat="category in main.categories">
             {{ category | firstLetterCaps }}
         </li>
-        <li ng-click="switchView('cart')">Shopping Cart:
+        <a href="#/jewelry/wish-list"><li class="category">Wish List</li></a>
+        <li>Shopping Cart:
             {{ cartItemsLength || "Empty" }}
-        </li>
-        <li ng-click="switchView('compare')">Compare:
-            {{ compareItemsLength }}
         </li>
         <li><p class="searchText">Sort/Search</p>
             <div>

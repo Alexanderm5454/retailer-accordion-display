@@ -1,10 +1,36 @@
-<!DOCTYPE html>
-<html>
-<head lang="en">
-    <meta charset="UTF-8">
-    <title></title>
-</head>
-<body>
+<div class="container" ng-init="loadWishList()">
+    <span class="categoryTitle">Wish List</span>
+    <ul class="navContainer">
+        Jewelry
+        <li class="category" ng-click="setCategory(category)" ng-repeat="category in categories">
+            {{ category | firstLetterCaps }}
+        </li>
+        <a href="#/jewelry/wish-list"><li class="category">Wish List</li></a>
+        <li>Shopping Cart:
+            {{ cartItemsLength || "Empty" }}
+        </li>
+        <li><p class="searchText">Sort/Search</p>
+            <div>
+                <span ng-click="sortItemsByPrice('low')">Price Low</span>
+                <span ng-click="sortItemsByPrice('high')">Price High</span>
+            </div>
+            <form class="form-search">
+               <div class="input-append">
+                    <input placeholder="Search" type="text" class="span2 search-query" ng-model="searchTerms">
+                    <button class="btn btn-default glyphicon glyphicon-search" ng-click="searchItems()"></button>
+                </div>
+            </form>
+        </li>
+    </ul>
 
-</body>
-</html>
+    <div class="gridDisplay">
+        <span class="pageNavContainer">
+        </span>
+        <span class="gridItemWrapper" ng-repeat="item in infoList.items track by $index">
+            <wish-list-item></wish-list-item>
+        </span>
+    </div>
+
+
+
+</div>

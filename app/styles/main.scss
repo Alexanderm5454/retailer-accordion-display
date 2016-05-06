@@ -14,7 +14,6 @@ $compare-color: rgb(77, 85, 91);
 {
   height: 40px;
   background-color: rgba(50, 50, 50, 1);
-  margin-bottom: 20px;
   padding: 9px 5px 0 5px;
   border-radius: 2px;
   color: rgba(255, 255, 255, 1);
@@ -156,11 +155,14 @@ $compare-color: rgb(77, 85, 91);
 .categoryTitle
 {
   position: absolute;
-  top: 150px;
-  left: 15%;
+  top: 73px;
+  left: 0%;
+  width: 100%;
+  text-align: center;
   font-family: $font;
-  font-size: 35px;
-  text-decoration: underline overline;
+  font-size: 39px;
+  color: rgba(130, 130, 130, 1);
+  background-color: rgba(26, 41, 58, 0.05);
 }
 
 .navContainer
@@ -184,7 +186,7 @@ $compare-color: rgb(77, 85, 91);
 .gridDisplay
 {
   position: relative;
-  top: 83px;
+  top: 91px;
   left: 5%;
   min-width: 80%;
   min-height: 800px;
@@ -233,10 +235,10 @@ $compare-color: rgb(77, 85, 91);
   max-width: 20%;
   height: 200px;
   display: inline-block;
+  cursor: pointer;
 
   img
   {
-    cursor: pointer;
     background-color: rgba(26, 41, 58, 0.05);
     border: 2px solid rgba(255, 255, 255, 0);
     border-radius: 2px;
@@ -260,7 +262,8 @@ $compare-color: rgb(77, 85, 91);
   height: 20px;
   left: 10px;
   top: -41px;
-  font-family: "Optima";
+  font-family: $font;
+  color: rgba(90, 90, 90, 1);
   font-size: 13px;
   margin: 0;
   padding: 0;
@@ -275,11 +278,53 @@ $compare-color: rgb(77, 85, 91);
   left: 10px;
   top: -48px;
   font-family: $font;
+  color: rgba(110, 110, 110, 1);
+  font-size: 13px;
+}
 
+.wishListItem
+{
+  @extend .gridItem;
+  margin-top: 32px;
+  img {
+    padding-bottom: 100px;
+  }
+}
+
+.wishListTitle
+{
+  @extend .gridItemTitle;
+  top: -100px;
+}
+
+.wishListPrice
+{
+  @extend .gridItemPrice;
+  top: -109px;
+}
+
+.removeFromWishList
+{
+  display: inline-block;
+  position: relative;
+  top: -94px;
+  left: 48px;
+  border: solid 1px;
+  padding: 7px 25px;
+  transition: .5s;
+}
+
+.removeFromWishList:hover
+{
+  background-color: #b42525; /* rgba(26, 41, 58, 0.72); */
+  color: white;
+  cursor: pointer;
 }
 
 .gridImageLarge
 {
+  position: absolute;
+  top: 216px;
   max-height: 400px;
 }
 
@@ -297,11 +342,9 @@ $compare-color: rgb(77, 85, 91);
 
 .itemTitle
 {
-  position: absolute;
-  top: 155px;
-  left: 650px;
-  font-family: $font;
-  font-size: 20px;
+  @extend .categoryTitle;
+  position: static;
+  font-size: 30px;
 }
 
 .pageNavContainer

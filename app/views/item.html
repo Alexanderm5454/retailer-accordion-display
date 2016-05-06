@@ -3,12 +3,13 @@
         <span class="category" ng-click="setCategory(category)" ng-repeat="category in categories">
             {{ category | firstLetterCaps }}
         </span>
+        <a href="#/jewelry/wish-list"><span class="category">Wish List</span></a>
     </div>
 <div class="itemContainer" ng-init="loadItem()">
+    <div class="itemTitle">{{ item.title }}</div>
     <div class="gridImageLargeContainer">
         <img class="gridImageLarge" src="{{ item.image }}">
     </div>
-    <span class="itemTitle">{{ item.title }}</span>
 
     <span>{{ item.description }}</span>
     <br />

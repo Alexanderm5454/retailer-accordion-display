@@ -1,10 +1,6 @@
-<!DOCTYPE html>
-<html>
-<head lang="en">
-    <meta charset="UTF-8">
-    <title></title>
-</head>
-<body>
-
-</body>
-</html>
+<span id="{{ $index }}" class="wishListItem">
+    <img class="gridImageSmall" ng-src="{{ item.imageThumb }}" />
+     <span class="wishListTitle">{{ item.title }}</span>
+    <span class="wishListPrice">{{ item.price | currency:$ }}</span>
+    <span class="removeFromWishList btn btn-default">Remove</span>
+</span>

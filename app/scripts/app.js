@@ -35,6 +35,14 @@ angular
         templateUrl: 'views/item.html',
         controller: 'ItemCtrl'
       })
+      .when('/jewelry/wish-list/:itemPath/:index', {
+        templateUrl: 'views/item.html',
+        controller: 'ItemCtrl'
+      })
+      .when('/jewelry/wish-list' , {
+        templateUrl: 'views/wish-list.html',
+        controller: "wishListCtrl"
+        })
       .when('/about', {
         templateUrl: 'views/about.html',
         controller: 'AboutCtrl',
