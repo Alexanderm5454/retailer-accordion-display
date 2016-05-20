@@ -1,4 +1,7 @@
 # robotstxt.org
 
 User-agent: *
+<<<<<<< HEAD
 Disallow:
+=======
+>>>>>>> 0e6870f471f213539f6832a88d0e5bf929fc8237
