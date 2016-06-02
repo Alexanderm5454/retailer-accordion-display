@@ -36,12 +36,13 @@
             <a class="navbar-brand" href="#/">retailer</a>
           </div>
 
-          <div class="collapse navbar-collapse" id="js-navbar-collapse">
+          <div ng-controller="navController" class="collapse navbar-collapse" id="js-navbar-collapse">
+              <nav-menu></nav-menu>
+              <ul class="nav navbar-nav secondaryNavbar">
+                  <li class="active"><a href="#/about">About</a></li>
+                  <li class="active"><a href="#/jewelry/wish-list">Wish List</a></li>
+              </ul>
 
-            <ul class="nav navbar-nav">
-              <li class="active"><a href="#/jewelry/0/earrings">Jewelry</a></li>
-              <li class="active"><a href="#/about">About</a></li>
-            </ul>
           </div>
         </div>
       </div>
@@ -86,6 +87,7 @@
         <!-- build:js({.tmp,app}) scripts/scripts.js -->
         <script src="scripts/app.js"></script>
         <script src="scripts/controllers/main.js"></script>
+        <script src="scripts/controllers/nav.js"></script>
         <script src="scripts/controllers/item.js"></script>
         <script src="scripts/controllers/wishList.js"></script>
         <script src="scripts/controllers/about.js"></script>

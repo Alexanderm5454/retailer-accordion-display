@@ -1,6 +1,7 @@
 'use strict';
 
 /**
+ * @author Alexander Markowski
  * @ngdoc function
  * @name retailerApp.controller:MainCtrl
  * @description
@@ -9,21 +10,35 @@
  */
 var retailerApp = angular.module('retailerApp');
 
+retailerApp.value("itemsPerPage", 15);
+retailerApp.value("baseUrl", 'jewelry');
+
+retailerApp.factory("urlPath", ["$location", "baseUrl", "itemsPerPage", function($location, baseUrl, itemsPerPage) {
+    return {
+        loadItemPage: function(item) {
+            var index = item.index,
+                pageNumber = 0;
+
+            if (index >= itemsPerPage) {
+                pageNumber = Math.ceil((index + 1) / itemsPerPage) - 1;
+                index = item.index - (itemsPerPage * pageNumber);
+            }
+            $location.path([baseUrl, pageNumber, item.category, item.slug, index].join("/"));
+        }
+    };
+
+}]);
 
 retailerApp.factory("selectedItem", function() {
     return {"data": {}};
 });
 
-retailerApp.factory("urlPath", ["$location", function($location) {
-
-    return {
-
-    };
-}]);
 
 
 retailerApp.factory("wishList", ["localStorageService", function(localStorageService) {
     var items = {};
+    /* items.wishListArray is used to output wish listed items in the order they were selected */
+    items.wishListArray = [];
 
     function _itemsFromLocalStorage() {
         if (localStorageService.get("wishListItems")) {
@@ -32,16 +47,18 @@ retailerApp.factory("wishList", ["localStorageService", function(localStorageSer
     }
 
     return {
-       addItem: function(wishListed, category) {
+       addItem: function(wishListed) {
            /* Adds an item to wishListItems items under its corresponding category */
            if (typeof wishListed === "object" && wishListed.hasOwnProperty("id")) {
-               var id = wishListed.id;
+               var id = wishListed.id,
+                   category = wishListed.category;
                _itemsFromLocalStorage();
                if (!(category in items)) {
                    items[category] = {};
                }
                if (!(id in items[category])) {
                    items[category][id] = wishListed;
+                   items.wishListArray.push(wishListed);
                    localStorageService.set("wishListItems", items);
                }
                console.log("items: ", items);
@@ -50,12 +67,13 @@ retailerApp.factory("wishList", ["localStorageService", function(localStorageSer
            }
        },
 
-       removeItem: function(unwishListed, category) {
+       removeItem: function(unwishListed) {
            /* Removes an item from wishListItems and if its corresponding category
             * is an empty object the category is removed as well */
            if (typeof unwishListed === "object" && unwishListed.hasOwnProperty("id")) {
                _itemsFromLocalStorage();
-               var id = unwishListed.id;
+               var id = unwishListed.id,
+                   category = unwishListed.category;
                if (category in items) {
                    if (id in items[category]) {
                        delete items[category][id];
@@ -63,18 +81,16 @@ retailerApp.factory("wishList", ["localStorageService", function(localStorageSer
                            delete items[category];
                        }
                    }
-               } else if (!category){
-                   for (var cat in items) {
-                       if (items.hasOwnProperty(cat)) {
-                           if (id in items[cat]) {
-                               delete items[cat][id];
-                               if (JSON.stringify(items[cat]) === JSON.stringify({})) {
-                                   delete items[cat];
-                               }
-                               break;
-                           }
-                       }
+               }
+               var deleteIndex = -1;
+               for (var i = 0, len = items.wishListArray.length; i < len; i++) {
+                   if (items.wishListArray[i].title === unwishListed.title) {
+                       deleteIndex = i;
+                       break;
                    }
+               }
+               if (deleteIndex !== -1) {
+                   items.wishListArray.splice(deleteIndex, 1);
                }
                localStorageService.set("wishListItems", items);
                console.log("items: ", items);
@@ -84,20 +100,25 @@ retailerApp.factory("wishList", ["localStorageService", function(localStorageSer
        getItems: function(category) {
            _itemsFromLocalStorage();
            return items[category] || {};
+       },
+
+       getArrayItems: function() {
+           _itemsFromLocalStorage();
+           return items.wishListArray || [];
        }
    };
 }]);
 
-retailerApp.factory("items", ['$http', "$location", function($http, $location) {
+retailerApp.factory("items", ['$http', "$location", "itemsPerPage", "baseUrl", function($http, $location, itemsPerPage, baseUrl) {
 
     var allItems = {};
 
     /* Items associated with specific categories are
      * in files named as that category.
      * Array of category objects are placed in object
-     * allItems as {'categoryName': 'arrayOfCategoryItems'} */
+     * allItems as {'categoryName': 'arrayOfCategoryItems'}
+     */
     function _getCategoryItems(category, callback) {
-        console.log("Got category items");
         var categoryFile = category + '.json';
         $http.get('/scripts/json/' + categoryFile).
             then(function(response) {
@@ -113,9 +134,10 @@ retailerApp.factory("items", ['$http', "$location", function($http, $location) {
 
     return {
         currentCategory: "",
+        currentSubCategory: "",
         categories: [],
         infoList: {items: []},
-        itemsPerPage: 15,
+        itemsPerPage: itemsPerPage,
         pageNumber: 0,
         numberOfPages: 1,
 
@@ -126,7 +148,6 @@ retailerApp.factory("items", ['$http', "$location", function($http, $location) {
                 var self = this;
                 $http.get('/scripts/json/categories.json').
                     then(function(response) {
-                        console.log("GOT DATA");
                         self.categories = response.data.categories;
                         /* categories is an array; it is saved as a string in sessionStorage */
                         sessionStorage.setItem("categories", self.categories);
@@ -146,7 +167,11 @@ retailerApp.factory("items", ['$http', "$location", function($http, $location) {
             }
         },
 
-        setItems: function(callback) {
+        /* Gets the category from $location.path(), checks if category from
+         * $location.path() matches a category in categories from the ajax call or sessionStorage,
+         * then the items to be displayed are set to this.infoList.items  */
+        setItems: function(categories, callback) {
+            this.categories = categories;
             if ($location.path()) {
                 var path = $location.path().split("/"),
                     categoryPath = path[3];
@@ -156,14 +181,33 @@ retailerApp.factory("items", ['$http', "$location", function($http, $location) {
                         break;
                     }
                 }
-                var self = this;
-                var display = function() {
-                    self.infoList.items.length = 0;
-                    var sliceFrom = 0,
-                        sliceTo = self.itemsPerPage,
-                        pathPageNumber = parseInt(path[2], 10);
 
-                    self.numberOfPages = Math.ceil(allItems[self.currentCategory].length / self.itemsPerPage);
+                var self = this;
+                var display = function () {
+                    self.infoList.items.length = 0;
+                    var sliceFrom,
+                        sliceTo,
+                        pathPageNumber = parseInt(path[2], 10),
+                        currentItems = allItems[self.currentCategory];
+
+                    if (path.length === 5) {
+                        var tempItems = [];
+                        self.currentSubCategory = path[4];
+                        for (var m = 0, len_m = currentItems.length; m < len_m; m++) {
+                            if (currentItems[m].sub_categories) {
+                                for (var n = 0, len_n = currentItems[m].sub_categories.length; n < len_n; n++) {
+                                    if (currentItems[m].sub_categories[n] === self.currentSubCategory) {
+                                        tempItems.push(currentItems[m]);
+                                    }
+                                }
+                            }
+                        }
+                        currentItems = tempItems;
+                    } else {
+                        self.currentSubCategory = '';
+                    }
+
+                    self.numberOfPages = Math.ceil(currentItems.length / self.itemsPerPage);
 
                     for (var j = 0, len_j = self.numberOfPages; j < len_j; j++) {
                         if (pathPageNumber === j) {
@@ -173,7 +217,7 @@ retailerApp.factory("items", ['$http', "$location", function($http, $location) {
                     }
                     sliceFrom = self.pageNumber * self.itemsPerPage;
                     sliceTo = sliceFrom + self.itemsPerPage;
-                    self.infoList.items = allItems[self.currentCategory].slice(sliceFrom, sliceTo);
+                    self.infoList.items = currentItems.slice(sliceFrom, sliceTo);
                     if (callback && typeof callback === 'function') {
                         callback();
                     }
@@ -183,7 +227,7 @@ retailerApp.factory("items", ['$http', "$location", function($http, $location) {
                     display();
                 } else {
                     if (this.currentCategory === '') {
-                        $location.path("jewelry/" + this.categories[0]);
+                        $location.path([baseUrl, this.categories[0]].join("/"));
                     }
                     _getCategoryItems(this.currentCategory, display);
                 }
@@ -195,44 +239,29 @@ retailerApp.factory("items", ['$http', "$location", function($http, $location) {
 }]);
 
 
-retailerApp.controller('MainCtrl', ['$scope', '$http', '$timeout', '$location', 'localStorageService', "items", "wishList",
-    function($scope, $http, $timeout, $location, localStorageService, items, wishList) {
-    var vm = this;
-    vm.categories = [];
+retailerApp.controller('MainCtrl', ['$scope', '$http', '$timeout', '$location', 'localStorageService', "categoryData", "items", "wishList", "baseUrl",
+    function($scope, $http, $timeout, $location, localStorageService, categoryData, items, wishList, baseUrl) {
+  //  $scope.categories = [];
+    $scope.subCategories = [];
     $scope.currentCategory = '';
-    /*
-    $scope.currentItem = "";
-    $scope.categoryHolder = '';
-    $scope.allItems = {};
-    */
-        $scope.infoList = {
+    $scope.currentSubCategory = '';
+    $scope.infoList = {
          items: []
      };
-    /*
-    $scope.holderInfoList = [];
-    $scope.searchTerms = '';
-    $scope.compareItems = [];
-    $scope.holderCompareItems = [];
-    $scope.cartItems = [];
-    $scope.cartItemsLength = $scope.cartItems.length;
-    $scope.compareItemsLength = $scope.compareItems.length;
-    $scope.grandTotal = 0;
-    */
     $scope.pageNumber = 0;
     $scope.numberOfPages = 1;
     $scope.showPageNumbers = false;
 
 
-
-    items.init(function() {
-       vm.categories = items.categories;
-       items.setItems(function() {
-            $scope.infoList.items = items.infoList.items;
-            $scope.pageNumber = items.pageNumber;
-            $scope.numberOfPages = items.numberOfPages;
-        });
-        $scope.currentCategory = items.currentCategory;
+    items.setItems(categoryData.categories, function() {
+        $scope.infoList.items = items.infoList.items;
+        $scope.pageNumber = items.pageNumber;
+        $scope.numberOfPages = items.numberOfPages;
     });
+    $scope.currentCategory = items.currentCategory;
+    $scope.currentSubCategory = items.currentSubCategory;
+    $scope.subCategories = categoryData.categoriesAndSubs[$scope.currentCategory];
+
 
     var wishListItems = wishList.getItems(items.currentCategory);
     $scope.inWishList = function(id) {
@@ -242,8 +271,12 @@ retailerApp.controller('MainCtrl', ['$scope', '$http', '$timeout', '$location', 
     /* Sets the category to be displayed */
     $scope.setCategory = function(category) {
         $scope.pageNumber = 0;
-        $location.path("jewelry/" + $scope.pageNumber + "/" + category);
+        $location.path([baseUrl, $scope.pageNumber, category].join("/"));
         $("body, html").animate({scrollTop: 0}, 0);
+    };
+
+    $scope.setSubCategory = function(subCategory) {
+        $location.path([baseUrl, 0, $scope.currentCategory, subCategory].join("/"));
     };
 
 
@@ -258,7 +291,7 @@ retailerApp.controller('MainCtrl', ['$scope', '$http', '$timeout', '$location', 
             pageNumberChange = true;
         }
         if (pageNumberChange === true) {
-            $location.path("jewelry/" + $scope.pageNumber + "/" + $scope.currentCategory);
+            $location.path([baseUrl, $scope.pageNumber, $scope.currentCategory].join("/"));
             $("body, html").animate({scrollTop: 0}, 0);
         }
     };
@@ -271,176 +304,10 @@ retailerApp.controller('MainCtrl', ['$scope', '$http', '$timeout', '$location', 
 
     $scope.setPageNumber = function(number) {
         $scope.pageNumber = number;
-        $location.path("jewelry/" + $scope.pageNumber + "/" + $scope.currentCategory);
+        $location.path([baseUrl, $scope.pageNumber, $scope.currentCategory].join("/"));
         $("body, html").animate({scrollTop: 0}, 0);
     };
 
-    /* Loop through all text properties of all items looking for an exact regex match to searchTerms.
-     * If no exact match is found loop though title and and description with each
-     * individual word in in searchTerms */
-     /*
-     $scope.searchItems = function() {
-        if ($scope.categoryHolder) {
-            $scope.currentCategory = $scope.categoryHolder;
-        }
-        if ($scope.searchTerms.length > 1 && $scope.searchTerms !== '') {
-            var searchTerms = $scope.searchTerms.trim(),
-                exactTerms = new RegExp(searchTerms, 'i'),
-                ws = /[\s]+/,
-                words = [],
-                infoListObj;
-            if ($scope.holderInfoList.length === 0) {
-                for (var c = 0, len_c = vm.categories.length; c < len_c; c++) {
-                    var tempItems = $scope.allItems[vm.categories[c]];
-                    $scope.holderInfoList = $scope.holderInfoList.concat(tempItems);
-                }
-            }
-
-
-            words = searchTerms.split(ws);
-            $scope.infoList.items.length = 0;
-            for (var i = 0, len = $scope.holderInfoList.length; i < len; i++) {
-                infoListObj = $scope.holderInfoList[i];
-                for (var prop in infoListObj) {
-                    if (infoListObj.hasOwnProperty(prop) && prop !== 'image' && prop !== 'imageThumb' && prop !== 'id' && prop !== '$$hashKey') {
-                        if (exactTerms.test(infoListObj[prop]) && searchTerms.length > 3) {
-                            $scope.infoList.items.push(infoListObj);
-                            break;
-                        }
-                    }
-                }
-            }
-            if ($scope.infoList.items.length === 0) {
-                for (var j = 0, len_j = $scope.holderInfoList.length; j < len_j; j++) {
-                    infoListObj = $scope.holderInfoList[i];
-                    for (var prop_j in infoListObj) {
-                        if (infoListObj.hasOwnProperty(prop_j) && prop_j !== 'image' && prop_j !== 'imageThumb'  && prop_j !== 'id' && prop_j !== '$$hashKey' && prop_j !== 'content') {
-                            for (var n = 0, len_n = words.length; n < len_n; n++) {
-                                var word = new RegExp(words[n], 'i');
-                                if (word.test(infoListObj[prop_j])) {
-                                    $scope.infoList.items.push(infoListObj);
-                                    break;
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-            $scope.categoryHolder = $scope.currentCategory;
-            $scope.currentCategory = 'Search Results: ' + searchTerms;
-        }
-    };
-
-    $scope.$watch('searchTerms.length', function() {
-        if ($scope.searchTerms.length === 0 && $scope.holderInfoList.length > 0) {
-            $scope.infoList.items.length = 0;
-            vm.setCategory($scope.categoryHolder);
-        }
-    });
-
-    $scope.$watch('compareItems.length', function() {
-       $scope.compareItemsLength = $scope.compareItems.length;
-    });
-
-    $scope.$watch('cartItems.length', function() {
-       $scope.cartItemsLength = $scope.cartItems.length;
-    });
-    */
-
-    /* Add an item to the shopping cart and update grandTotal*/
-    /*
-    $scope.addToCart = function(item) {
-        item.inCart = true;
-        var inArray = false;
-        for (var i = 0, len=$scope.cartItems.length; i<len; i++) {
-            if (item.id === $scope.cartItems[i].id) {
-                inArray = true;
-            }
-        }
-        if (inArray === false) {
-            $scope.grandTotal += item.price;
-            $scope.cartItems.push(item);
-        }
-    };
-    */
-    /* Remove item from the shopping cart and update grandTotal  */
-    /*
-    $scope.removeFromCart = function(item) {
-        for (var i = 0, len=$scope.cartItems.length; i<len; i++) {
-            if (item === $scope.cartItems[i]) {
-                $scope.grandTotal -= item.price;
-                $scope.cartItems.splice(i, 1);
-                item.inCart = false;
-            }
-        }
-    };
-    */
-
-    /* Add an item to be compared */
-    /*
-    $scope.addCompare = function(item) {
-        var inArray = false;
-        for (var i = 0, len=$scope.compareItems.length; i<len; i++) {
-            if (item.id === $scope.compareItems[i].id) {
-                inArray = true;
-            }
-        }
-        if (inArray === false) {
-            $scope.compareItems.push(item);
-        }
-    };
-    */
-    /* Remove Item from compareItems and update compare view accordingly */
-    /*
-    $scope.removeCompare = function(item) {
-        var compareElements = $('.compareDisplay li'),
-            compareWidth = $(compareElements[0]).width(),
-            compareIndex;
-        for (var i = 0, len=$scope.compareItems.length; i<len; i++) {
-            if (item === $scope.compareItems[i]) {
-                compareIndex = i;
-                $(compareElements[compareIndex]).hide();
-                $scope.compareItems.splice(compareIndex, 1);
-                break;
-            }
-        }
-        if (typeof compareIndex !== 'undefined') {
-            var key = 0;
-            angular.forEach(compareElements, function(element) {
-                if (element !== compareElements[compareIndex]) {
-                    var left = key * (compareWidth + 25);
-                    $(element).css({'left': left + 'px'});
-                    key++;
-                }
-            });
-        }
-    };
-    */
-    /* jQuery in used to manipulate/animate the view to simplify controller logic
-      * and to reduce the number of directives in the markup */
-
-      /*
-      $scope.switchView = function(view) {
-        if (view === 'compare') {
-            if ($scope.compareItems.length > 0) {
-                $('.collapsibleDisplay').hide();
-                $('.shoppingCartDisplay').hide();
-                $('.sortItems').hide();
-                $('.compareDisplay').show();
-                $('.showItems').show();
-                $('body, html').animate({'scrollTop': 0}, 0);
-            }
-        }
-        else if (view === 'cart') {
-            $('.compareDisplay').hide();
-            $('.collapsibleDisplay').hide();
-            $('.shoppingCartDisplay').show();
-            $('.sortItems').hide();
-            $('.showItems').show();
-            $('body, html').animate({'scrollTop': 0}, 0);
-        }
-    };
-    */
 
     /* Sorts only items currently in infoList.items, i.e. what is currently in view */
     $scope.sortItemsByPrice = function(order) {
@@ -463,31 +330,8 @@ retailerApp.controller('MainCtrl', ['$scope', '$http', '$timeout', '$location', 
 
 }]);
 
-retailerApp.directive("scroll", function($window, $document) {
-   return function(scope, element, attrs) {
-       var body = $("body"),
-           collapsibleDisplay = $(".collapsibleDisplay"),
-           collapsibleDisplayHeight = 0;
-
-       angular.element($window).bind("scroll", function() {
-
-           if (this.pageYOffset + collapsibleDisplayHeight >= this.innerHeight) {
-               console.log("Bottom Reached");
-               collapsibleDisplayHeight = 0;
-               var numberOfItems = scope.infoList.items.length;
-               console.log("numberOfItems: ", numberOfItems);
-               scope.infoList.items = scope.allItems[scope.currentCategory].slice(0, numberOfItems + 2);
-               scope.$apply();
-               //collapsibleDisplayHeight = collapsibleDisplay.height();
-           } else {
-               collapsibleDisplayHeight = collapsibleDisplay.height();
-           }
-       });
-   }
-});
-
-
-retailerApp.directive("grid", ["selectedItem", "wishList", "$location", function(selectedItem, wishList, $location) {
+/* Creates an item to be displayed on a category page */
+retailerApp.directive("grid", ["selectedItem", "wishList", "urlPath", function(selectedItem, wishList, urlPath) {
     return {
         restrict: 'E',
         templateUrl: "views/grid.html",
@@ -498,7 +342,7 @@ retailerApp.directive("grid", ["selectedItem", "wishList", "$location", function
                 'title': "Add to Wish List"
             };
 
-
+            /* Displays add the add/remove to/from wish list icon and determines which tooltip to display */
             element.on("mouseover", function () {
                 var wishListIcon = element.find(".wishListIcon")[0];
                 wishListIcon.style.visibility = "visible";
@@ -512,21 +356,20 @@ retailerApp.directive("grid", ["selectedItem", "wishList", "$location", function
                 }
             });
 
-
+            /* Adds/removes the item from the wish list and updates the add/remove to/from icon accordingly */
             $wishListIcon.on("click", function(e) {
                 e.stopPropagation();
-              //  console.log("scope.currentCategory: ", scope.currentCategory);
                 var index = +$(element.children()[0]).context.id;
 
                 if ($(this).hasClass("wishListIconNotSelected")) {
                     var wishListed = scope.infoList.items[index];
-                    wishList.addItem(wishListed, scope.currentCategory);
+                    wishList.addItem(wishListed);
                     $(this).addClass("wishListIconSelected").removeClass("wishListIconNotSelected");
                     tooltipOptions.title = "Remove from Wish List";
                 }
                 else if ($(this).hasClass("wishListIconSelected")) {
                     var unwishListed = scope.infoList.items[index];
-                    wishList.removeItem(unwishListed, scope.currentCategory);
+                    wishList.removeItem(unwishListed);
                     $(this).removeClass("wishListIconSelected").addClass("wishListIconNotSelected");
                     tooltipOptions.title = "Add to Wish List";
                 }
@@ -534,15 +377,14 @@ retailerApp.directive("grid", ["selectedItem", "wishList", "$location", function
                     .attr("data-original-title", tooltipOptions.title)
                     .tooltip("fixTitle")
                     .tooltip(tooltipOptions);
-              //  console.log("wishList.getItems: ", wishList.getItems(scope.currentCategory));
             });
 
+            /* Sets the page to the full page view of the item */
             element.on("click", function(e) {
                 e.stopPropagation();
                 scope.index = +$(element.children()[0]).context.id;
                 selectedItem.data = scope.infoList.items[scope.index];
-                scope.itemPath = selectedItem.data.title.toLowerCase().split(/[\s]+/).join("-");
-                $location.path("jewelry/" + scope.pageNumber + "/" + scope.currentCategory + "/" + scope.itemPath + "/" + scope.index);
+                urlPath.loadItemPage(selectedItem.data);
                 scope.$apply();
             });
 
@@ -550,102 +392,10 @@ retailerApp.directive("grid", ["selectedItem", "wishList", "$location", function
     };
 }]);
 
-/* This directive is responsible for creating the view of each item and uses jQuery
- * to manipulate the its presentation */
-retailerApp.directive('collapsible', ['$window', function($window) {
-    return {
-        restrict: 'E',
-        templateUrl: 'views/collapsible.html',
-        link: function(scope, element) {
-            var item = $(element.children()[0]),
-                header = item.find('.collapsibleHeader'),
-                imgThumb = item.find('.collapsibleImgSmall'),
-                imgLarge = item.find('.collapsibleImgLarge'),
-                content = item.find('.content');
-
-
-            function expand() {
-                var windowHeight = $window.outerHeight,
-                    scrollTo = header.offset().top;
-
-                imgLarge.attr('src', imgThumb.attr('src').replace('thumb_', ''));
-                imgThumb.fadeOut();
-                $('body, html').animate({scrollTop:scrollTo});
-                imgLarge.animate({opacity:1}, 800);
-                item.addClass('expand').css({'height':windowHeight});
-
-                imgLarge.on('click', zoomIn);
-                header.off('click', expand);
-                header.on('click', collapse);
-            }
-
-            function collapse() {
-                scope.currentItem = "";
-                item.removeClass('expand').css({'height':'75px', 'transition':'.8s'});
-                imgLarge.animate({'opacity':0}, 320);
-                imgThumb.delay(200).fadeIn();
-                if (imgLarge.hasClass('zoom')) {
-                   zoomOut();
-                }
-                header.on('click', expand);
-                header.off('click', collapse);
-                imgLarge.on('click', expand);
-            }
-
-            function zoomIn() {
-                imgLarge.addClass('zoom');
-                content.fadeOut();
-                imgLarge.css({'marginLeft': '12%'});
-                imgLarge.off('click', zoomIn);
-                imgLarge.on('click', zoomOut);
-            }
-
-            function zoomOut() {
-                imgLarge.css({'marginLeft': 0});
-                imgLarge.removeClass('zoom').css({'transition':'.5s'});
-                content.fadeIn();
-                imgLarge.off('click', zoomOut);
-                imgLarge.on('click', zoomIn);
-            }
-
-            header.on('click', expand);
-            imgThumb.on('click', expand);
-
-        }
-    };
-}]);
-
-
-/* This directive is responsible for creating an item to be compared */
-retailerApp.directive('compareItem', function() {
-    return {
-        restrict: 'E',
-        templateUrl: 'views/compareItem.html',
-        link: function(scope, element) {
-            var listItem = element.parent(),
-                compareWidth = listItem.width() + 25,
-                leftPos = 0;
-
-            for (var i = 0, len=scope.compareItems.length; i<len; i++) {
-                leftPos = i * compareWidth;
-            }
-            $(listItem).css({'left': leftPos});
-        }
-    };
-});
-
-
-/* This directive is responsible for creating a cartItem, i.e. an item in the shopping cart */
-retailerApp.directive('cartItem', function() {
-    return {
-        restrict: 'E',
-        templateUrl: 'views/cartItem.html'
-    };
-});
 
 
 /* Capitalizes the first letter of a string that is passed through the filter */
-retailerApp.filter('firstLetterCaps', function(){
+retailerApp.filter('firstLetterCaps', function() {
    return function(word) {
        if (word) {
            var firstLetterCaps = word.charAt(0).toUpperCase(),

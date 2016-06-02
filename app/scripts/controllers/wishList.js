@@ -2,37 +2,35 @@
 
 var retailerApp = angular.module("retailerApp");
 
-retailerApp.controller("wishListCtrl", ["$scope", "wishList", "items", "$location", function($scope, wishList, items, $location) {
+retailerApp.controller("wishListCtrl", ["$scope", "wishList", "$location", "categoryData", "baseUrl",
+    function($scope, wishList, $location, categoryData, baseUrl) {
     $scope.infoList = {items: []};
+    $scope.category = "";
+    $scope.pageNumber = 0;
 
     $scope.loadWishList = function() {
-        if (items.categories.length > 0) {
-            $scope.categories = items.categories;
-        } else {
-            items.init(function() {
-                $scope.categories = items.categories;
-            });
-        }
-
-        for (var i = 0, len = $scope.categories.length; i < len; i++) {
-            var currentWishListItems = wishList.getItems($scope.categories[i]);
-            for (var item in currentWishListItems) {
-                if (currentWishListItems.hasOwnProperty(item)) {
-                    $scope.infoList.items.push(currentWishListItems[item]);
+        var path = $location.path().split("/"),
+            tmpItemsObject = {};
+        $scope.categories = categoryData.categories;
+        if (path.length === 4) {
+            $scope.category = path[3];
+            tmpItemsObject = wishList.getItems($scope.category);
+            for (var itm in tmpItemsObject) {
+                if (tmpItemsObject.hasOwnProperty(itm)) {
+                    $scope.infoList.items.push(tmpItemsObject[itm]);
                 }
             }
+        } else {
+            $scope.infoList.items = wishList.getArrayItems();
         }
-
     };
 
     $scope.setCategory = function(category) {
-        $scope.pageNumber = 0;
-        $location.path("jewelry/" + $scope.pageNumber + "/" + category);
-        $("body, html").animate({scrollTop: 0}, 0);
+        $location.path([baseUrl, "wish-list", category].join("/"));
     };
 }]);
 
-retailerApp.directive("wishListItem", ["selectedItem", "$location", "wishList", function(selectedItem, $location, wishList) {
+retailerApp.directive("wishListItem", ["selectedItem", "$location", "wishList", "urlPath", function(selectedItem, $location, wishList, urlPath) {
     return {
         restrict: "E",
         templateUrl: "views/wishListItem.html",
@@ -44,8 +42,7 @@ retailerApp.directive("wishListItem", ["selectedItem", "$location", "wishList", 
                 e.stopPropagation();
                 scope.index = +$(element.children()[0]).context.id;
                 selectedItem.data = scope.infoList.items[scope.index];
-                scope.itemPath = selectedItem.data.title.toLowerCase().split(/[\s]+/).join("-");
-                $location.path("/jewelry/wish-list/" + scope.itemPath + "/" + scope.index);
+                urlPath.loadItemPage(selectedItem.data);
                 scope.$apply();
             });
 

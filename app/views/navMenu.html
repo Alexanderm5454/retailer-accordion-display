@@ -1,0 +1,23 @@
+<ul class="nav navbar-nav">
+    <li class="active jewelryMenu">
+        <a hre="#/jewelry/0/earrings">
+            Jewelry
+            <span class="caret"></span>
+        </a>
+    </li>
+    <span class="navCategories">
+        <ul>
+            <li ng-class="isCurrentNavCategory(category) ? 'currentNavCategory' : '' " ng-repeat="category in categories" ng-mouseover="displaySubCategories(category)" ng-click="setCategory(category)">
+               <!-- <span ng-show="isCurrentNavCategory(category)">All </span> -->
+                <span ng-class="isCurrentNavCategory(category) ? 'glyphicon glyphicon-menu-right' : '' "></span>
+                <a>{{ category | firstLetterCaps }}</a>
+               <!-- <span ng-if="category" class=" glyphicon glyphicon-menu-right"></span> -->
+            </li>
+            <span class="navSubCategories">
+                <ul>
+                    <li ng-repeat="subCategory in menuSubCategories" ng-click="setSubCategory(subCategory)"><a>{{ subCategory | firstLetterCaps }}</a></li>
+                </ul>
+            </span>
+        </ul>
+    </span>
+</ul>

@@ -1,36 +1,11 @@
 <div class="container">
-    <!--
-    <div class="categories">
-        <span class="category" ng-click="setCategory(category)" ng-repeat="category in main.categories">
-            {{ category | firstLetterCaps }}
-        </span>
-    </div>
-    -->
-    <!--
-    <span class="cartNav" ng-click="switchView('cart')">Shopping Cart:
-        {{ cartItemsLength || "Empty" }}
-    </span>
-    <span class="compareNav" ng-click="switchView('compare')">Compare:
-        {{ compareItemsLength }}
-    </span>
-    <span class="sortItems"><p class="searchText">Sort/Search</p>
-        <div>
-            <span ng-click="sortItemsByPrice('low')">Price Low</span>
-            <span ng-click="sortItemsByPrice('high')">Price High</span>
-        </div>
-        <form class="form-search">
-            <div class="input-append">
-                <input placeholder="Search" type="text" class="span2 search-query" ng-model="searchTerms">
-                <button class="btn btn-default glyphicon glyphicon-search" ng-click="searchItems()"></button>
-            </div>
-        </form>
-    </span>
-    -->
-    <span class="categoryTitle">{{ currentCategory | firstLetterCaps }}</span>
+    <span class="categoryTitle">{{ currentSubCategory || '' | firstLetterCaps }} {{ currentCategory | firstLetterCaps }}</span>
+
+
     <ul class="navContainer">
-        Jewelry
-        <li class="category" ng-click="setCategory(category)" ng-repeat="category in main.categories">
-            {{ category | firstLetterCaps }}
+        <a href="#/jewelry/0/{{ currentCategory }}"><li class="navContainerTitle">{{ currentCategory | firstLetterCaps }}</li></a>
+        <li class="category" ng-click="setSubCategory(subCategory)" ng-repeat="subCategory in subCategories">
+            {{ subCategory | firstLetterCaps }}
         </li>
         <a href="#/jewelry/wish-list"><li class="category">Wish List</li></a>
         <li>Shopping Cart:
@@ -48,8 +23,8 @@
                 </div>
             </form>
         </li>
-
     </ul>
+
     <div class="gridDisplay">
         <span class="pageNavContainer">
             <span ng-show="showPageNumbers">
@@ -67,16 +42,7 @@
         <span class="pageNumbers" ng-class="{'currentPageNumber': pageNumber === $index}" ng-repeat="page in numberOfPagesDisplay() track by $index" ng-click="setPageNumber($index)">{{ $index + 1 }}</span>
         <span class="nextPage glyphicon glyphicon-menu-right" ng-click="pageNav('next')"></span>
     </span>
-
     <!--
-    <div class="collapsibleDisplay">
-        <h2 class="displayTitle">{{ currentCategory || "" | firstLetterCaps }}</h2>
-        <div ng-repeat="item in infoList.items">
-            <collapsible></collapsible>
-        </div>
-    </div>
-    -->
-
     <div class="compareDisplay">
         <h2 class="displayTitle">Compare</h2>
         <ul>
@@ -94,4 +60,5 @@
             <span class="grandTotal">Grand Total: {{ grandTotal | currency:$ }}</span>
         </div>
     </div>
+    -->
 </div>

@@ -1,11 +1,10 @@
 <div class="container" ng-init="loadWishList()">
-    <span class="categoryTitle">Wish List</span>
+    <span class="categoryTitle">{{ category || '' | firstLetterCaps }} {{category ? "in" : ''}} Wish List</span>
     <ul class="navContainer">
-        Jewelry
+        <a href="#/jewelry/wish-list"><li class="navContainerTitle">Wish List</li></a>
         <li class="category" ng-click="setCategory(category)" ng-repeat="category in categories">
             {{ category | firstLetterCaps }}
         </li>
-        <a href="#/jewelry/wish-list"><li class="category">Wish List</li></a>
         <li>Shopping Cart:
             {{ cartItemsLength || "Empty" }}
         </li>
