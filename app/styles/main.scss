@@ -62,12 +62,12 @@ $compare-color: rgb(77, 85, 91);
   background-color: $navBar-color;
   padding-left: 5px;
   border: solid;
-  border-width: 0 0 1px 0;
+  border-width: 1px 0 0 0;
   border-color: lightgrey;
 
   li
   {
-    height: 40px;
+    height: 41px;
     padding: 9px 0 5px 5px;
   }
 
@@ -91,11 +91,24 @@ $compare-color: rgb(77, 85, 91);
   margin-left: -126px;
 }
 
+.mainNavLink
+{
+  background-color: #e7e7e7;
+  color: $font-color;
+  transition: .3s;
+}
+
+.mainNavLink:hover
+{
+  background-color: rgb(175, 196, 207);
+  color: white;
+}
+
 .categories
 {
   height: 40px;
-  background-color: rgba(26, 41, 58, 1); /* rgba(50, 50, 50, 1); */
-  padding: 9px 5px 0 5px;
+  background-color: rgba(50, 50, 50, 1);
+  padding: 9px 5px 0 15px;
   border-radius: 2px 2px 0 0;
   color: rgba(255, 255, 255, 1);
 
@@ -106,6 +119,7 @@ $compare-color: rgb(77, 85, 91);
   font-family: $font;
   font-size: 20px;
   padding: 5px;
+  text-decoration: underline;
 }
 
 .category
@@ -114,7 +128,7 @@ $compare-color: rgb(77, 85, 91);
   padding: 5px 10px 5px 10px;
   font-family: $font;
   font-size: 15px;
-  color: $font-color;
+  color: whitesmoke;
   border-radius: 1px;
   cursor: pointer;
 }
@@ -261,7 +275,9 @@ $compare-color: rgb(77, 85, 91);
   top: 210px;
   left: 15%;
   width: 215px;
-  box-shadow: 1px 1px 1px 1px lightgrey;
+  border: solid 2px;
+  border-radius: 2px;
+ /* box-shadow: 1px 1px 1px 1px lightgrey; */
   padding: 10px;
   display: inline-block;
   z-index: 9;
@@ -269,6 +285,7 @@ $compare-color: rgb(77, 85, 91);
   li
   {
     list-style-type: none;
+    color: $font-color;
   }
 
 }
@@ -330,8 +347,9 @@ $compare-color: rgb(77, 85, 91);
   img
   {
     background-color: rgba(26, 41, 58, 0.05);
+    border: 2px solid rgba(255,255,255,0);
     border-radius: 2px;
-    box-shadow: 1px 1px 1px lightgrey;
+    box-shadow: 1px 1px 1px #d3d3d3;
     padding-bottom: 45px;
     transition: .3s;
   }

@@ -4,19 +4,19 @@
       "stud",
       "diamond",
       "emerald",
-      "ruby"
+      "ruby",
+      "sapphire"
     ],
     "necklaces": [
-      "type1",
-      "type2",
-      "type3",
-      "type4",
-      "type5"
+      "diamond",
+      "pearl",
+      "emerald",
+      "gold"
     ],
     "rings": [
-      "type1",
-      "type2",
-      "type3"
+      "diamond",
+      "wedding",
+      "sapphire"
     ],
 
     "Bracelets": []

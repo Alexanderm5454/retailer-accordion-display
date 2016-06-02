@@ -14,8 +14,16 @@ retailerApp.controller('ItemCtrl', ["$scope", "$location", "selectedItem", "item
     function($scope, $location, selectedItem, items, categoryData, baseUrl) {
     $scope.infoList = {items: []};
     $scope.pageNumber = 0;
-    $scope.setCategory = function(category) {
-        $location.path([baseUrl, $scope.pageNumber, category].join("/"));
+    $scope.pathDisplay = [];
+    $scope.setCategory = function(index, category) {
+        var newPath = "";
+        $scope.pageNumber = $location.path().split("/")[2];
+        if (index === 0) {
+            newPath = [baseUrl, $scope.pageNumber, category].join("/");
+        } else {
+            newPath = [baseUrl, 0, $scope.item.category, category].join("/")
+        }
+        $location.path(newPath);
     };
 
     $scope.item = selectedItem.data;
@@ -41,6 +49,7 @@ retailerApp.controller('ItemCtrl', ["$scope", "$location", "selectedItem", "item
         } else {
             $("body, html").animate({scrollTop: 0}, 0);
         }
+        $scope.categoriesAndSubs = $scope.item.sub_categories.length ? [$scope.item.category, ...$scope.item.sub_categories] : [$scope.item.category];
     };
 
 }]);
