@@ -3,62 +3,86 @@
       {
       "id": "necklaces0",
       "title": "Green Pearl Necklace",
+      "slug": "green-pearl-necklace",
+      "category": "necklaces",
+      "sub_categories": ["pearl"],
       "description": "Qui ex tale mollis expetenda, doming integre antiopam per id",
       "content": "Qui ex tale mollis expetenda, doming integre antiopam per id. Exerci tractatos ut pro, duo mundi quando menandri at, erat ocurreret argumentum usu te. Et sea vocibus fabellas. Cu natum tempor mei, sea minim vidisse id, usu at sumo impedit periculis.",
       "price": 600.00,
       "inCart": false,
-      "imageThumb": "images/necklaces/DSCN1422.JPG",
-      "image": "images/necklaces/DSCN1422.JPG"
+      "imageThumb": "images/necklaces/thumb_DSCN1422.JPG",
+      "image": "images/necklaces/DSCN1422.JPG",
+      "index": 0
     },
     {
       "id": "necklaces1",
       "title": "Princess cut Diamond Necklace",
+      "slug": "princess-cut-diamond-necklace",
+      "category": "necklaces",
+      "sub_categories": ["diamond", "gold"],
       "description": "Qui ex tale mollis expetenda, doming integre antiopamQui",
       "content": "Qui ex tale mollis expetenda, doming integre antiopamQui ex tale mollis expetenda, doming integre antiopamQui ex tale mollis expetenda, doming integre antiopamQui ex tale mollis expetenda, doming integre antiopam per id. Exerci tractatos ut pro, duo mundi quando menandri at, erat ocurreret argumentum usu te. Et sea vocibus fabellas. Cu natum tempor mei, sea minim vidisse id, usu at sumo impedit periculis.",
       "price": 725.00,
       "inCart": false,
       "imageThumb": "images/necklaces/thumb_DSCN0669.JPG",
-      "image": "images/necklaces/DSCN0669.JPG"
+      "image": "images/necklaces/DSCN0669.JPG",
+      "index": 1
     },
     {
       "id": "necklaces2",
       "title": "Orange gem studded necklace with pearl",
+      "slug": "orange-gem-studded-necklace-with-pearl",
+      "category": "necklaces",
+      "sub_categories": ["gold"],
       "description": "Doming integre antiopam Qui ex tale mollis expetenda",
       "content": "Doming integre antiopam Qui ex tale mollis expetenda, doming integre antiopamQui ex tale mollis expetenda, doming integre antiopam per id. Exerci tractatos ut pro, duo mundi quando menandri at, erat ocurreret argumentum usu te. Et sea vocibus fabellas. Cu natum tempor mei, sea minim vidisse id, usu at sumo impedit periculis.",
       "price": 1325.00,
       "inCart": false,
       "imageThumb": "images/necklaces/thumb_Orange_Necklace_4.jpg",
-      "image": "images/necklaces/Orange_Necklace_4.jpg"
+      "image": "images/necklaces/Orange_Necklace_4.jpg",
+      "index": 2
     },
     {
       "id": "necklaces3",
       "title": "Green gem studded necklace with pearl",
+      "slug": "green-gem-studded-necklace-with-pearl",
+      "category": "necklaces",
+      "sub_categories": ["emerald", "pearl"],
       "description": "Cu natum tempor mei, sea minim vidisse id, usu at sumo impedit periculis.",
       "content": "Cu natum tempor mei, sea minim vidisse id, usu at sumo impedit periculis. Doming integre antiopam Qui ex tale mollis expetenda, doming integre antiopamQui ex tale mollis expetenda, doming integre antiopam per id. Exerci tractatos ut pro, duo mundi quando menandri at, erat ocurreret argumentum usu te. Et sea vocibus fabellas.",
       "price": 1125.00,
       "inCart": false,
       "imageThumb": "images/necklaces/thumb_Green_necklace_3.jpg",
-      "image": "images/necklaces/Green_necklace_3.jpg"
+      "image": "images/necklaces/Green_necklace_3.jpg",
+      "index": 3
     },
     {
       "id": "necklaces4",
       "title": "Pearl Strung necklace",
+      "slug": "pearl-strung-necklace",
+      "category": "necklaces",
+      "sub_categories": ["pearl"],
       "description": "Et sea vocibus fabellas.",
       "content": "Et sea vocibus fabellas. Cu natum tempor mei, sea minim vidisse id, usu at sumo impedit periculis. Doming integre antiopam Qui ex tale mollis expetenda, doming integre antiopamQui ex tale mollis expetenda, doming integre antiopam per id. Exerci tractatos ut pro, duo mundi quando menandri at, erat ocurreret argumentum usu te. Et sea vocibus fabellas.",
       "price": 3225.00,
       "inCart": false,
       "imageThumb": "images/necklaces/thumb_Pink_necklace_3.jpg",
-      "image": "images/necklaces/Pink_necklace_3.jpg"
+      "image": "images/necklaces/Pink_necklace_3.jpg",
+      "index": 4
     },
     {
       "id": "necklaces5",
       "title": "Gold mother and child necklace",
+      "slug": "gold-mother-and-child-necklace",
+      "category": "necklaces",
+      "sub_categories": ["gold"],
       "description": "Duo mundi quando menandri at.",
       "content": "Duo mundi quando menandri at. Doming integre antiopam Qui ex tale mollis expetenda, doming integre antiopamQui ex tale mollis expetenda, doming integre antiopam per id. Exerci tractatos ut pro, erat ocurreret argumentum usu te. Et sea vocibus fabellas.",
       "price": 1050.00,
       "inCart": false,
       "imageThumb": "images/necklaces/thumb_Gold_necklace_1.JPG",
-      "image": "images/necklaces/Gold_necklace_1.JPG"
+      "image": "images/necklaces/Gold_necklace_1.JPG",
+      "index": 5
     }
   ]
 }

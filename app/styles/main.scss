@@ -8,6 +8,7 @@ $collapsibleHeaderHeight: 75px;
 $font: "Times";
 $navBar-color: #e7e7e7;
 $font-color: rgba(50, 50, 50, 1);
+$navLink-color-hover: rgb(175, 196, 207);
 $compare-color: rgb(77, 85, 91);
 
 
@@ -100,7 +101,7 @@ $compare-color: rgb(77, 85, 91);
 
 .mainNavLink:hover
 {
-  background-color: rgb(175, 196, 207);
+  background-color: $navLink-color-hover;
   color: white;
 }
 
