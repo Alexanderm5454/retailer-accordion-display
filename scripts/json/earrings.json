@@ -3,288 +3,384 @@
     {
       "id": "earrings0",
       "title": "Diamond Stud Earrings",
+      "slug": "diamond-stud-earrings",
+      "category": "earrings",
+      "sub_categories": ["stud", "diamond"],
       "description": "Lorem ipsum dolor sit amet",
       "content": "Lorem ipsum dolor sit amet, te case apeirian vel, nec cu quot fierent gloriatur. No sed altera aliquam. Doming omnium nominati et quo, id tale homero recusabo vim, ius laudem suscipiantur ad. Diam doctus et has, quot adolescens ullamcorper sea ei. Et mei epicuri ponderum efficiendi, qui in explicari assueverit, sit et expetendis definiebas. Exerci fastidii ex mea, ei pro elaboraret liberavisse.  Lorem ipsum dolor sit amet, te case apeirian vel, nec cu quot fierent gloriatur. No sed altera aliquam. Doming omnium nominati et quo, id tale homero recusabo vim, ius laudem suscipiantur ad. Diam doctus et has, quot adolescens ullamcorper sea ei. Et mei epicuri ponderum efficiendi, qui in explicari assueverit, sit et expetendis definiebas. Exerci fastidii ex mea, ei pro elaboraret liberavisse.  Lorem ipsum dolor sit amet, te case apeirian vel, nec cu quot fierent gloriatur. No sed altera aliquam. Doming omnium nominati et quo, id tale homero recusabo vim, ius laudem suscipiantur ad. Diam doctus et has, quot adolescens ullamcorper sea ei. Et mei epicuri ponderum efficiendi, qui in explicari assueverit, sit et expetendis definiebas. Exerci fastidii ex mea, ei pro elaboraret liberavisse. Lorem ipsum dolor sit amet, te case apeirian vel, nec cu quot fierent gloriatur. No sed altera aliquam. Doming omnium nominati et quo, id tale homero recusabo vim, ius laudem suscipiantur ad. Diam doctus et has, quot adolescens ullamcorper sea ei. Et mei epicuri ponderum efficiendi, qui in explicari assueverit, sit et expetendis definiebas. Exerci fastidii ex mea, ei pro elaboraret liberavisse.  Lorem ipsum dolor sit amet, te case apeirian vel, nec cu quot fierent gloriatur. No sed altera aliquam. Doming omnium nominati et quo, id tale homero recusabo vim, ius laudem suscipiantur ad. Diam doctus et has, quot adolescens ullamcorper sea ei. Et mei epicuri ponderum efficiendi, qui in explicari assueverit, sit et expetendis definiebas. Exerci fastidii ex mea, ei pro elaboraret liberavisse.  Lorem ipsum dolor sit amet, te case apeirian vel, nec cu quot fierent gloriatur. No sed altera aliquam. Doming omnium nominati et quo, id tale homero recusabo vim, ius laudem suscipiantur ad. Diam doctus et has, quot adolescens ullamcorper sea ei. Et mei epicuri ponderum efficiendi, qui in explicari assueverit, sit et expetendis definiebas. Exerci fastidii ex mea, ei pro elaboraret liberavisse.  Lorem ipsum dolor sit amet, te case apeirian vel, nec cu quot fierent gloriatur. No sed altera aliquam. Doming omnium nominati et quo, id tale homero recusabo vim, ius laudem suscipiantur ad. Diam doctus et has, quot adolescens ullamcorper sea ei. Et mei epicuri ponderum efficiendi, qui in explicari assueverit, sit et expetendis definiebas. Exerci fastidii ex mea, ei pro elaboraret liberavisse.",
       "price": 700.00,
       "inCart": false,
       "imageThumb": "images/earrings/thumb_Earrings 37 thumb.jpg",
-      "image": "images/earrings/Earrings 37 thumb.jpg"
+      "image": "images/earrings/Earrings 37 thumb.jpg",
+      "index": 0
     },
     {
       "id": "earrings1",
       "title": "Ruby Stud Earrings",
+      "slug": "ruby-stud-earrings",
+      "category": "earrings",
+      "sub_categories": ["stud", "ruby"],
       "description": "Lor No sed altera aliquam",
       "content": "Lor No sed altera aliquam. Doming omnium nominati et quo, id tale homero recusabo vim, ius laudem suscipiantur ad. Diam doctus et has, quot adolescens ullamcorper sea ei. Et mei epicuri ponderum efficiendi, qui in explicari assueverit, sit et expetendis definiebas. Exerci fastidii ex mea, ei pro elaboraret liberavisse. Lorem ipsum dolor sit amet, te case apeirian vel, nec cu quot fierent gloriatur. No sed altera aliquam. Doming omnium nominati et quo, id tale homero recusabo vim, ius laudem suscipiantur ad. Diam doctus et has, quot adolescens ullamcorper sea ei. Et mei epicuri ponderum efficiendi, qui in explicari assueverit, sit et expetendis definiebas. Exerci fastidii ex mea, ei pro elaboraret liberavisse.  Lorem ipsum dolor sit amet, te case apeirian vel, nec cu quot fierent gloriatur. No sed altera aliquam. Doming omnium nominati et quo, id tale homero recusabo vim, ius laudem suscipiantur ad. Diam doctus et has, quot adolescens ullamcorper sea ei. Et mei epicuri ponderum efficiendi, qui in explicari assueverit, sit et expetendis definiebas. Exerci fastidii ex mea, ei pro elaboraret liberavisse.  Lorem ipsum dolor sit amet, te case apeirian vel, nec cu quot fierent gloriatur. No sed altera aliquam. Doming omnium nominati et quo, id tale homero recusabo vim, ius laudem suscipiantur ad. Diam doctus et has, quot adolescens ullamcorper sea ei. Et mei epicuri ponderum efficiendi, qui in explicari assueverit, sit et expetendis definiebas. Exerci fastidii ex mea, ei pro elaboraret liberavisse.  Lorem ipsum dolor sit amet, te case apeirian vel, nec cu quot fierent gloriatur. No sed altera aliquam. Doming omnium nominati et quo, id tale homero recusabo vim, ius laudem suscipiantur ad. Diam doctus et has, quot adolescens ullamcorper sea ei. Et mei epicuri ponderum efficiendi, qui in explicari assueverit, sit et expetendis definiebas. Exerci fastidii ex mea, ei pro elaboraret liberavisse.",
       "price": 650.00,
       "inCart": false,
       "imageThumb": "images/earrings/thumb_Earrings 1.jpg",
-      "image": "images/earrings/Earrings 1.jpg"
+      "image": "images/earrings/Earrings 1.jpg",
+      "index": 1
     },
     {
       "id": "earrings2",
       "title": "Emerald Stud Earrings",
+      "slug": "emerald-Stud-earrings",
+      "category": "earrings",
+      "sub_categories": ["stud", "emerald"],
       "description": "Doming omnium nominati et quo",
       "content": "Doming omnium nominati et quo, id tale homero recusabo vim, ius laudem suscipiantur ad. Diam doctus et has, quot adolescens ullamcorper sea ei. Et mei epicuri ponderum efficiendi, qui in explicari assueverit, sit et expetendis definiebas. Exerci fastidii ex mea, ei pro elaboraret liberavisse. Lorem ipsum dolor sit amet, te case apeirian vel, nec cu quot fierent gloriatur. No sed altera aliquam. Doming omnium nominati et quo, id tale homero recusabo vim, ius laudem suscipiantur ad. Diam doctus et has, quot adolescens ullamcorper sea ei. Et mei epicuri ponderum efficiendi, qui in explicari assueverit, sit et expetendis definiebas. Exerci fastidii ex mea, ei pro elaboraret liberavisse.  Lorem ipsum dolor sit amet, te case apeirian vel, nec cu quot fierent gloriatur. No sed altera aliquam. Doming omnium nominati et quo, id tale homero recusabo vim, ius laudem suscipiantur ad. Diam doctus et has, quot adolescens ullamcorper sea ei. Et mei epicuri ponderum efficiendi, qui in explicari assueverit, sit et expetendis definiebas. Exerci fastidii ex mea, ei pro elaboraret liberavisse.  Lorem ipsum dolor sit amet, te case apeirian vel, nec cu quot fierent gloriatur. No sed altera aliquam. Doming omnium nominati et quo, id tale homero recusabo vim, ius laudem ullamcorper sea ei. Et mei epicuri ponderum efficiendi, qui in explicari assueverit, sit et expetendis definiebas. Exerci fastidii ex mea, ei pro elaboraret liberavisse.  Lorem ipsum dolor sit amet, te case apeirian vel, nec cu quot fierent gloriatur. No sed altera aliquam. Doming omnium nominati et quo, id tale homero recusabo vim, ius laudem suscipiantur ad. Diam doctus et has, quot adolescens ullamcorper sea ei. Et mei epicuri ponderum efficiendi, qui in explicari assueverit, sit et expetendis definiebas. Exerci fastidii ex mea, ei pro elaboraret liberavisse.",
       "price": 750.00,
       "inCart": false,
       "imageThumb": "images/earrings/thumb_Earrings 4.jpg",
-      "image": "images/earrings/Earrings 4.jpg"
+      "image": "images/earrings/Earrings 4.jpg",
+      "index": 2
     },
     {
       "id": "earrings3",
-      "title": "sapphire Dangling Earrings",
+      "title": "Sapphire Dangling Earrings",
+      "slug": "sapphire-dangling-earrings",
+      "category": "earrings",
+      "sub_categories": [],
       "description": "Id tale homero recusabo",
       "content": "It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English",
       "price": 480.00,
       "inCart": false,
       "imageThumb": "images/earrings/thumb_Earrings 6.jpg",
-      "image": "images/earrings/Earrings 6.jpg"
+      "image": "images/earrings/Earrings 6.jpg",
+      "index": 3
     },
     {
       "id": "earrings4",
       "title": "Ruby teardrop Earrings",
+      "slug": "ruby-teardrop-earrings",
+      "category": "earrings",
+      "sub_categories": ["ruby"],
       "description": "Ut eum vidisse laboramus contentiones, ei labores eloquentiam his",
       "content": "Ut eum vidisse laboramus contentiones, ei labores eloquentiam his. Modus nusquam duo an. Commune similique gloriatur cum eu, has at agam dolor soluta, atqui eruditi imperdiet in nec. Per ex labore laoreet scriptorem, est in tale ornatus. Pro falli delenit maiorum ne.",
       "price": 900.00,
       "inCart": false,
       "imageThumb": "images/earrings/thumb_Earrings 7.jpg",
-      "image": "images/earrings/Earrings 7.jpg"
+      "image": "images/earrings/Earrings 7.jpg",
+      "index": 4
     },
     {
       "id": "earrings5",
-      "title": "Emerald Pearl dangling earring",
+      "title": "Emerald Pearl dangling Earrings",
+      "slug": "emerald-pearl-dangling-earring",
+      "category": "earrings",
+      "sub_categories": ["emerald"],
       "description": "Ut eum vidisse laboramus contentiones, ei labores eloquentiam his",
       "content": "Ut eum vidisse laboramus contentiones, ei labores eloquentiam his. Modus nusquam duo an. Commune similique gloriatur cum eu, has at agam dolor soluta, atqui eruditi imperdiet in nec. Per ex labore laoreet scriptorem, est in tale ornatus. Pro falli delenit maiorum ne.",
       "price": 1200.00,
       "inCart": false,
       "imageThumb": "images/earrings/thumb_Earrings 8.jpg",
-      "image": "images/earrings/Earrings 8.jpg"
+      "image": "images/earrings/Earrings 8.jpg",
+      "index": 5
     },
     {
       "id": "earrings6",
       "title": "18kt Hessonite & Golden Pearl Earrings",
+      "slug": "18kt-hessonite-&-golden-pearl-earrings",
+      "category": "earrings",
+      "sub_categories": [],
       "description": "At duo homero facilis vulputate",
       "content": "At duo homero facilis vulputate. Eum ferri veritus in, munere nullam splendide cu quo. Ad odio omnesque cum, ei inani aperiri vituperatoribus sit. Sensibus democritum omittantur an usu. Choro feugait pro ut. At quando consectetuer vis, oporteat consulatu incorrupte id cum.",
       "price": 1120.00,
       "inCart": false,
       "imageThumb": "images/earrings/thumb_Earrings 10.jpg",
-      "image": "images/earrings/Earrings 10.jpg"
+      "image": "images/earrings/Earrings 10.jpg",
+      "index": 6
     },
-
-
-
-
-
-
-
-
 
     {
       "id": "earrings7",
       "title": "Diamond Stud Earrings 5",
+      "slug": "diamond-stud-earrings-5",
+      "category": "earrings",
+      "sub_categories": ["stud", "diamond"],
       "description": "Lorem ipsum dolor sit amet",
       "content": "Lorem ipsum dolor sit amet, te case apeirian vel, nec cu quot fierent gloriatur. No sed altera aliquam. Doming omnium nominati et quo, id tale homero recusabo vim, ius laudem suscipiantur ad. Diam doctus et has, quot adolescens ullamcorper sea ei. Et mei epicuri ponderum efficiendi, qui in explicari assueverit, sit et expetendis definiebas. Exerci fastidii ex mea, ei pro elaboraret liberavisse.  Lorem ipsum dolor sit amet, te case apeirian vel, nec cu quot fierent gloriatur. No sed altera aliquam. Doming omnium nominati et quo, id tale homero recusabo vim, ius laudem suscipiantur ad. Diam doctus et has, quot adolescens ullamcorper sea ei. Et mei epicuri ponderum efficiendi, qui in explicari assueverit, sit et expetendis definiebas. Exerci fastidii ex mea, ei pro elaboraret liberavisse.  Lorem ipsum dolor sit amet, te case apeirian vel, nec cu quot fierent gloriatur. No sed altera aliquam. Doming omnium nominati et quo, id tale homero recusabo vim, ius laudem suscipiantur ad. Diam doctus et has, quot adolescens ullamcorper sea ei. Et mei epicuri ponderum efficiendi, qui in explicari assueverit, sit et expetendis definiebas. Exerci fastidii ex mea, ei pro elaboraret liberavisse. Lorem ipsum dolor sit amet, te case apeirian vel, nec cu quot fierent gloriatur. No sed altera aliquam. Doming omnium nominati et quo, id tale homero recusabo vim, ius laudem suscipiantur ad. Diam doctus et has, quot adolescens ullamcorper sea ei. Et mei epicuri ponderum efficiendi, qui in explicari assueverit, sit et expetendis definiebas. Exerci fastidii ex mea, ei pro elaboraret liberavisse.  Lorem ipsum dolor sit amet, te case apeirian vel, nec cu quot fierent gloriatur. No sed altera aliquam. Doming omnium nominati et quo, id tale homero recusabo vim, ius laudem suscipiantur ad. Diam doctus et has, quot adolescens ullamcorper sea ei. Et mei epicuri ponderum efficiendi, qui in explicari assueverit, sit et expetendis definiebas. Exerci fastidii ex mea, ei pro elaboraret liberavisse.  Lorem ipsum dolor sit amet, te case apeirian vel, nec cu quot fierent gloriatur. No sed altera aliquam. Doming omnium nominati et quo, id tale homero recusabo vim, ius laudem suscipiantur ad. Diam doctus et has, quot adolescens ullamcorper sea ei. Et mei epicuri ponderum efficiendi, qui in explicari assueverit, sit et expetendis definiebas. Exerci fastidii ex mea, ei pro elaboraret liberavisse.  Lorem ipsum dolor sit amet, te case apeirian vel, nec cu quot fierent gloriatur. No sed altera aliquam. Doming omnium nominati et quo, id tale homero recusabo vim, ius laudem suscipiantur ad. Diam doctus et has, quot adolescens ullamcorper sea ei. Et mei epicuri ponderum efficiendi, qui in explicari assueverit, sit et expetendis definiebas. Exerci fastidii ex mea, ei pro elaboraret liberavisse.",
       "price": 900.00,
       "imageThumb": "images/earrings/thumb_Earrings 37 thumb.jpg",
-      "image": "images/earrings/Earrings 37 thumb.jpg"
+      "image": "images/earrings/Earrings 37 thumb.jpg",
+      "index": 7
     },
     {
       "id": "earrings8",
       "title": "Ruby Stud Earrings 3",
+      "slug": "ruby-Stud-earrings-3",
+      "category": "earrings",
+      "sub_categories": ["stud", "ruby"],
       "description": "Lor No sed altera aliquam",
       "content": "Lor No sed altera aliquam. Doming omnium nominati et quo, id tale homero recusabo vim, ius laudem suscipiantur ad. Diam doctus et has, quot adolescens ullamcorper sea ei. Et mei epicuri ponderum efficiendi, qui in explicari assueverit, sit et expetendis definiebas. Exerci fastidii ex mea, ei pro elaboraret liberavisse. Lorem ipsum dolor sit amet, te case apeirian vel, nec cu quot fierent gloriatur. No sed altera aliquam. Doming omnium nominati et quo, id tale homero recusabo vim, ius laudem suscipiantur ad. Diam doctus et has, quot adolescens ullamcorper sea ei. Et mei epicuri ponderum efficiendi, qui in explicari assueverit, sit et expetendis definiebas. Exerci fastidii ex mea, ei pro elaboraret liberavisse.  Lorem ipsum dolor sit amet, te case apeirian vel, nec cu quot fierent gloriatur. No sed altera aliquam. Doming omnium nominati et quo, id tale homero recusabo vim, ius laudem suscipiantur ad. Diam doctus et has, quot adolescens ullamcorper sea ei. Et mei epicuri ponderum efficiendi, qui in explicari assueverit, sit et expetendis definiebas. Exerci fastidii ex mea, ei pro elaboraret liberavisse.  Lorem ipsum dolor sit amet, te case apeirian vel, nec cu quot fierent gloriatur. No sed altera aliquam. Doming omnium nominati et quo, id tale homero recusabo vim, ius laudem suscipiantur ad. Diam doctus et has, quot adolescens ullamcorper sea ei. Et mei epicuri ponderum efficiendi, qui in explicari assueverit, sit et expetendis definiebas. Exerci fastidii ex mea, ei pro elaboraret liberavisse.  Lorem ipsum dolor sit amet, te case apeirian vel, nec cu quot fierent gloriatur. No sed altera aliquam. Doming omnium nominati et quo, id tale homero recusabo vim, ius laudem suscipiantur ad. Diam doctus et has, quot adolescens ullamcorper sea ei. Et mei epicuri ponderum efficiendi, qui in explicari assueverit, sit et expetendis definiebas. Exerci fastidii ex mea, ei pro elaboraret liberavisse.",
       "price": 1650.00,
       "imageThumb": "images/earrings/thumb_Earrings 1.jpg",
-      "image": "images/earrings/Earrings 1.jpg"
+      "image": "images/earrings/Earrings 1.jpg",
+      "index": 8
     },
     {
       "id": "earrings9",
       "title": "Emerald Stud Earrings",
+      "slug": "emerald-stud-earrings",
+      "category": "earrings",
+      "sub_categories": [],
       "description": "Doming omnium nominati et quo",
       "content": "Doming omnium nominati et quo, id tale homero recusabo vim, ius laudem suscipiantur ad. Diam doctus et has, quot adolescens ullamcorper sea ei. Et mei epicuri ponderum efficiendi, qui in explicari assueverit, sit et expetendis definiebas. Exerci fastidii ex mea, ei pro elaboraret liberavisse. Lorem ipsum dolor sit amet, te case apeirian vel, nec cu quot fierent gloriatur. No sed altera aliquam. Doming omnium nominati et quo, id tale homero recusabo vim, ius laudem suscipiantur ad. Diam doctus et has, quot adolescens ullamcorper sea ei. Et mei epicuri ponderum efficiendi, qui in explicari assueverit, sit et expetendis definiebas. Exerci fastidii ex mea, ei pro elaboraret liberavisse.  Lorem ipsum dolor sit amet, te case apeirian vel, nec cu quot fierent gloriatur. No sed altera aliquam. Doming omnium nominati et quo, id tale homero recusabo vim, ius laudem suscipiantur ad. Diam doctus et has, quot adolescens ullamcorper sea ei. Et mei epicuri ponderum efficiendi, qui in explicari assueverit, sit et expetendis definiebas. Exerci fastidii ex mea, ei pro elaboraret liberavisse.  Lorem ipsum dolor sit amet, te case apeirian vel, nec cu quot fierent gloriatur. No sed altera aliquam. Doming omnium nominati et quo, id tale homero recusabo vim, ius laudem ullamcorper sea ei. Et mei epicuri ponderum efficiendi, qui in explicari assueverit, sit et expetendis definiebas. Exerci fastidii ex mea, ei pro elaboraret liberavisse.  Lorem ipsum dolor sit amet, te case apeirian vel, nec cu quot fierent gloriatur. No sed altera aliquam. Doming omnium nominati et quo, id tale homero recusabo vim, ius laudem suscipiantur ad. Diam doctus et has, quot adolescens ullamcorper sea ei. Et mei epicuri ponderum efficiendi, qui in explicari assueverit, sit et expetendis definiebas. Exerci fastidii ex mea, ei pro elaboraret liberavisse.",
       "price": 1750.00,
       "imageThumb": "images/earrings/thumb_Earrings 4.jpg",
-      "image": "images/earrings/Earrings 4.jpg"
+      "image": "images/earrings/Earrings 4.jpg",
+      "index": 9
     },
     {
       "id": "earrings10",
-      "title": "sapphire Dangling Earrings",
+      "title": "Sapphire Dangling Earrings",
+      "slug": "sapphire-dangling-earrings",
+      "category": "earrings",
+      "sub_categories": ["sapphire"],
       "description": "Id tale homero recusabo",
       "content": "It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English",
       "price": 1480.00,
       "imageThumb": "images/earrings/thumb_Earrings 6.jpg",
-      "image": "images/earrings/Earrings 6.jpg"
+      "image": "images/earrings/Earrings 6.jpg",
+      "index": 10
     },
     {
       "id": "earrings11",
-      "title": "Ruby teardrop Earrings",
+      "title": "Ruby Teardrop Earrings",
+      "slug": "ruby-teardrop-earrings",
+      "category": "earrings",
+      "sub_categories": [],
       "description": "Ut eum vidisse laboramus contentiones, ei labores eloquentiam his",
       "content": "Ut eum vidisse laboramus contentiones, ei labores eloquentiam his. Modus nusquam duo an. Commune similique gloriatur cum eu, has at agam dolor soluta, atqui eruditi imperdiet in nec. Per ex labore laoreet scriptorem, est in tale ornatus. Pro falli delenit maiorum ne.",
       "price": 1900.00,
       "imageThumb": "images/earrings/thumb_Earrings 7.jpg",
-      "image": "images/earrings/Earrings 7.jpg"
+      "image": "images/earrings/Earrings 7.jpg",
+      "index": 11
     },
     {
       "id": "earrings12",
       "title": "Emerald Pearl dangling earring",
+      "slug": "emerald-pearl-dangling-earring",
+      "category": "earrings",
+      "sub_categories": [],
       "description": "Ut eum vidisse laboramus contentiones, ei labores eloquentiam his",
       "content": "Ut eum vidisse laboramus contentiones, ei labores eloquentiam his. Modus nusquam duo an. Commune similique gloriatur cum eu, has at agam dolor soluta, atqui eruditi imperdiet in nec. Per ex labore laoreet scriptorem, est in tale ornatus. Pro falli delenit maiorum ne.",
       "price": 1600.00,
       "imageThumb": "images/earrings/thumb_Earrings 8.jpg",
-      "image": "images/earrings/Earrings 8.jpg"
+      "image": "images/earrings/Earrings 8.jpg",
+      "index": 12
     },
     {
       "id": "earrings13",
       "title": "18kt Hessonite & Golden Pearl Earrings",
+      "slug": "18kt-hessonite-&-golden-pearl-earrings",
+      "category": "earrings",
+      "sub_categories": [],
       "description": "At duo homero facilis vulputate",
       "content": "At duo homero facilis vulputate. Eum ferri veritus in, munere nullam splendide cu quo. Ad odio omnesque cum, ei inani aperiri vituperatoribus sit. Sensibus democritum omittantur an usu. Choro feugait pro ut. At quando consectetuer vis, oporteat consulatu incorrupte id cum.",
       "price": 1720.00,
       "imageThumb": "images/earrings/thumb_Earrings 10.jpg",
-      "image": "images/earrings/Earrings 10.jpg"
+      "image": "images/earrings/Earrings 10.jpg",
+      "index": 13
     },
 
 
     {
       "id": "earrings14",
       "title": "Diamond Stud Earrings 2",
+      "slug": "diamond-stud-earrings-2",
+      "category": "earrings",
+      "sub_categories": [],
       "description": "Lorem ipsum dolor sit amet",
       "content": "Lorem ipsum dolor sit amet, te case apeirian vel, nec cu quot fierent gloriatur. No sed altera aliquam. Doming omnium nominati et quo, id tale homero recusabo vim, ius laudem suscipiantur ad. Diam doctus et has, quot adolescens ullamcorper sea ei. Et mei epicuri ponderum efficiendi, qui in explicari assueverit, sit et expetendis definiebas. Exerci fastidii ex mea, ei pro elaboraret liberavisse.  Lorem ipsum dolor sit amet, te case apeirian vel, nec cu quot fierent gloriatur. No sed altera aliquam. Doming omnium nominati et quo, id tale homero recusabo vim, ius laudem suscipiantur ad. Diam doctus et has, quot adolescens ullamcorper sea ei. Et mei epicuri ponderum efficiendi, qui in explicari assueverit, sit et expetendis definiebas. Exerci fastidii ex mea, ei pro elaboraret liberavisse.  Lorem ipsum dolor sit amet, te case apeirian vel, nec cu quot fierent gloriatur. No sed altera aliquam. Doming omnium nominati et quo, id tale homero recusabo vim, ius laudem suscipiantur ad. Diam doctus et has, quot adolescens ullamcorper sea ei. Et mei epicuri ponderum efficiendi, qui in explicari assueverit, sit et expetendis definiebas. Exerci fastidii ex mea, ei pro elaboraret liberavisse. Lorem ipsum dolor sit amet, te case apeirian vel, nec cu quot fierent gloriatur. No sed altera aliquam. Doming omnium nominati et quo, id tale homero recusabo vim, ius laudem suscipiantur ad. Diam doctus et has, quot adolescens ullamcorper sea ei. Et mei epicuri ponderum efficiendi, qui in explicari assueverit, sit et expetendis definiebas. Exerci fastidii ex mea, ei pro elaboraret liberavisse.  Lorem ipsum dolor sit amet, te case apeirian vel, nec cu quot fierent gloriatur. No sed altera aliquam. Doming omnium nominati et quo, id tale homero recusabo vim, ius laudem suscipiantur ad. Diam doctus et has, quot adolescens ullamcorper sea ei. Et mei epicuri ponderum efficiendi, qui in explicari assueverit, sit et expetendis definiebas. Exerci fastidii ex mea, ei pro elaboraret liberavisse.  Lorem ipsum dolor sit amet, te case apeirian vel, nec cu quot fierent gloriatur. No sed altera aliquam. Doming omnium nominati et quo, id tale homero recusabo vim, ius laudem suscipiantur ad. Diam doctus et has, quot adolescens ullamcorper sea ei. Et mei epicuri ponderum efficiendi, qui in explicari assueverit, sit et expetendis definiebas. Exerci fastidii ex mea, ei pro elaboraret liberavisse.  Lorem ipsum dolor sit amet, te case apeirian vel, nec cu quot fierent gloriatur. No sed altera aliquam. Doming omnium nominati et quo, id tale homero recusabo vim, ius laudem suscipiantur ad. Diam doctus et has, quot adolescens ullamcorper sea ei. Et mei epicuri ponderum efficiendi, qui in explicari assueverit, sit et expetendis definiebas. Exerci fastidii ex mea, ei pro elaboraret liberavisse.",
       "price": 700.00,
       "inCart": false,
       "imageThumb": "images/earrings/thumb_Earrings 37 thumb.jpg",
-      "image": "images/earrings/Earrings 37 thumb.jpg"
+      "image": "images/earrings/Earrings 37 thumb.jpg",
+      "index": 14
     },
     {
       "id": "earrings15",
       "title": "Ruby Stud Earrings 4",
+      "slug": "ruby-stud-earrings-4",
+      "category": "earrings",
+      "sub_categories": [],
       "description": "Lor No sed altera aliquam",
       "content": "Lor No sed altera aliquam. Doming omnium nominati et quo, id tale homero recusabo vim, ius laudem suscipiantur ad. Diam doctus et has, quot adolescens ullamcorper sea ei. Et mei epicuri ponderum efficiendi, qui in explicari assueverit, sit et expetendis definiebas. Exerci fastidii ex mea, ei pro elaboraret liberavisse. Lorem ipsum dolor sit amet, te case apeirian vel, nec cu quot fierent gloriatur. No sed altera aliquam. Doming omnium nominati et quo, id tale homero recusabo vim, ius laudem suscipiantur ad. Diam doctus et has, quot adolescens ullamcorper sea ei. Et mei epicuri ponderum efficiendi, qui in explicari assueverit, sit et expetendis definiebas. Exerci fastidii ex mea, ei pro elaboraret liberavisse.  Lorem ipsum dolor sit amet, te case apeirian vel, nec cu quot fierent gloriatur. No sed altera aliquam. Doming omnium nominati et quo, id tale homero recusabo vim, ius laudem suscipiantur ad. Diam doctus et has, quot adolescens ullamcorper sea ei. Et mei epicuri ponderum efficiendi, qui in explicari assueverit, sit et expetendis definiebas. Exerci fastidii ex mea, ei pro elaboraret liberavisse.  Lorem ipsum dolor sit amet, te case apeirian vel, nec cu quot fierent gloriatur. No sed altera aliquam. Doming omnium nominati et quo, id tale homero recusabo vim, ius laudem suscipiantur ad. Diam doctus et has, quot adolescens ullamcorper sea ei. Et mei epicuri ponderum efficiendi, qui in explicari assueverit, sit et expetendis definiebas. Exerci fastidii ex mea, ei pro elaboraret liberavisse.  Lorem ipsum dolor sit amet, te case apeirian vel, nec cu quot fierent gloriatur. No sed altera aliquam. Doming omnium nominati et quo, id tale homero recusabo vim, ius laudem suscipiantur ad. Diam doctus et has, quot adolescens ullamcorper sea ei. Et mei epicuri ponderum efficiendi, qui in explicari assueverit, sit et expetendis definiebas. Exerci fastidii ex mea, ei pro elaboraret liberavisse.",
       "price": 650.00,
       "inCart": false,
       "imageThumb": "images/earrings/thumb_Earrings 1.jpg",
-      "image": "images/earrings/Earrings 1.jpg"
+      "image": "images/earrings/Earrings 1.jpg",
+      "index": 15
     },
     {
       "id": "earrings16",
       "title": "Emerald Stud Earrings",
+      "slug": "emerald-stud-earrings",
+      "category": "earrings",
+      "sub_categories": [],
       "description": "Doming omnium nominati et quo",
       "content": "Doming omnium nominati et quo, id tale homero recusabo vim, ius laudem suscipiantur ad. Diam doctus et has, quot adolescens ullamcorper sea ei. Et mei epicuri ponderum efficiendi, qui in explicari assueverit, sit et expetendis definiebas. Exerci fastidii ex mea, ei pro elaboraret liberavisse. Lorem ipsum dolor sit amet, te case apeirian vel, nec cu quot fierent gloriatur. No sed altera aliquam. Doming omnium nominati et quo, id tale homero recusabo vim, ius laudem suscipiantur ad. Diam doctus et has, quot adolescens ullamcorper sea ei. Et mei epicuri ponderum efficiendi, qui in explicari assueverit, sit et expetendis definiebas. Exerci fastidii ex mea, ei pro elaboraret liberavisse.  Lorem ipsum dolor sit amet, te case apeirian vel, nec cu quot fierent gloriatur. No sed altera aliquam. Doming omnium nominati et quo, id tale homero recusabo vim, ius laudem suscipiantur ad. Diam doctus et has, quot adolescens ullamcorper sea ei. Et mei epicuri ponderum efficiendi, qui in explicari assueverit, sit et expetendis definiebas. Exerci fastidii ex mea, ei pro elaboraret liberavisse.  Lorem ipsum dolor sit amet, te case apeirian vel, nec cu quot fierent gloriatur. No sed altera aliquam. Doming omnium nominati et quo, id tale homero recusabo vim, ius laudem ullamcorper sea ei. Et mei epicuri ponderum efficiendi, qui in explicari assueverit, sit et expetendis definiebas. Exerci fastidii ex mea, ei pro elaboraret liberavisse.  Lorem ipsum dolor sit amet, te case apeirian vel, nec cu quot fierent gloriatur. No sed altera aliquam. Doming omnium nominati et quo, id tale homero recusabo vim, ius laudem suscipiantur ad. Diam doctus et has, quot adolescens ullamcorper sea ei. Et mei epicuri ponderum efficiendi, qui in explicari assueverit, sit et expetendis definiebas. Exerci fastidii ex mea, ei pro elaboraret liberavisse.",
       "price": 750.00,
       "inCart": false,
       "imageThumb": "images/earrings/thumb_Earrings 4.jpg",
-      "image": "images/earrings/Earrings 4.jpg"
+      "image": "images/earrings/Earrings 4.jpg",
+      "index": 16
     },
     {
       "id": "earrings17",
-      "title": "sapphire Dangling Earrings",
+      "title": "Sapphire Dangling Earrings",
+      "slug": "sapphire-dangling-earrings",
+      "category": "earrings",
+      "sub_categories": ["type1"],
       "description": "Id tale homero recusabo",
       "content": "It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English",
       "price": 480.00,
       "inCart": false,
       "imageThumb": "images/earrings/thumb_Earrings 6.jpg",
-      "image": "images/earrings/Earrings 6.jpg"
+      "image": "images/earrings/Earrings 6.jpg",
+      "index": 17
     },
     {
       "id": "earrings18",
       "title": "Ruby teardrop Earrings",
+      "slug": "ruby-teardrop-earrings",
+      "category": "earrings",
+      "sub_categories": [],
       "description": "Ut eum vidisse laboramus contentiones, ei labores eloquentiam his",
       "content": "Ut eum vidisse laboramus contentiones, ei labores eloquentiam his. Modus nusquam duo an. Commune similique gloriatur cum eu, has at agam dolor soluta, atqui eruditi imperdiet in nec. Per ex labore laoreet scriptorem, est in tale ornatus. Pro falli delenit maiorum ne.",
       "price": 900.00,
       "inCart": false,
       "imageThumb": "images/earrings/thumb_Earrings 7.jpg",
-      "image": "images/earrings/Earrings 7.jpg"
+      "image": "images/earrings/Earrings 7.jpg",
+      "index": 18
     },
     {
       "id": "earrings19",
-      "title": "Emerald Pearl dangling earring",
+      "title": "Emerald Pearl Dangling Earrings",
+      "slug": "emerald-pearl-dangling-earring",
+      "category": "earrings",
+      "sub_categories": [],
       "description": "Ut eum vidisse laboramus contentiones, ei labores eloquentiam his",
       "content": "Ut eum vidisse laboramus contentiones, ei labores eloquentiam his. Modus nusquam duo an. Commune similique gloriatur cum eu, has at agam dolor soluta, atqui eruditi imperdiet in nec. Per ex labore laoreet scriptorem, est in tale ornatus. Pro falli delenit maiorum ne.",
       "price": 1200.00,
       "inCart": false,
       "imageThumb": "images/earrings/thumb_Earrings 8.jpg",
-      "image": "images/earrings/Earrings 8.jpg"
+      "image": "images/earrings/Earrings 8.jpg",
+      "index": 19
     },
     {
       "id": "earrings20",
       "title": "18kt Hessonite & Golden Pearl Earrings",
+      "slug": "18kt-hessonite-&-golden-pearl-earrings",
+      "category": "earrings",
+      "sub_categories": [],
       "description": "At duo homero facilis vulputate",
       "content": "At duo homero facilis vulputate. Eum ferri veritus in, munere nullam splendide cu quo. Ad odio omnesque cum, ei inani aperiri vituperatoribus sit. Sensibus democritum omittantur an usu. Choro feugait pro ut. At quando consectetuer vis, oporteat consulatu incorrupte id cum.",
       "price": 1120.00,
       "inCart": false,
       "imageThumb": "images/earrings/thumb_Earrings 10.jpg",
-      "image": "images/earrings/Earrings 10.jpg"
+      "image": "images/earrings/Earrings 10.jpg",
+      "index": 20
     },
-
-
-
-
-
-
-
-
 
     {
       "id": "earrings21",
       "title": "Diamond Stud Earrings 3",
+      "slug": "diamond-stud-earrings-3",
+      "category": "earrings",
+      "sub_categories": [],
       "description": "Lorem ipsum dolor sit amet",
       "content": "Lorem ipsum dolor sit amet, te case apeirian vel, nec cu quot fierent gloriatur. No sed altera aliquam. Doming omnium nominati et quo, id tale homero recusabo vim, ius laudem suscipiantur ad. Diam doctus et has, quot adolescens ullamcorper sea ei. Et mei epicuri ponderum efficiendi, qui in explicari assueverit, sit et expetendis definiebas. Exerci fastidii ex mea, ei pro elaboraret liberavisse.  Lorem ipsum dolor sit amet, te case apeirian vel, nec cu quot fierent gloriatur. No sed altera aliquam. Doming omnium nominati et quo, id tale homero recusabo vim, ius laudem suscipiantur ad. Diam doctus et has, quot adolescens ullamcorper sea ei. Et mei epicuri ponderum efficiendi, qui in explicari assueverit, sit et expetendis definiebas. Exerci fastidii ex mea, ei pro elaboraret liberavisse.  Lorem ipsum dolor sit amet, te case apeirian vel, nec cu quot fierent gloriatur. No sed altera aliquam. Doming omnium nominati et quo, id tale homero recusabo vim, ius laudem suscipiantur ad. Diam doctus et has, quot adolescens ullamcorper sea ei. Et mei epicuri ponderum efficiendi, qui in explicari assueverit, sit et expetendis definiebas. Exerci fastidii ex mea, ei pro elaboraret liberavisse. Lorem ipsum dolor sit amet, te case apeirian vel, nec cu quot fierent gloriatur. No sed altera aliquam. Doming omnium nominati et quo, id tale homero recusabo vim, ius laudem suscipiantur ad. Diam doctus et has, quot adolescens ullamcorper sea ei. Et mei epicuri ponderum efficiendi, qui in explicari assueverit, sit et expetendis definiebas. Exerci fastidii ex mea, ei pro elaboraret liberavisse.  Lorem ipsum dolor sit amet, te case apeirian vel, nec cu quot fierent gloriatur. No sed altera aliquam. Doming omnium nominati et quo, id tale homero recusabo vim, ius laudem suscipiantur ad. Diam doctus et has, quot adolescens ullamcorper sea ei. Et mei epicuri ponderum efficiendi, qui in explicari assueverit, sit et expetendis definiebas. Exerci fastidii ex mea, ei pro elaboraret liberavisse.  Lorem ipsum dolor sit amet, te case apeirian vel, nec cu quot fierent gloriatur. No sed altera aliquam. Doming omnium nominati et quo, id tale homero recusabo vim, ius laudem suscipiantur ad. Diam doctus et has, quot adolescens ullamcorper sea ei. Et mei epicuri ponderum efficiendi, qui in explicari assueverit, sit et expetendis definiebas. Exerci fastidii ex mea, ei pro elaboraret liberavisse.  Lorem ipsum dolor sit amet, te case apeirian vel, nec cu quot fierent gloriatur. No sed altera aliquam. Doming omnium nominati et quo, id tale homero recusabo vim, ius laudem suscipiantur ad. Diam doctus et has, quot adolescens ullamcorper sea ei. Et mei epicuri ponderum efficiendi, qui in explicari assueverit, sit et expetendis definiebas. Exerci fastidii ex mea, ei pro elaboraret liberavisse.",
       "price": 900.00,
       "imageThumb": "images/earrings/thumb_Earrings 37 thumb.jpg",
-      "image": "images/earrings/Earrings 37 thumb.jpg"
+      "image": "images/earrings/Earrings 37 thumb.jpg",
+      "index": 21
     },
     {
       "id": "earrings22",
       "title": "Ruby Stud Earrings 5",
+      "slug": "ruby-stud-earrings-5",
+      "category": "earrings",
+      "sub_categories": [],
       "description": "Lor No sed altera aliquam",
       "content": "Lor No sed altera aliquam. Doming omnium nominati et quo, id tale homero recusabo vim, ius laudem suscipiantur ad. Diam doctus et has, quot adolescens ullamcorper sea ei. Et mei epicuri ponderum efficiendi, qui in explicari assueverit, sit et expetendis definiebas. Exerci fastidii ex mea, ei pro elaboraret liberavisse. Lorem ipsum dolor sit amet, te case apeirian vel, nec cu quot fierent gloriatur. No sed altera aliquam. Doming omnium nominati et quo, id tale homero recusabo vim, ius laudem suscipiantur ad. Diam doctus et has, quot adolescens ullamcorper sea ei. Et mei epicuri ponderum efficiendi, qui in explicari assueverit, sit et expetendis definiebas. Exerci fastidii ex mea, ei pro elaboraret liberavisse.  Lorem ipsum dolor sit amet, te case apeirian vel, nec cu quot fierent gloriatur. No sed altera aliquam. Doming omnium nominati et quo, id tale homero recusabo vim, ius laudem suscipiantur ad. Diam doctus et has, quot adolescens ullamcorper sea ei. Et mei epicuri ponderum efficiendi, qui in explicari assueverit, sit et expetendis definiebas. Exerci fastidii ex mea, ei pro elaboraret liberavisse.  Lorem ipsum dolor sit amet, te case apeirian vel, nec cu quot fierent gloriatur. No sed altera aliquam. Doming omnium nominati et quo, id tale homero recusabo vim, ius laudem suscipiantur ad. Diam doctus et has, quot adolescens ullamcorper sea ei. Et mei epicuri ponderum efficiendi, qui in explicari assueverit, sit et expetendis definiebas. Exerci fastidii ex mea, ei pro elaboraret liberavisse.  Lorem ipsum dolor sit amet, te case apeirian vel, nec cu quot fierent gloriatur. No sed altera aliquam. Doming omnium nominati et quo, id tale homero recusabo vim, ius laudem suscipiantur ad. Diam doctus et has, quot adolescens ullamcorper sea ei. Et mei epicuri ponderum efficiendi, qui in explicari assueverit, sit et expetendis definiebas. Exerci fastidii ex mea, ei pro elaboraret liberavisse.",
       "price": 1650.00,
       "imageThumb": "images/earrings/thumb_Earrings 1.jpg",
-      "image": "images/earrings/Earrings 1.jpg"
+      "image": "images/earrings/Earrings 1.jpg",
+      "index": 22
     },
     {
       "id": "earrings23",
       "title": "Emerald Stud Earrings",
+      "slug": "emerald-stud-earrings",
+      "category": "earrings",
+      "sub_categories": ["type1", "type2", "type3"],
       "description": "Doming omnium nominati et quo",
       "content": "Doming omnium nominati et quo, id tale homero recusabo vim, ius laudem suscipiantur ad. Diam doctus et has, quot adolescens ullamcorper sea ei. Et mei epicuri ponderum efficiendi, qui in explicari assueverit, sit et expetendis definiebas. Exerci fastidii ex mea, ei pro elaboraret liberavisse. Lorem ipsum dolor sit amet, te case apeirian vel, nec cu quot fierent gloriatur. No sed altera aliquam. Doming omnium nominati et quo, id tale homero recusabo vim, ius laudem suscipiantur ad. Diam doctus et has, quot adolescens ullamcorper sea ei. Et mei epicuri ponderum efficiendi, qui in explicari assueverit, sit et expetendis definiebas. Exerci fastidii ex mea, ei pro elaboraret liberavisse.  Lorem ipsum dolor sit amet, te case apeirian vel, nec cu quot fierent gloriatur. No sed altera aliquam. Doming omnium nominati et quo, id tale homero recusabo vim, ius laudem suscipiantur ad. Diam doctus et has, quot adolescens ullamcorper sea ei. Et mei epicuri ponderum efficiendi, qui in explicari assueverit, sit et expetendis definiebas. Exerci fastidii ex mea, ei pro elaboraret liberavisse.  Lorem ipsum dolor sit amet, te case apeirian vel, nec cu quot fierent gloriatur. No sed altera aliquam. Doming omnium nominati et quo, id tale homero recusabo vim, ius laudem ullamcorper sea ei. Et mei epicuri ponderum efficiendi, qui in explicari assueverit, sit et expetendis definiebas. Exerci fastidii ex mea, ei pro elaboraret liberavisse.  Lorem ipsum dolor sit amet, te case apeirian vel, nec cu quot fierent gloriatur. No sed altera aliquam. Doming omnium nominati et quo, id tale homero recusabo vim, ius laudem suscipiantur ad. Diam doctus et has, quot adolescens ullamcorper sea ei. Et mei epicuri ponderum efficiendi, qui in explicari assueverit, sit et expetendis definiebas. Exerci fastidii ex mea, ei pro elaboraret liberavisse.",
       "price": 1750.00,
       "imageThumb": "images/earrings/thumb_Earrings 4.jpg",
-      "image": "images/earrings/Earrings 4.jpg"
+      "image": "images/earrings/Earrings 4.jpg",
+      "index": 23
     },
     {
       "id": "earrings24",
-      "title": "sapphire Dangling Earrings",
+      "title": "Sapphire Dangling Earrings",
+      "slug": "sapphire-dangling-earrings",
+      "category": "earrings",
+      "sub_categories": [],
       "description": "Id tale homero recusabo",
       "content": "It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English",
       "price": 1480.00,
       "imageThumb": "images/earrings/thumb_Earrings 6.jpg",
-      "image": "images/earrings/Earrings 6.jpg"
+      "image": "images/earrings/Earrings 6.jpg",
+      "index": 24
     },
     {
       "id": "earrings25",
       "title": "Ruby teardrop Earrings",
+      "slug": "ruby-teardrop-earrings",
+      "category": "earrings",
+      "sub_categories": [],
       "description": "Ut eum vidisse laboramus contentiones, ei labores eloquentiam his",
       "content": "Ut eum vidisse laboramus contentiones, ei labores eloquentiam his. Modus nusquam duo an. Commune similique gloriatur cum eu, has at agam dolor soluta, atqui eruditi imperdiet in nec. Per ex labore laoreet scriptorem, est in tale ornatus. Pro falli delenit maiorum ne.",
       "price": 1900.00,
       "imageThumb": "images/earrings/thumb_Earrings 7.jpg",
-      "image": "images/earrings/Earrings 7.jpg"
+      "image": "images/earrings/Earrings 7.jpg",
+      "index": 25
     },
     {
       "id": "earrings26",
-      "title": "Emerald Pearl dangling earring",
+      "title": "Emerald Pearl Dangling Earrings",
+      "slug": "emerald-pearl-dangling-earring",
+      "category": "earrings",
+      "sub_categories": [],
       "description": "Ut eum vidisse laboramus contentiones, ei labores eloquentiam his",
       "content": "Ut eum vidisse laboramus contentiones, ei labores eloquentiam his. Modus nusquam duo an. Commune similique gloriatur cum eu, has at agam dolor soluta, atqui eruditi imperdiet in nec. Per ex labore laoreet scriptorem, est in tale ornatus. Pro falli delenit maiorum ne.",
       "price": 1600.00,
       "imageThumb": "images/earrings/thumb_Earrings 8.jpg",
-      "image": "images/earrings/Earrings 8.jpg"
+      "image": "images/earrings/Earrings 8.jpg",
+      "index": 26
     },
     {
       "id": "earrings27",
       "title": "18kt Hessonite & Golden Pearl Earrings",
+      "slug": "18kt-hessonite-&-golden-pearl-earrings",
+      "category": "earrings",
+      "sub_categories": ["type1"],
       "description": "At duo homero facilis vulputate",
       "content": "At duo homero facilis vulputate. Eum ferri veritus in, munere nullam splendide cu quo. Ad odio omnesque cum, ei inani aperiri vituperatoribus sit. Sensibus democritum omittantur an usu. Choro feugait pro ut. At quando consectetuer vis, oporteat consulatu incorrupte id cum.",
       "price": 1720.00,
       "imageThumb": "images/earrings/thumb_Earrings 10.jpg",
-      "image": "images/earrings/Earrings 10.jpg"
+      "image": "images/earrings/Earrings 10.jpg",
+      "index": 27
     }
 
 
