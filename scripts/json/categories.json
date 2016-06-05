@@ -1,7 +1,25 @@
 {
-  "categories": [
-    "earrings",
-    "necklaces",
-    "rings"
-  ]
+  "categories": {
+    "earrings": [
+      "stud",
+      "diamond",
+      "emerald",
+      "ruby",
+      "sapphire"
+    ],
+    "necklaces": [
+      "diamond",
+      "pearl",
+      "emerald",
+      "gold"
+    ],
+    "rings": [
+      "diamond",
+      "wedding",
+      "sapphire"
+    ],
+
+    "bracelets": []
+
+  }
 }
