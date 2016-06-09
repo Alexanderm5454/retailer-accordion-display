@@ -2,12 +2,11 @@
     <span class="categoryTitle">{{ category || '' | firstLetterCaps }} {{category ? "in" : ''}} Wish List</span>
     <ul class="navContainer">
         <a href="#/jewelry/wish-list"><li class="navContainerTitle">Wish List</li></a>
-        <li class="category" ng-click="setCategory(category)" ng-repeat="category in categories">
-            {{ category | firstLetterCaps }}
+        <li>Filter:</li>
+        <li class="category" ng-click="setCategory(category)" ng-repeat="category in categories" ng-bind="category | firstLetterCaps">
         </li>
-        <li>Shopping Cart:
-            {{ cartItemsLength || "Empty" }}
-        </li>
+
+
         <li><p class="searchText">Sort/Search</p>
             <div>
                 <span ng-click="sortItemsByPrice('low')">Price Low</span>
@@ -29,7 +28,5 @@
             <wish-list-item></wish-list-item>
         </span>
     </div>
-
-
 
 </div>

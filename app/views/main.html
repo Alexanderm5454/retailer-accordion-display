@@ -1,16 +1,13 @@
 <div class="container">
-    <span class="categoryTitle">{{ currentSubCategory || '' | firstLetterCaps }} {{ currentCategory | firstLetterCaps }}</span>
+    <span class="categoryTitle" ng-bind="currentSubCategory +' '+ currentCategory | firstLetterCaps"></span>
 
 
     <ul class="navContainer">
-        <a href="#/jewelry/0/{{ currentCategory }}"><li class="navContainerTitle">{{ currentCategory | firstLetterCaps }}</li></a>
-        <li class="category" ng-click="setSubCategory(subCategory)" ng-repeat="subCategory in subCategories">
-            {{ subCategory | firstLetterCaps }}
+        <a href="#/jewelry/0/{{ currentCategory }}"><li class="navContainerTitle" ng-bind="'All '+ currentCategory | firstLetterCaps"></li></a>
+        <li class="category" ng-click="setSubCategory(subCategory)" ng-repeat="subCategory in subCategories"
+            ng-bind="subCategory +' '+ currentCategory | firstLetterCaps">
         </li>
         <a href="#/jewelry/wish-list"><li class="category">Wish List</li></a>
-        <li>Shopping Cart:
-            {{ cartItemsLength || "Empty" }}
-        </li>
         <li><p class="searchText">Sort/Search</p>
             <div>
                 <span ng-click="sortItemsByPrice('low')">Price Low</span>
@@ -29,7 +26,7 @@
         <span class="pageNavContainer">
             <span ng-show="showPageNumbers">
                 <span class="previousPage glyphicon glyphicon-menu-left" ng-click="pageNav('previous')"></span>
-                <span class="pageNumbers" ng-class="{'currentPageNumber': pageNumber === $index}" ng-repeat="page in numberOfPagesDisplay() track by $index" ng-click="setPageNumber($index)">{{ $index + 1 }}</span>
+                <span class="pageNumbers" ng-class="{'currentPageNumber': pageNumber === $index}" ng-repeat="page in numberOfPagesDisplay() track by $index" ng-click="setPageNumber($index)" ng-bind="$index + 1"></span>
                 <span class="nextPage glyphicon glyphicon-menu-right" ng-click="pageNav('next')"></span>
             </span>
         </span>
@@ -39,26 +36,8 @@
     </div>
     <span ng-show="showPageNumbers" class="pageNavContainer">
         <span class="previousPage glyphicon glyphicon-menu-left" ng-click="pageNav('previous')"></span>
-        <span class="pageNumbers" ng-class="{'currentPageNumber': pageNumber === $index}" ng-repeat="page in numberOfPagesDisplay() track by $index" ng-click="setPageNumber($index)">{{ $index + 1 }}</span>
+        <span class="pageNumbers" ng-class="{'currentPageNumber': pageNumber === $index}" ng-repeat="page in numberOfPagesDisplay() track by $index" ng-click="setPageNumber($index)" ng-bind="$index + 1"></span>
         <span class="nextPage glyphicon glyphicon-menu-right" ng-click="pageNav('next')"></span>
     </span>
-    <!--
-    <div class="compareDisplay">
-        <h2 class="displayTitle">Compare</h2>
-        <ul>
-            <li ng-repeat="compare in compareItems">
-                <compare-item></compare-item>
-            </li>
-        </ul>
-    </div>
-    <div class="shoppingCartDisplay">
-        <h2 class="displayTitle">Shopping Cart</h2>
-        <div ng-repeat="cartItem in cartItems">
-            <cart-item></cart-item>
-        </div>
-        <div class="cartBottomLine">
-            <span class="grandTotal">Grand Total: {{ grandTotal | currency:$ }}</span>
-        </div>
-    </div>
-    -->
+
 </div>

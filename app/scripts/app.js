@@ -8,17 +8,10 @@
  *
  * Main module of the application.
  */
-angular
-  .module('retailerApp', [
-    'ngAnimate',
-    'ngCookies',
-    'ngResource',
-    'ngRoute',
-    'ngSanitize',
-    'ngTouch',
-    'LocalStorageModule'
-  ])
-  .config(['localStorageServiceProvider', function(localStorageServiceProvider) {
+
+var retailerApp = angular.module('retailerApp');
+
+  retailerApp.config(['localStorageServiceProvider', function(localStorageServiceProvider) {
       localStorageServiceProvider.setPrefix('ls');
   }])
   .run(["$rootScope", "$http", "categoryData", function($rootScope, $http, categoryData) {
@@ -27,36 +20,37 @@ angular
           var categoriesAndSubs = {},
               categories = [];
 
-          function getCategories(callback) {
-              if (!sessionStorage.getItem("categories") || !sessionStorage.getItem("categoriesAndSubs")) {
-                  $http.get('/scripts/json/categories.json').
-                      then(function(response) {
-                          categoriesAndSubs = response.data.categories;
-                          for (var cat in response.data.categories) {
-                              if (response.data.categories.hasOwnProperty(cat)) {
-                                  categories.push(cat);
-                              }
-                          }
-                          /* categories is an array; it is saved as a string in sessionStorage */
-                          sessionStorage.setItem("categories", categories);
-                          sessionStorage.setItem("categoriesAndSubs", JSON.stringify(categoriesAndSubs));
-                          if (callback && typeof callback === 'function') {
-                              callback();
-                          }
-                      }, function(response) {
-                          console.error('response: ', response);
-                      }
-                  );
-              } else {
-                  /* sessionStorage stores data a string so its data must be converted to an array */
-                  categories = sessionStorage.getItem("categories").split(",");
-                  categoriesAndSubs = JSON.parse(sessionStorage.getItem("categoriesAndSubs"));
-                   if (callback && typeof callback === 'function') {
-                       callback();
-                   }
+        function getCategories(callback) {
+            if (!sessionStorage.getItem("categories") || !sessionStorage.getItem("categoriesAndSubs")) {
+                $http.get('/scripts/json/categories.json').
+                    then(function (response) {
+                        categoriesAndSubs = response.data.categories;
+                        for (var cat in response.data.categories) {
+                            if (response.data.categories.hasOwnProperty(cat)) {
+                                categories.push(cat);
+                            }
+                        }
+                        sessionStorage.setItem("categories", categories);
+                        sessionStorage.setItem("categoriesAndSubs", JSON.stringify(categoriesAndSubs));
+                        if (callback && typeof callback === 'function') {
+                            callback();
+                        }
+                    }, function (response) {
+                        console.error('response: ', response);
+                    }
+                );
 
-              }
-          }
+            } else {
+                /* sessionStorage stores data a string so its data must be converted to an array */
+                categories = sessionStorage.getItem("categories").split(",");
+                categoriesAndSubs = JSON.parse(sessionStorage.getItem("categoriesAndSubs"));
+                if (callback && typeof callback === 'function') {
+                    callback();
+                }
+
+            }
+        }
+
           getCategories(function() {
              $rootScope.categories = categories;
              categoryData.categories = categories;

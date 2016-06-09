@@ -6,7 +6,7 @@
         </span>
         -->
         <span ng-repeat="category in categoriesAndSubs track by $index">
-            <span ng-click="setCategory($index, category)" class="category">{{ category | firstLetterCaps }}</span>
+            <span ng-click="setCategory($index, category)" class="category" ng-bind="category | firstLetterCaps"></span>
             <span ng-if="$index === 0 && categoriesAndSubs.length > 1" class="glyphicon glyphicon-circle-arrow-right"></span>
         </span>
 
@@ -14,12 +14,12 @@
 
 </div>
 <div class="itemContainer" ng-init="loadItem()">
-    <div class="itemTitle">{{ item.title }}</div>
+    <div class="itemTitle" ng-bind="item.title"></div>
     <div class="gridImageLargeContainer">
         <img class="gridImageLarge" src="{{ item.image }}">
     </div>
     <wish-list-button></wish-list-button>
-    <div>{{ item.description }}</div>
+    <div ng-bind="item.description"></div>
     <br />
-    <span>{{ item.content }}</span>
+    <span ng-bind="item.content"></span>
 </div>
