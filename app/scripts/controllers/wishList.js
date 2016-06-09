@@ -3,8 +3,8 @@
 
     var retailerApp = angular.module("retailerApp");
 
-    retailerApp.controller("wishListCtrl", ["$scope", "wishList", "$location", "categoryData", "baseUrl",
-        function ($scope, wishList, $location, categoryData, baseUrl) {
+    retailerApp.controller("wishListCtrl", ["$scope", "wishList", "$location", "categoryData", "baseUrl", "urlPath",
+        function ($scope, wishList, $location, categoryData, baseUrl, urlPath) {
             $scope.infoList = {items: []};
             $scope.category = "";
             $scope.pageNumber = 0;
@@ -29,6 +29,11 @@
             $scope.setCategory = function (category) {
                 $location.path([baseUrl, "wish-list", category].join("/"));
             };
+
+            $scope.sortItemsByPrice = function(order) {
+
+            }
+
         }]);
 
     retailerApp.directive("wishListItem", ["selectedItem", "$location", "wishList", "urlPath", function (selectedItem, $location, wishList, urlPath) {

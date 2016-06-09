@@ -8,16 +8,16 @@
     var retailerApp = angular.module('retailerApp');
 
 
-    retailerApp.controller("navController", ["$scope", "$location", "baseUrl", function ($scope, $location, baseUrl) {
+    retailerApp.controller("navController", ["$scope", "$location", "baseUrl", "urlPath", function ($scope, $location, baseUrl, urlPath) {
 
 
-        $scope.setCategory = function (category) {
-            $location.path([baseUrl, 0, category].join("/"));
+        $scope.setCategory = function(category) {
+            urlPath.loadCategoryPage(0, category);
             jq("body, html").animate({scrollTop: 0}, 0);
         };
 
-        $scope.setSubCategory = function (subCategory) {
-            $location.path([baseUrl, 0, $scope.currentNavCategory, subCategory].join("/"));
+        $scope.setSubCategory = function(subCategory) {
+            urlPath.loadCategoryPage(0, $scope.currentNavCategory, subCategory);
         };
 
         $scope.isCurrentNavCategory = function (category) {

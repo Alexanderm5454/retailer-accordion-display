@@ -1,9 +1,9 @@
 <div class="container">
-    <span class="categoryTitle" ng-bind="currentSubCategory +' '+ currentCategory | firstLetterCaps"></span>
+    <span class="categoryTitle" ng-bind="currentSubCategory +' '+ currentCategory +' '+ sortBy | firstLetterCaps"></span>
 
 
     <ul class="navContainer">
-        <a href="#/jewelry/0/{{ currentCategory }}"><li class="navContainerTitle" ng-bind="'All '+ currentCategory | firstLetterCaps"></li></a>
+        <li class="navContainerTitle" ng-click="setCategory(currentCategory)" ng-bind="'All '+ currentCategory | firstLetterCaps"></li>
         <li class="category" ng-click="setSubCategory(subCategory)" ng-repeat="subCategory in subCategories"
             ng-bind="subCategory +' '+ currentCategory | firstLetterCaps">
         </li>

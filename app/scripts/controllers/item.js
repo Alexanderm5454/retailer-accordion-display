@@ -11,21 +11,15 @@
 
     var retailerApp = angular.module('retailerApp');
 
-    retailerApp.controller('ItemCtrl', ["$scope", "$location", "selectedItem", "items", "categoryData", "baseUrl",
-        function ($scope, $location, selectedItem, items, categoryData, baseUrl) {
+    retailerApp.controller('ItemCtrl', ["$scope", "$location", "selectedItem", "items", "categoryData", "baseUrl", "urlPath",
+        function ($scope, $location, selectedItem, items, categoryData, baseUrl, urlPath) {
             $scope.infoList = {items: []};
             $scope.pageNumber = 0;
             $scope.pathDisplay = [];
             $scope.categoriesAndSubs = [];
-            $scope.setCategory = function (index, category) {
-                var newPath = "";
-                $scope.pageNumber = $location.path().split("/")[2];
-                if (index === 0) {
-                    newPath = [baseUrl, $scope.pageNumber, category].join("/");
-                } else {
-                    newPath = [baseUrl, 0, $scope.item.category, category].join("/");
-                }
-                $location.path(newPath);
+
+            $scope.setCategory = function(index, category) {
+                urlPath.loadCategoryPage(urlPath.path.pageNumber, category);
             };
 
             $scope.item = selectedItem.data;
@@ -38,7 +32,7 @@
                         path = parseInt(fullPath[fullPath.length - 1], 10),
                         index = -1;
 
-                    items.setItems($scope.categories, function () {
+                    items.setItems($scope.categories, function() {
                         for (var i = 0, len = items.infoList.items.length; i < len; i++) {
                             if (path === i) {
                                 index = i;

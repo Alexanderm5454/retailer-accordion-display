@@ -72,6 +72,14 @@ var retailerApp = angular.module('retailerApp');
         templateUrl: 'views/main.html',
         controller: 'MainCtrl'
       })
+      .when('/jewelry/:pageNumber/:category/:subCategory/sort/price/:sortBy', {
+        templateUrl: 'views/main.html',
+        controller: 'MainCtrl'
+      })
+      .when('/jewelry/:pageNumber/:category/sort/price/:sortBy', {
+        templateUrl: 'views/main.html',
+        controller: 'MainCtrl'
+      })
       .when('/jewelry/:pageNumber/:category/:subCategory', {
         templateUrl: 'views/main.html',
         controller: 'MainCtrl'

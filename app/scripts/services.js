@@ -15,23 +15,56 @@
     retailerApp.value("itemsPerPage", 15);
     retailerApp.value("baseUrl", 'jewelry');
 
-    retailerApp.factory("urlPath", ["$location", "baseUrl", "itemsPerPage", function ($location, baseUrl, itemsPerPage) {
+    retailerApp.factory("urlPath", ["$location", "baseUrl", "itemsPerPage", function($location, baseUrl, itemsPerPage) {
         return {
-            loadItemPage: function(item) {
-                var index = item.index,
-                    pageNumber = 0;
+            path: {
+                baseUrl: baseUrl,
+                page: "",
+                pageNumber: 0,
+                category: "",
+                slug: "",
+                index: -1,
+                subCategory: "",
+                sortByPrice: ""
+            },
 
-                if (index >= itemsPerPage) {
-                    pageNumber = Math.ceil((index + 1) / itemsPerPage) - 1;
-                    index = item.index - (itemsPerPage * pageNumber);
+            loadCategoryPage: function(pageNumber, category, subCategory, order) {
+                var currentPath = [];
+                this.path.page = "categoryPage";
+                this.path.pageNumber = pageNumber;
+                this.path.category = category;
+                this.path.subCategory = subCategory || '';
+                this.path.sortByPrice =  order || '';
+                currentPath = [baseUrl, this.path.pageNumber, this.path.category];
+                if (this.path.subCategory) {
+                    currentPath.push(this.path.subCategory);
                 }
-                $location.path([baseUrl, pageNumber, item.category, item.slug, index].join("/"));
+                if (this.path.sortByPrice) {
+                    currentPath.push("sort/price/" + this.path.sortByPrice);
+                }
+                $location.path(currentPath.join("/"));
+            },
+
+            loadItemPage: function(item) {
+                var pageNumber = 0;
+                this.path.index = item.index;
+
+                if (this.path.index >= itemsPerPage) {
+                    pageNumber = Math.ceil((this.path.index + 1) / itemsPerPage) - 1;
+                    this.path.index = item.index - (itemsPerPage * pageNumber);
+                }
+                this.path.page = "itemPage";
+                this.path.pageNumber = pageNumber;
+                this.path.category = item.category;
+                this.path.slug = item.slug;
+
+                $location.path([baseUrl, this.path.pageNumber, this.path.category, this.path.slug, this.path.index].join("/"));
             }
         };
 
     }]);
 
-    retailerApp.factory("categoryData", [function () {
+    retailerApp.factory("categoryData", [function() {
         return {categories: [], categoriesAndSubs: {}};
     }]);
 
@@ -40,7 +73,7 @@
     });
 
 
-    retailerApp.factory("wishList", ["localStorageService", function (localStorageService) {
+    retailerApp.factory("wishList", ["localStorageService", function(localStorageService) {
         var items = {};
         /* items.wishListArray is used to output wish listed items in the order they were selected */
         items.wishListArray = [];
@@ -114,7 +147,7 @@
         };
     }]);
 
-    retailerApp.factory("items", ['$http', "$location", "itemsPerPage", "baseUrl", function ($http, $location, itemsPerPage, baseUrl) {
+    retailerApp.factory("items", ['$http', "$location", "itemsPerPage", "baseUrl", "urlPath", function ($http, $location, itemsPerPage, baseUrl, urlPath) {
 
         var allItems = {};
 
@@ -135,6 +168,26 @@
                 }, function (response) {
                     console.error('response: ', response);
                 });
+        }
+
+        function _sortByPrice(items, order) {
+            items.sort(function(a, b) {
+                var high, low;
+                if (order === "Price:high") {
+                    high = b;
+                    low = a;
+                } else {
+                    high = a;
+                    low = b;
+                }
+
+                if (high.price > low.price) {
+                    return 1;
+                } else {
+                    return -1;
+                }
+            });
+            return items;
         }
 
         return {
@@ -203,9 +256,13 @@
                             pathPageNumber = parseInt(path[2], 10),
                             currentItems = allItems[self.currentCategory];
 
-                        if (path.length === 5) {
+                        if (urlPath.path.sortByPrice) {
+                            currentItems = _sortByPrice(currentItems, urlPath.path.sortByPrice);
+                        }
+
+                        if (urlPath.path.subCategory) {
                             var tempItems = [];
-                            self.currentSubCategory = path[4];
+                            self.currentSubCategory = urlPath.path.subCategory;
                             for (var m = 0, len_m = currentItems.length; m < len_m; m++) {
                                 if (currentItems[m].sub_categories) {
                                     for (var n = 0, len_n = currentItems[m].sub_categories.length; n < len_n; n++) {
@@ -219,6 +276,7 @@
                         } else {
                             self.currentSubCategory = '';
                         }
+
 
                         self.numberOfPages = Math.ceil(currentItems.length / self.itemsPerPage);
 

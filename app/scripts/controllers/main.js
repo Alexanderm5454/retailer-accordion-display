@@ -13,8 +13,8 @@
 
 
 
-    retailerApp.controller('MainCtrl', ['$scope', '$http', '$timeout', '$location', 'localStorageService', "categoryData", "items", "wishList", "baseUrl",
-        function ($scope, $http, $timeout, $location, localStorageService, categoryData, items, wishList, baseUrl) {
+    retailerApp.controller('MainCtrl', ['$scope', '$http', '$timeout', '$location', 'localStorageService', "categoryData", "items", "wishList", "baseUrl", "urlPath",
+        function ($scope, $http, $timeout, $location, localStorageService, categoryData, items, wishList, baseUrl, urlPath) {
             //  $scope.categories = [];
             $scope.subCategories = [];
             $scope.currentCategory = '';
@@ -25,6 +25,7 @@
             $scope.pageNumber = 0;
             $scope.numberOfPages = 1;
             $scope.showPageNumbers = false;
+            $scope.sortBy = urlPath.path.sortByPrice;
 
 
             items.setItems(categoryData.categories, function () {
@@ -44,14 +45,17 @@
             };
 
             /* Sets the category to be displayed */
-            $scope.setCategory = function (category) {
+            $scope.setCategory = function(category) {
                 $scope.pageNumber = 0;
-                $location.path([baseUrl, $scope.pageNumber, category].join("/"));
+                urlPath.loadCategoryPage($scope.pageNumber, category);
                 jq("body, html").animate({scrollTop: 0}, 0);
             };
 
-            $scope.setSubCategory = function (subCategory) {
-                $location.path([baseUrl, 0, $scope.currentCategory, subCategory].join("/"));
+            $scope.setSubCategory = function(subCategory) {
+                urlPath.loadCategoryPage(0, $scope.currentCategory, subCategory);
+
+             //   $location.path([baseUrl, 0, $scope.currentCategory, subCategory].join("/"));
+
             };
 
 
@@ -93,22 +97,9 @@
 
 
             /* Sorts only items currently in infoList.items, i.e. what is currently in view */
-            $scope.sortItemsByPrice = function (order) {
-                $scope.infoList.items.sort(function (a, b) {
-                    var high, low;
-                    if (order === 'high') {
-                        high = b;
-                        low = a;
-                    } else {
-                        high = a;
-                        low = b;
-                    }
-                    if (high.price > low.price) {
-                        return 1;
-                    } else {
-                        return -1;
-                    }
-                });
+            $scope.sortItemsByPrice = function(order) {
+                $scope.sortBy = "Price:" + order;
+                urlPath.loadCategoryPage(0, $scope.currentCategory, $scope.currentSubCategory, $scope.sortBy);
             };
 
         }]);
@@ -163,7 +154,7 @@
                 });
 
                 /* Sets the page to the full page view of the item */
-                element.on("click", function (e) {
+                element.on("click", function(e) {
                     e.stopPropagation();
                     scope.index = +jq(element.children()[0]).context.id;
                     selectedItem.data = scope.infoList.items[scope.index];
