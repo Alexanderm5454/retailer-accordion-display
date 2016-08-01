@@ -1,67 +1,90 @@
 'use strict';
 
-describe('Controller: MainCtrl', function () {
-  /* ***TEST NEED TO BE UPDATED***
+describe('Controller: MainCtrl', function() {
 
-  // load the controller's module
-  beforeEach(module('retailerApp'));
+    beforeEach(module('retailerApp'));
 
-  var MainCtrl,
-    scope;
+    var $controller,
+        $scope,
+        $location;
 
-  // Initialize the controller and a mock scope
-  beforeEach(inject(function ($controller, $rootScope) {
-    scope = $rootScope.$new();
-    MainCtrl = $controller('MainCtrl', {
-      $scope: scope
+    beforeEach(inject(function(_$controller_, _$rootScope_) {
+        $scope = _$rootScope_.$new();
+        $controller = _$controller_('MainCtrl', {$scope: $scope});
+    }));
+
+    describe("$scope.inWishList", function() {
+        it('Should return true if the object items contains the the key "earrings" and if "category contains the key "earrings0"', function () {
+            var items = {};
+            items['earrings'] = {
+                "earrings0": {
+                    "id": "earrings0",
+                    "title": "Diamond Stud Earrings",
+                    "slug": "diamond-stud-earrings",
+                    "category": "earrings",
+                    "sub_categories": ["stud", "diamond"],
+                    "description": "Lorem ipsum dolor sit amet",
+                    "content": "Lorem ipsum dolor sit amet, te case apeirian vel, nec cu quot fierent gloriatur. No sed altera aliquam. Doming omnium nominati et quo, id tale homero recusabo vim, ius laudem suscipiantur ad. Diam doctus et has, quot adolescens ullamcorper sea ei. Et mei epicuri ponderum efficiendi, qui in explicari assueverit, sit et expetendis definiebas. Exerci fastidii ex mea, ei pro elaboraret liberavisse.  Lorem ipsum dolor sit amet, te case apeirian vel, nec cu quot fierent gloriatur. No sed altera aliquam. Doming omnium nominati et quo, id tale homero recusabo vim, ius laudem suscipiantur ad. Diam doctus et has, quot adolescens ullamcorper sea ei. Et mei epicuri ponderum efficiendi, qui in explicari assueverit, sit et expetendis definiebas. Exerci fastidii ex mea, ei pro elaboraret liberavisse.  Lorem ipsum dolor sit amet, te case apeirian vel, nec cu quot fierent gloriatur. No sed altera aliquam. Doming omnium nominati et quo, id tale homero recusabo vim, ius laudem suscipiantur ad. Diam doctus et has, quot adolescens ullamcorper sea ei. Et mei epicuri ponderum efficiendi, qui in explicari assueverit, sit et expetendis definiebas. Exerci fastidii ex mea, ei pro elaboraret liberavisse. Lorem ipsum dolor sit amet, te case apeirian vel, nec cu quot fierent gloriatur. No sed altera aliquam. Doming omnium nominati et quo, id tale homero recusabo vim, ius laudem suscipiantur ad. Diam doctus et has, quot adolescens ullamcorper sea ei. Et mei epicuri ponderum efficiendi, qui in explicari assueverit, sit et expetendis definiebas. Exerci fastidii ex mea, ei pro elaboraret liberavisse.  Lorem ipsum dolor sit amet, te case apeirian vel, nec cu quot fierent gloriatur. No sed altera aliquam. Doming omnium nominati et quo, id tale homero recusabo vim, ius laudem suscipiantur ad. Diam doctus et has, quot adolescens ullamcorper sea ei. Et mei epicuri ponderum efficiendi, qui in explicari assueverit, sit et expetendis definiebas. Exerci fastidii ex mea, ei pro elaboraret liberavisse.  Lorem ipsum dolor sit amet, te case apeirian vel, nec cu quot fierent gloriatur. No sed altera aliquam. Doming omnium nominati et quo, id tale homero recusabo vim, ius laudem suscipiantur ad. Diam doctus et has, quot adolescens ullamcorper sea ei. Et mei epicuri ponderum efficiendi, qui in explicari assueverit, sit et expetendis definiebas. Exerci fastidii ex mea, ei pro elaboraret liberavisse.  Lorem ipsum dolor sit amet, te case apeirian vel, nec cu quot fierent gloriatur. No sed altera aliquam. Doming omnium nominati et quo, id tale homero recusabo vim, ius laudem suscipiantur ad. Diam doctus et has, quot adolescens ullamcorper sea ei. Et mei epicuri ponderum efficiendi, qui in explicari assueverit, sit et expetendis definiebas. Exerci fastidii ex mea, ei pro elaboraret liberavisse.",
+                    "price": 700.00,
+                    "inCart": false,
+                    "imageThumb": "images/earrings/thumb_Earrings 37 thumb.jpg",
+                    "image": "images/earrings/Earrings 37 thumb.jpg",
+                    "index": 0
+                }
+            };
+            $scope.wishListItems = items['earrings'];
+            expect($scope.inWishList("earrings0")).toBe(true);
+        });
     });
-  }));
 
-  it('should add an item to $scope.compareItem', function() {
-      var item = {"id": "earrings0", "title": "Diamond Stud Earrings", "description": "Lorem ipsum dolor sit amet", "content": "Lorem ipsum dolor sit amet, te case apeirian vel, nec cu quot fierent gloriatur. No sed altera aliquam. s, quot adolescens ullamcorper sea ei. Et mei epicuri ponderum efficiendi, qui in explicari assueverit, sit et expetendis definiebas. Exerci fastidii ex mea, ei pro elaboraret liberavisse.", "price": 700.00, "inCart": false, "imageThumb": "images/earrings/thumb_Earrings 37 thumb.jpg", "image": "images/earrings/Earrings 37 thumb.jpg"};
-      scope.addCompare(item);
-      expect(scope.compareItems.length).toBe(1);
-  });
+    describe("Page navigation method", function() {
+        var category = "earrings",
+            subCategory = "stud",
+            $location,
+            baseUrl;
+
+        beforeEach(inject(function(_$location_, _baseUrl_) {
+            $location = _$location_;
+            $scope.pageNumber = 0;
+            baseUrl = _baseUrl_;
+        }));
+
+        describe("function $scope.setCategory", function () {
+            it('Should set the url so that $location.path() returns "/jewelry/0/earrings"', function () {
+                $scope.setCategory(category);
+                expect($location.path()).toBe("/jewelry/0/earrings");
+            });
+        });
+
+        describe("function $scope.setSubCategory", function () {
+            it('Should set the url so that $location.path() returns "/jewelry/0/earrings/stud"', function () {
+                $scope.currentCategory = category;
+                $scope.setSubCategory(subCategory);
+                expect($location.path()).toBe("/jewelry/0/earrings/stud");
+            });
+        });
+
+        describe("function $scope.pageNav with direction = 'next'", function() {
+           it('Should set the url so that $location.path() returns "/jewelry/1/earrings"', function() {
+               $scope.currentCategory = category;
+               $scope.numberOfPages = 4;
+               $scope.pageNav("next");
+               expect($location.path()).toBe("/jewelry/1/earrings");
+           });
+        });
+
+        describe("function $scope.pageNav with direction = 'previous'", function() {
+           it('Should set the url so that $location.path() returns "/jewelry/0/earrings"', function() {
+               $scope.currentCategory = category;
+               $scope.numberOfPages = 4;
+               $scope.pageNumber = 1;
+               $scope.pageNav("previous");
+               expect($location.path()).toBe("/jewelry/0/earrings");
+           });
+        });
+
+    });
 
 
-  it('should add an item to then remove the item from $scope.compareItem', function() {
-      var item = {"id": "earrings0", "title": "Diamond Stud Earrings", "description": "Lorem ipsum dolor sit amet", "content": "Lorem ipsum dolor sit amet, te case apeirian vel, nec cu quot fierent gloriatur. No sed altera aliquam. s, quot adolescens ullamcorper sea ei. Et mei epicuri ponderum efficiendi, qui in explicari assueverit, sit et expetendis definiebas. Exerci fastidii ex mea, ei pro elaboraret liberavisse.", "price": 700.00, "inCart": false, "imageThumb": "images/earrings/thumb_Earrings 37 thumb.jpg", "image": "images/earrings/Earrings 37 thumb.jpg"};
-      scope.addCompare(item);
-      scope.removeCompare(item);
-      expect(scope.compareItems.length).toBe(0);
-  });
-
-
-  it('should add a unique item once to $scope.compareItems', function() {
-      var item = {"id": "earrings0", "title": "Diamond Stud Earrings", "description": "Lorem ipsum dolor sit amet", "content": "Lorem ipsum dolor sit amet, te case apeirian vel, nec cu quot fierent gloriatur. No sed altera aliquam. s, quot adolescens ullamcorper sea ei. Et mei epicuri ponderum efficiendi, qui in explicari assueverit, sit et expetendis definiebas. Exerci fastidii ex mea, ei pro elaboraret liberavisse.", "price": 700.00, "inCart": false, "imageThumb": "images/earrings/thumb_Earrings 37 thumb.jpg", "image": "images/earrings/Earrings 37 thumb.jpg"};
-      scope.addCompare(item);
-      scope.addCompare(item);
-      expect(scope.compareItems.length).toBe(1);
-  });
-
-
-  it('should add an item to $scope.cartItems', function() {
-      var item = {"id": "earrings0", "title": "Diamond Stud Earrings", "description": "Lorem ipsum dolor sit amet", "content": "Lorem ipsum dolor sit amet, te case apeirian vel, nec cu quot fierent gloriatur. No sed altera aliquam. s, quot adolescens ullamcorper sea ei. Et mei epicuri ponderum efficiendi, qui in explicari assueverit, sit et expetendis definiebas. Exerci fastidii ex mea, ei pro elaboraret liberavisse.", "price": 700.00, "inCart": false, "imageThumb": "images/earrings/thumb_Earrings 37 thumb.jpg", "image": "images/earrings/Earrings 37 thumb.jpg"};
-      scope.addToCart(item);
-      expect(scope.cartItems.length).toBe(1);
-  });
-
-
-  it('should add an item to then remove the item from $scope.cartItems', function() {
-      var item = {"id": "earrings0", "title": "Diamond Stud Earrings", "description": "Lorem ipsum dolor sit amet", "content": "Lorem ipsum dolor sit amet, te case apeirian vel, nec cu quot fierent gloriatur. No sed altera aliquam. s, quot adolescens ullamcorper sea ei. Et mei epicuri ponderum efficiendi, qui in explicari assueverit, sit et expetendis definiebas. Exerci fastidii ex mea, ei pro elaboraret liberavisse.", "price": 700.00, "inCart": false, "imageThumb": "images/earrings/thumb_Earrings 37 thumb.jpg", "image": "images/earrings/Earrings 37 thumb.jpg"};
-      scope.addToCart(item);
-      scope.removeFromCart(item);
-      expect(scope.cartItems.length).toBe(0);
-  });
-
-
-  it('should add a unique item once to $scope.cartItems', function() {
-      var item = {"id": "earrings0", "title": "Diamond Stud Earrings", "description": "Lorem ipsum dolor sit amet", "content": "Lorem ipsum dolor sit amet, te case apeirian vel, nec cu quot fierent gloriatur. No sed altera aliquam. s, quot adolescens ullamcorper sea ei. Et mei epicuri ponderum efficiendi, qui in explicari assueverit, sit et expetendis definiebas. Exerci fastidii ex mea, ei pro elaboraret liberavisse.", "price": 700.00, "inCart": false, "imageThumb": "images/earrings/thumb_Earrings 37 thumb.jpg", "image": "images/earrings/Earrings 37 thumb.jpg"};
-      scope.addToCart(item);
-      scope.addToCart(item);
-      expect(scope.cartItems.length).toBe(1);
-  });
-
-*/
 });
 

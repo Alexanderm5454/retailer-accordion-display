@@ -1,0 +1,8 @@
+<span class="gridItemWrapper">
+    <span id="{{ $parent.$index }}" class="gridItem">
+        <span ng-class="inWishList($parent.item.id) ? 'wishListIconSelected' : 'wishListIconNotSelected'" class="wishListIcon btn btn-default glyphicon glyphicon-heart"></span>
+        <img class="gridImageSmall" ng-src="{{ $parent.item.imageThumb }}" />
+         <span class="gridItemTitle">{{ $parent.item.title }}</span>
+        <span class="gridItemPrice">{{ $parent.item.price | currency:$ }}</span>
+    </span>
+</span>

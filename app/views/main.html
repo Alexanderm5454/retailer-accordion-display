@@ -16,7 +16,7 @@
             <form class="form-search">
                <div class="input-append">
                     <input placeholder="Search" type="text" class="span2 search-query" ng-model="searchTerms">
-                    <button class="btn btn-default glyphicon glyphicon-search" ng-click="searchItems()"></button>
+                    <button class="btn btn-default glyphicon glyphicon-search"></button>
                 </div>
             </form>
         </li>
@@ -30,9 +30,7 @@
                 <span class="nextPage glyphicon glyphicon-menu-right" ng-click="pageNav('next')"></span>
             </span>
         </span>
-        <span class="gridItemWrapper" ng-repeat="item in infoList.items">
-            <grid></grid>
-        </span>
+        <grid ng-repeat="item in infoList.items" gridItem="item"></grid>
     </div>
     <span ng-show="showPageNumbers" class="pageNavContainer">
         <span class="previousPage glyphicon glyphicon-menu-left" ng-click="pageNav('previous')"></span>
