@@ -3,6 +3,8 @@
 
     /* Capitalizes the first letter of a string that is passed through the filter */
 
+    var retailerApp = angular.module("retailerApp");
+
     retailerApp.filter("firstLetterCaps", firstLetterCaps);
 
     function firstLetterCaps() {

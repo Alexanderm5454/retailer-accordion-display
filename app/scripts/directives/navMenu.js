@@ -1,6 +1,8 @@
 (function(jq) {
     'use strict';
 
+    var retailerApp = angular.module("retailerApp");
+
     retailerApp.directive("navMenu", navMenu);
     retailerApp.$inject = ["categoryData"];
 
@@ -9,7 +11,7 @@
             restrict: "E",
             templateUrl: "views/directives/navMenu.html",
             replace: true,
-            link: function (scope, element) {
+            link: function(scope, element) {
                 var $jewelryMenu = jq(element[0].getElementsByClassName("jewelryMenu")),
                     $navCategories = jq(element[0].getElementsByClassName("navCategories")[0]),
                     navCategoriesHeight = categoryData.categories.length ? (categoryData.categories.length * 40) : 160;
@@ -24,7 +26,7 @@
                     $navCategories.css({"visibility": "visible"});
                     $jewelryMenu.css({"backgroundColor": "rgb(175, 196, 207)"});
 
-                    scope.displaySubCategories = function (category) {
+                    scope.displaySubCategories = function(category) {
                         scope.currentNavCategory = category;
                         scope.menuSubCategories = categoryData.categoriesAndSubs[category];
                     };

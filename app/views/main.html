@@ -30,7 +30,7 @@
                 <span class="nextPage glyphicon glyphicon-menu-right" ng-click="pageNav('next')"></span>
             </span>
         </span>
-        <grid ng-repeat="item in infoList.items" gridItem="item"></grid>
+        <grid ng-repeat="item in infoList.items" info="item"></grid>
     </div>
     <span ng-show="showPageNumbers" class="pageNavContainer">
         <span class="previousPage glyphicon glyphicon-menu-left" ng-click="pageNav('previous')"></span>

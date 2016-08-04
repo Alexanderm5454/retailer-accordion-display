@@ -41,13 +41,13 @@
         $scope.wishListItems = wishList.getItems(items.currentCategory);
 
         /* Sets the category to be displayed */
-        $scope.setCategory = function (category) {
+        $scope.setCategory = function(category) {
             $scope.pageNumber = 0;
             urlPath.loadCategoryPage($scope.pageNumber, category);
             jq("body, html").animate({scrollTop: 0}, 0);
         };
 
-        $scope.setSubCategory = function (subCategory) {
+        $scope.setSubCategory = function(subCategory) {
             urlPath.loadCategoryPage(0, $scope.currentCategory, subCategory);
 
         };

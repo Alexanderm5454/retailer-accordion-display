@@ -1,17 +1,9 @@
 
 <div class="categories">
-        <!---
-        <span class="category" ng-click="setCategory(category)" ng-repeat="category in categories">
-            {{ category | firstLetterCaps }}
-        </span>
-        -->
         <span ng-repeat="category in categoriesAndSubs track by $index">
             <span ng-click="setCategory($index, category)" class="category" ng-bind="category | firstLetterCaps"></span>
             <span ng-if="$index === 0 && categoriesAndSubs.length > 1" class="glyphicon glyphicon-circle-arrow-right"></span>
         </span>
-
-        <!-- <a href="#/jewelry/wish-list"><span class="category">Wish List</span></a> -->
-
 </div>
 <div class="itemContainer" ng-init="loadItem()">
     <div class="itemTitle" ng-bind="item.title"></div>

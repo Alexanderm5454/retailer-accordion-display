@@ -1,17 +1,19 @@
 (function(jq) {
     'use strict';
 
-    /* Creates an item to be displayed on a category page */
+    /* Creates an item to be displayed on a category page*/
 
-    grid.$inject = ["selectedItem", "wishList", "urlPath"];
+    var retailerApp = angular.module("retailerApp");
+
     retailerApp.directive("grid", grid);
+    grid.$inject = ["selectedItem", "wishList", "urlPath"];
 
     function grid(selectedItem, wishList, urlPath) {
         return {
             restrict: 'E',
             replace: true,
             scope: {
-                gridItem: "@"
+                gridItem: "=info"
             },
             templateUrl: "views/directives/grid.html",
 
@@ -44,7 +46,7 @@
                 /* Adds/removes the item from the wish list and updates the add/remove to/from icon accordingly */
                 $wishListIcon.on("click", function(e) {
                     e.stopPropagation();
-                    var item = scope.$parent.item;
+                    var item = scope.gridItem;
 
                     if (jq(this).hasClass("wishListIconNotSelected")) {
                         wishList.addItem(item);
@@ -66,7 +68,7 @@
                 element.on("click", function(e) {
                     e.stopPropagation();
                     scope.$apply(function() {
-                        selectedItem.data = scope.$parent.item;
+                        selectedItem.data = scope.gridItem;
                         urlPath.loadItemPage(selectedItem.data);
                     });
                 });
