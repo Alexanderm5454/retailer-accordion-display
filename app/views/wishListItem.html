@@ -1,6 +1,8 @@
-<span id="{{ $index }}" class="wishListItem">
-    <img class="gridImageSmall" ng-src="{{ item.imageThumb }}" />
-     <span class="wishListTitle">{{ item.title }}</span>
-    <span class="wishListPrice">{{ item.price | currency:$ }}</span>
-    <span class="removeFromWishList btn btn-default">Remove</span>
+<span class="gridItemWrapper">
+    <span id="{{ $parent.$index }}" class="wishListItem">
+        <img class="gridImageSmall" ng-src="{{ wishItem.imageThumb }}" />
+        <span class="wishListTitle">{{ wishItem.title }}</span>
+        <span class="wishListPrice">{{ wishItem.price | currency:$ }}</span>
+        <span class="removeFromWishList btn btn-default">Remove</span>
+    </span>
 </span>

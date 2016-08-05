@@ -1,6 +1,8 @@
 (function(jq) {
     'use strict';
 
+    var retailerApp = angular.module("retailerApp");
+
     retailerApp.directive("wishListButton", wishListButton);
     wishListButton.$inject = ["wishList"];
 

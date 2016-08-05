@@ -1,5 +1,5 @@
 {
-  "name": "retaileraccordiondisplay",
+  "name": "retailer-web-app",
   "private": true,
   "devDependencies": {
     "grunt": "^0.4.5",

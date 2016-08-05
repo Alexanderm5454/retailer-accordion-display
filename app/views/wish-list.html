@@ -24,9 +24,7 @@
     <div class="gridDisplay">
         <span class="pageNavContainer">
         </span>
-        <span class="gridItemWrapper" ng-repeat="item in infoList.items track by $index">
-            <wish-list-item></wish-list-item>
-        </span>
+        <wish-list-item ng-repeat="item in infoList.items track by $index" info="item"></wish-list-item>
     </div>
 
 </div>

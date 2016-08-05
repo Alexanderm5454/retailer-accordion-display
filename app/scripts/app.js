@@ -12,10 +12,10 @@
 
     var retailerApp = angular.module('retailerApp');
 
-    retailerApp.config(['localStorageServiceProvider', function (localStorageServiceProvider) {
+    retailerApp.config(['localStorageServiceProvider', function(localStorageServiceProvider) {
         localStorageServiceProvider.setPrefix('ls');
     }])
-        .run(["$rootScope", "$http", "categoryData", function ($rootScope, $http, categoryData) {
+        .run(["$rootScope", "$http", "categoryData", function($rootScope, $http, categoryData) {
             /* On a new session we make an ajax call for the top level categories
              *  if it's a continuation of a session top level categories are retrieved from sessionStorage */
             var categoriesAndSubs = {},
@@ -67,7 +67,7 @@
                 })
                 .when('/jewelry/wish-list/:category', {
                     templateUrl: 'views/wish-list.html',
-                    controller: "wishListCtrl"
+                    controller: "WishListCtrl"
                 })
                 .when('/jewelry/:pageNumber/:category', {
                     templateUrl: 'views/main.html',
@@ -91,7 +91,7 @@
                 })
                 .when('/jewelry/wish-list', {
                     templateUrl: 'views/wish-list.html',
-                    controller: "wishListCtrl"
+                    controller: "WishListCtrl"
                 })
                 .when('/about', {
                     templateUrl: 'views/about.html',
